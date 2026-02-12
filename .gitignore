@@ -1,0 +1,32 @@
+# ======================
+# macOS / OS files
+# ======================
+.DS_Store
+._*
+.Trashes
+Thumbs.db
+
+# ======================
+# Exported / platform-specific builds
+# ======================
+*.apk
+*.aab
+*.xcodeproj
+*.xcworkspace
+*.xcuserstate
+*.pbxproj
+ExportedObj/
+
+# ======================
+# Auto-generated VS / IDE files
+# ======================
+.vscode/
+*.csproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
