@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* ───── Op-Ed Font Family (self-hosted) ───── */
+
+@font-face {
+  font-family: "Op-Ed";
+  src: url("/fonts/Op-Ed-ExtraLight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Op-Ed";
+  src: url("/fonts/Op-Ed-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Op-Ed";
+  src: url("/fonts/Op-Ed-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Op-Ed";
+  src: url("/fonts/Op-Ed-Semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Op-Ed";
+  src: url("/fonts/Op-Ed-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ═══════════════════════════════════════════════
+   Design Tokens — synced from Figma variables
+   Source of truth: src/tokens/design-tokens.json
+   ═══════════════════════════════════════════════ */
+
+@theme {
+  /* ── Breakpoints ── */
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1440px;
+
+  /* ── Global Color Primitives ── */
+  --color-eggshell: #ebe9e6;
+  --color-dark-charcoal: #131313;
+  --color-electric-periwinkle: #4600ec;
+  --color-periwinkle: #6781ff;
+  --color-yellow: #ffca41;
+  --color-hot-pink: #de2bc0;
+  --color-red: #d10000;
+  --color-white: #ffffff;
+
+  /* ── Semantic: Background (color/bg/*) ── */
+  --color-bg-default: var(--color-eggshell);
+  --color-bg-none: transparent;
+  --color-bg-strong: var(--color-dark-charcoal);
+  --color-bg-white: var(--color-white);
+  --color-bg-red: var(--color-red);
+  --color-bg-electric-periwinkle: var(--color-electric-periwinkle);
+  --color-bg-yellow: var(--color-yellow);
+  --color-bg-hot-pink: var(--color-hot-pink);
+  --color-bg-periwinkle: var(--color-periwinkle);
+  --color-bg-eggshell: var(--color-eggshell);
+  --color-bg-link-hover: var(--color-electric-periwinkle);
+  --color-bg-overlay: rgba(19, 19, 19, 0.5);
+
+  /* ── Semantic: Content (color/content/*) ── */
+  --color-content-default: var(--color-dark-charcoal);
+  --color-content-default-inverse: var(--color-eggshell);
+  --color-content-link: var(--color-electric-periwinkle);
+  --color-content-link-hover: var(--color-eggshell);
+
+  /* ── Semantic: Border (color/border/*) ── */
+  --color-border-default: var(--color-dark-charcoal);
+
+  /* ── Global Spacing ── */
+  --spacing-0: 0px;
+  --spacing-2: 2px;
+  --spacing-4: 4px;  
+  --spacing-6: 6px;
+  --spacing-8: 8px;   
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px; 
+  --spacing-20: 20px;
+  --spacing-24: 24px; 
+  --spacing-28: 28px;
+  --spacing-32: 32px; 
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-120: 120px;
+  --spacing-160: 160px;
+
+  /* ── Global Border Radius ── */
+  --radius-0: 0px;
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-full: 9999px;
+
+  /* ── Global Border Width ── */
+  --border-width-0: 0px;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+
+  /* ── Global Shadow ── */
+  --shadow-sm: 4px 4px 0 var(--color-border-default);
+  --shadow-default: 8px 8px 0 var(--color-border-default);
+
+  /* ── Typography: Font Families ── */
+  --font-display: "Op-Ed", serif;
+  --font-sans: "Inclusive Sans", system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════
+   Semantic Typography Utilities
+   Maps to Figma: semantic/typography/*
+   ═══════════════════════════════════ */
+
+/* ── display ── */
+
+@utility text-display-large {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 72px;
+  letter-spacing: 0px;
+}
+
+@utility text-display-small {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 64px;
+  letter-spacing: 0px;
+}
+
+/* ── headline ── */
+
+@utility text-headline-large {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
+  letter-spacing: 0px;
+}
+
+@utility text-headline-medium {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 48px;
+  letter-spacing: 0px;
+}
+
+@utility text-headline-small {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: 0px;
+}
+
+/* ── title ── */
+
+@utility text-title-default {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 48px;
+  letter-spacing: 0px;
+}
+
+@utility text-title-default-strong {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: 0px;
+}
+
+/* ── label ── */
+
+@utility text-label-large {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@utility text-label-small {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── body ── */
+
+@utility text-body-default {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+@utility text-body-default-strong {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+/* ── meta ── */
+
+@utility text-meta-large {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@utility text-meta-small {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+}
+
+/* ───── Global Resets ───── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-content-default);
+  background-color: var(--color-bg-default);
+  min-height: 100dvh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a:not([class]) {
+  color: inherit;
+}
+
+/* ───── Marquee Animation ───── */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-song {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
