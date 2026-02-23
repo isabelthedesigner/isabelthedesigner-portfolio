@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useRef, useState, useEffect } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
@@ -11,6 +11,8 @@ interface SplineViewerProps {
   /** Alt text for the fallback image */
   alt: string
   className?: string
+  /** Plays a bottom-right clip-path reveal when the element enters the viewport */
+  maskReveal?: boolean
 }
 
 /**
@@ -22,32 +24,69 @@ export default function SplineViewer({
   fallbackImage,
   alt,
   className = '',
+  maskReveal = false,
 }: SplineViewerProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    if (!maskReveal || !wrapperRef.current) return
+
+    const el = wrapperRef.current
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0 },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [maskReveal, isDesktop])
+
+  const hiddenStyle = maskReveal && !inView
+    ? { clipPath: 'inset(100% 0 0 100%)' } as const
+    : undefined
 
   if (!isDesktop) {
     return (
-      <img
-        src={fallbackImage}
-        alt={alt}
-        className={className}
-        loading="lazy"
-      />
+      <div
+        ref={wrapperRef}
+        className={`${className} ${inView && maskReveal ? 'mask-reveal-br' : ''}`}
+        style={hiddenStyle}
+      >
+        <img
+          src={fallbackImage}
+          alt={alt}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
     )
   }
 
   return (
-    <Suspense
-      fallback={
-        <img
-          src={fallbackImage}
-          alt={alt}
-          className={className}
-          loading="lazy"
-        />
-      }
+    <div
+      ref={wrapperRef}
+      className={`${className} ${inView && maskReveal ? 'mask-reveal-br' : ''}`}
+      style={hiddenStyle}
     >
-      <Spline scene={sceneUrl} className={className} />
-    </Suspense>
+      <Suspense
+        fallback={
+          <img
+            src={fallbackImage}
+            alt={alt}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        }
+      >
+        <Spline scene={sceneUrl} className="w-full h-full" />
+      </Suspense>
+    </div>
   )
 }

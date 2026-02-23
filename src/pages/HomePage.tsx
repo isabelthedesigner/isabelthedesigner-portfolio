@@ -1,5 +1,6 @@
 import SplineViewer from '@/components/spline/SplineViewer'
 import ProjectCard from '@/components/ui/ProjectCard'
+import TypewriterText from '@/components/ui/TypewriterText'
 
 const SPLINE_URLS = {
   header: 'https://prod.spline.design/EW9vZmJdPt5tgtEJ/scene.splinecode',
@@ -40,12 +41,13 @@ export default function HomePage() {
   return (
     <>
       {/* Spline 3D: Portfolio Header — full-bleed, nav overlays */}
-      <section className="flex w-full items-center justify-center py-8 md:py-0 md:h-[80vh]">
+      <section className="flex w-full items-center justify-center py-8 md:py-0 md:h-dvh">
         <SplineViewer
           sceneUrl={SPLINE_URLS.header}
           fallbackImage="/images/spline-portfolio-header.png"
           alt="Isabel — 3D typographic header"
           className="w-full h-full"
+          maskReveal
         />
       </section>
 
@@ -53,9 +55,9 @@ export default function HomePage() {
       <div className="flex flex-col items-center gap-16 md:gap-120 px-6 md:px-24">
         {/* Text Section 1 */}
         <section className="flex w-full max-w-[1248px] items-center justify-center md:h-[399px]">
-          <p className="text-display-small max-w-[768px] text-center text-content-default">
-            I&rsquo;m a creative technologist currently specializing in design systems, creating the tools that enable teams to build better products.
-          </p>
+          <TypewriterText className="text-display-small max-w-[768px] text-center text-content-default">
+            I'm a creative technologist currently specializing in design systems, creating the tools that enable teams to build better products.
+          </TypewriterText>
         </section>
 
         {/* Spline 3D: Design System */}
@@ -65,14 +67,15 @@ export default function HomePage() {
             fallbackImage="/images/spline-design-system.png"
             alt="Design System — 3D rendered UI components"
             className="w-full h-full"
+            maskReveal
           />
         </section>
 
         {/* Text Section 2 */}
         <section className="flex w-full max-w-[1248px] items-center justify-center md:h-[399px]">
-          <p className="text-display-small max-w-[768px] text-center text-content-default">
-            I&rsquo;m a typography enthusiast specializing in custom typeface design, crafting fonts that blend functionality with retro flair.
-          </p>
+          <TypewriterText className="text-display-small max-w-[768px] text-center text-content-default">
+            I'm a typography enthusiast specializing in custom typeface design, crafting fonts that blend functionality with retro flair.
+          </TypewriterText>
         </section>
 
         {/* Spline 3D: Type Design */}
@@ -82,14 +85,15 @@ export default function HomePage() {
             fallbackImage="/images/spline-type-design.png"
             alt="Typeface Design — 3D letter forms"
             className="w-full h-full"
+            maskReveal
           />
         </section>
 
         {/* Text Section 3 */}
         <section className="flex w-full max-w-[1248px] items-center justify-center md:h-[399px]">
-          <p className="text-display-small max-w-[768px] text-center text-content-default">
+          <TypewriterText className="text-display-small max-w-[768px] text-center text-content-default">
             I also dabble in animation and 3d design for funsies, exploring motion and depth to expand on creative possibilities.
-          </p>
+          </TypewriterText>
         </section>
 
         {/* Spline 3D: Animation & 3D */}
@@ -99,6 +103,7 @@ export default function HomePage() {
             fallbackImage="/images/spline-animation-3d.png"
             alt="Animation & 3D — interactive retro computer scene"
             className="w-full h-full"
+            maskReveal
           />
         </section>
       </div>

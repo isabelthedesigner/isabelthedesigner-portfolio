@@ -291,6 +291,21 @@ a:not([class]) {
   color: inherit;
 }
 
+/* ───── Mask Reveal Animation ───── */
+
+@keyframes mask-reveal-br {
+  from {
+    clip-path: inset(100% 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@utility mask-reveal-br {
+  animation: mask-reveal-br 1500ms cubic-bezier(0.33, 1, 0.68, 1) 500ms both;
+}
+
 /* ───── Marquee Animation ───── */
 
 @keyframes marquee {
