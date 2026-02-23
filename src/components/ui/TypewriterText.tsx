@@ -4,19 +4,29 @@ interface TypewriterTextProps {
   children: string
   className?: string
   wordDelay?: number
+  /** When provided, controls typing start externally (skips internal IntersectionObserver) */
+  startTyping?: boolean
 }
 
 export default function TypewriterText({
   children,
   className = '',
   wordDelay = 120,
+  startTyping,
 }: TypewriterTextProps) {
   const [visibleCount, setVisibleCount] = useState(0)
   const [hasTriggered, setHasTriggered] = useState(false)
   const ref = useRef<HTMLParagraphElement>(null)
   const words = children.split(/\s+/)
 
+  const isControlled = startTyping !== undefined
+
   useEffect(() => {
+    if (isControlled) {
+      if (startTyping && !hasTriggered) setHasTriggered(true)
+      return
+    }
+
     const el = ref.current
     if (!el) return
 
@@ -31,7 +41,7 @@ export default function TypewriterText({
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [hasTriggered])
+  }, [isControlled, startTyping, hasTriggered])
 
   useEffect(() => {
     if (!hasTriggered) return

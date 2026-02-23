@@ -13,6 +13,8 @@ interface SplineViewerProps {
   className?: string
   /** Plays a bottom-right clip-path reveal when the element enters the viewport */
   maskReveal?: boolean
+  /** When provided, controls the mask reveal externally (skips internal IntersectionObserver) */
+  triggerInView?: boolean
 }
 
 /**
@@ -25,19 +27,23 @@ export default function SplineViewer({
   alt,
   className = '',
   maskReveal = false,
+  triggerInView,
 }: SplineViewerProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
+  const [internalInView, setInternalInView] = useState(false)
+
+  const isControlled = triggerInView !== undefined
+  const inView = isControlled ? triggerInView : internalInView
 
   useEffect(() => {
-    if (!maskReveal || !wrapperRef.current) return
+    if (isControlled || !maskReveal || !wrapperRef.current) return
 
     const el = wrapperRef.current
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true)
+          setInternalInView(true)
           observer.disconnect()
         }
       },
@@ -46,7 +52,7 @@ export default function SplineViewer({
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [maskReveal, isDesktop])
+  }, [isControlled, maskReveal, isDesktop])
 
   const hiddenStyle = maskReveal && !inView
     ? { clipPath: 'inset(100% 0 0 100%)' } as const
