@@ -4,7 +4,7 @@ import Icon from '@/components/ui/Icon'
 
 export default function Header() {
   return (
-    <header className="absolute inset-x-0 top-0 z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between bg-bg-none px-24 py-24">
+    <header className="fixed inset-x-0 top-0 z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between bg-bg-none px-24 py-24">
       <Link to="/" className="flex items-center">
         <img
           src="/images/logo-i-color.png"

@@ -41,7 +41,7 @@ export default function HomePage() {
   return (
     <>
       {/* Spline 3D: Portfolio Header — full-bleed, nav overlays */}
-      <section className="flex w-full items-center justify-center py-8 md:py-0 md:h-dvh">
+      <section className="flex w-full items-center justify-center md:h-dvh">
         <SplineViewer
           sceneUrl={SPLINE_URLS.header}
           fallbackImage="/images/spline-portfolio-header.png"
