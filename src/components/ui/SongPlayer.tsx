@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react'
 import Button from '@/components/ui/Button'
 
 interface SongPlayerProps {
@@ -5,6 +6,19 @@ interface SongPlayerProps {
 }
 
 export default function SongPlayer({ className = '' }: SongPlayerProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
+
+  function handleToggle() {
+    if (!audioRef.current) return
+    if (isPlaying) {
+      audioRef.current.pause()
+    } else {
+      audioRef.current.play()
+    }
+    setIsPlaying(!isPlaying)
+  }
+
   return (
     <div className={`flex w-[320px] flex-col items-start gap-6 md:items-end ${className}`}>
       <div className="flex flex-col gap-2 w-full">
@@ -12,15 +26,23 @@ export default function SongPlayer({ className = '' }: SongPlayerProps) {
           NOW PLAYING
         </p>
         <div className="h-56 w-full overflow-hidden">
-          <p
-            className="text-title-default whitespace-nowrap text-content-default"
-            style={{ animation: 'marquee-song 6s linear infinite' }}
+          <div
+            className="inline-flex whitespace-nowrap"
+            style={{ animation: 'marquee-song 16s linear infinite' }}
           >
-            {`Pet Shop Boys - Opportunities (Let's Make Lots of Money) \u2022 Pet Shop Boys - Opportunities (Let's Make Lots of Money) \u2022 `}
-          </p>
+            <span className="text-title-default text-content-default">
+              {`Pet Shop Boys - Opportunities (Let's Make Lots of Money) \u2022\u00A0 `}
+            </span>
+            <span className="text-title-default text-content-default">
+              {`Pet Shop Boys - Opportunities (Let's Make Lots of Money) \u2022\u00A0 `}
+            </span>
+          </div>
         </div>
       </div>
-      <Button iconLeft="Play">PLAY</Button>
+      <audio ref={audioRef} src="/audio/opportunities.mp3" loop />
+      <Button iconLeft={isPlaying ? 'Pause' : 'Play'} onClick={handleToggle}>
+        {isPlaying ? 'PAUSE' : 'PLAY'}
+      </Button>
     </div>
   )
 }
