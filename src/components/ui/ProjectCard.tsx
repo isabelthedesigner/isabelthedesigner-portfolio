@@ -25,10 +25,10 @@ export default function ProjectCard({
     <Link
       ref={ref}
       to={to}
-      className={`flex min-h-[440px] flex-col items-start justify-between border-2 border-border-default bg-bg-default p-9 transition-[box-shadow,transform] ${className}`}
+      className={`flex min-h-[325px] md:min-h-[460px] flex-col items-start justify-between border-2 border-border-default bg-bg-default p-9 transition-[box-shadow,transform] ${className}`}
       {...shadowHandlers}
     >
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-16">
         <div className="flex flex-wrap gap-8">
           {badges.map((category) => (
             <Badge key={category} category={category} />

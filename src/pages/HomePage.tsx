@@ -104,7 +104,7 @@ export default function HomePage() {
       </div>
 
       {/* Work Section */}
-      <section className="flex flex-col items-center gap-48 px-6 pt-16 pb-120 md:px-24 md:pt-120">
+      <section className="flex flex-col items-center gap-48 pt-16 pb-120 sm:px-24 sm:pt-24 md:px-24 md:pt-24">
         <h2 className="text-display-large max-w-[768px] text-center text-content-default">
           work
         </h2>

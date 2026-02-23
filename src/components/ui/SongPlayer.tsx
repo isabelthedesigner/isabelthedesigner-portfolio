@@ -6,12 +6,12 @@ interface SongPlayerProps {
 
 export default function SongPlayer({ className = '' }: SongPlayerProps) {
   return (
-    <div className={`flex w-80 flex-col items-end gap-6 ${className}`}>
-      <div className="flex flex-col gap-2">
-        <p className="text-meta-large text-right text-content-default">
+    <div className={`flex w-[320px] flex-col items-start gap-6 md:items-end ${className}`}>
+      <div className="flex flex-col gap-2 w-full">
+        <p className="text-meta-large whitespace-nowrap text-left text-content-default md:text-right">
           NOW PLAYING
         </p>
-        <div className="h-48 w-80 overflow-hidden">
+        <div className="h-56 w-full overflow-hidden">
           <p
             className="text-title-default whitespace-nowrap text-content-default"
             style={{ animation: 'marquee-song 6s linear infinite' }}
