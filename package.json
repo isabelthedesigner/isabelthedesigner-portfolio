@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "yarn build:tokens && vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:tokens": "node scripts/build-tokens.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

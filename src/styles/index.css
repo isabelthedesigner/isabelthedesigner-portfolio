@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./generated-theme.css";
 
 /* ───── Op-Ed Font Family (self-hosted) ───── */
 
@@ -40,97 +41,6 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
-
-/* ═══════════════════════════════════════════════
-   Design Tokens — synced from Figma variables
-   Source of truth: src/tokens/design-tokens.json
-   ═══════════════════════════════════════════════ */
-
-@theme {
-  /* ── Breakpoints ── */
-  --breakpoint-sm: 375px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1440px;
-
-  /* ── Global Color Primitives ── */
-  --color-eggshell: #ebe9e6;
-  --color-dark-charcoal: #131313;
-  --color-electric-periwinkle: #4600ec;
-  --color-periwinkle: #6781ff;
-  --color-yellow: #ffca41;
-  --color-hot-pink: #de2bc0;
-  --color-red: #d10000;
-  --color-white: #ffffff;
-
-  /* ── Semantic: Background (color/bg/*) ── */
-  --color-bg-default: var(--color-eggshell);
-  --color-bg-none: transparent;
-  --color-bg-strong: var(--color-dark-charcoal);
-  --color-bg-white: var(--color-white);
-  --color-bg-red: var(--color-red);
-  --color-bg-electric-periwinkle: var(--color-electric-periwinkle);
-  --color-bg-yellow: var(--color-yellow);
-  --color-bg-hot-pink: var(--color-hot-pink);
-  --color-bg-periwinkle: var(--color-periwinkle);
-  --color-bg-eggshell: var(--color-eggshell);
-  --color-bg-link-hover: var(--color-electric-periwinkle);
-  --color-bg-overlay: rgba(19, 19, 19, 0.5);
-
-  /* ── Semantic: Content (color/content/*) ── */
-  --color-content-default: var(--color-dark-charcoal);
-  --color-content-default-inverse: var(--color-eggshell);
-  --color-content-link: var(--color-electric-periwinkle);
-  --color-content-link-hover: var(--color-eggshell);
-
-  /* ── Semantic: Border (color/border/*) ── */
-  --color-border-default: var(--color-dark-charcoal);
-
-  /* ── Global Spacing ── */
-  --spacing-0: 0px;
-  --spacing-2: 2px;
-  --spacing-4: 4px;  
-  --spacing-6: 6px;
-  --spacing-8: 8px;   
-  --spacing-10: 10px;
-  --spacing-12: 12px;
-  --spacing-16: 16px; 
-  --spacing-20: 20px;
-  --spacing-24: 24px; 
-  --spacing-28: 28px;
-  --spacing-32: 32px; 
-  --spacing-36: 36px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-56: 56px;
-  --spacing-64: 64px;
-  --spacing-80: 80px;
-  --spacing-96: 96px;
-  --spacing-120: 120px;
-  --spacing-160: 160px;
-
-  /* ── Global Border Radius ── */
-  --radius-0: 0px;
-  --radius-2: 2px;
-  --radius-4: 4px;
-  --radius-8: 8px;
-  --radius-12: 12px;
-  --radius-16: 16px;
-  --radius-24: 24px;
-  --radius-full: 9999px;
-
-  /* ── Global Border Width ── */
-  --border-width-0: 0px;
-  --border-width-1: 1px;
-  --border-width-2: 2px;
-
-  /* ── Global Shadow ── */
-  --shadow-sm: 4px 4px 0 var(--color-border-default);
-  --shadow-default: 8px 8px 0 var(--color-border-default);
-
-  /* ── Typography: Font Families ── */
-  --font-display: "Op-Ed", serif;
-  --font-sans: "Inclusive Sans", system-ui, sans-serif;
 }
 
 /* ═══════════════════════════════════
