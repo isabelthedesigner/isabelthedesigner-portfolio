@@ -71,7 +71,7 @@ export default function HomePage() {
         className="flex w-full items-center justify-center px-6 py-16 md:h-dvh md:px-24 md:py-0"
       >
         <TypewriterText
-          className="text-display-small max-w-[768px] text-center text-content-default"
+          className="text-display-small-mobile md:text-display-small max-w-[768px] text-center text-content-default"
           startTyping={isDesktop ? text1.isActive : undefined}
         >
           I'm a creative technologist currently specializing in design systems, creating the tools that enable teams to build better products.
@@ -101,7 +101,7 @@ export default function HomePage() {
         className="flex w-full items-center justify-center px-6 py-16 md:h-dvh md:px-24 md:py-0"
       >
         <TypewriterText
-          className="text-display-small max-w-[768px] text-center text-content-default"
+          className="text-display-small-mobile md:text-display-small max-w-[768px] text-center text-content-default"
           startTyping={isDesktop ? text2.isActive : undefined}
         >
           I'm a typography enthusiast specializing in custom typeface design, crafting fonts that blend functionality with retro flair.
@@ -131,7 +131,7 @@ export default function HomePage() {
         className="flex w-full items-center justify-center px-6 py-16 md:h-dvh md:px-24 md:py-0"
       >
         <TypewriterText
-          className="text-display-small max-w-[768px] text-center text-content-default"
+          className="text-display-small-mobile md:text-display-small max-w-[768px] text-center text-content-default"
           startTyping={isDesktop ? text3.isActive : undefined}
         >
           I also dabble in animation and 3d design for funsies, exploring motion and depth to expand on creative possibilities.

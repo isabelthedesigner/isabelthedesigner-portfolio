@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 
+
+// ── Read design tokens ──
 const tokens = JSON.parse(
   fs.readFileSync("src/tokens/design-tokens.json", "utf-8")
 );
@@ -8,8 +10,8 @@ const tokens = JSON.parse(
 const g = tokens.global;
 const s = tokens.semantic;
 
+// ── Generate Theme ──
 const lines = [];
-
 const add = (prop, value) => lines.push(`  ${prop}: ${value};`);
 
 // ── Breakpoints ──
@@ -70,6 +72,38 @@ ${lines.join("\n")}
 }
 `;
 
-const outPath = path.resolve("src/styles/generated-theme.css");
-fs.writeFileSync(outPath, theme, "utf-8");
-console.log(`✓ Theme written to ${outPath}`);
+fs.writeFileSync(path.resolve("src/styles/generated-theme.css"), theme, "utf-8");
+console.log(`✓ Theme written to src/styles/generated-theme.css`);
+
+// ── Generate Typography Utilities ──
+const utilityLines = [];
+
+for (const [category, variants] of Object.entries(s.typography)) {
+  utilityLines.push(`/* ── ${category} ── */`);
+  for (const [variant, props] of Object.entries(variants)) {
+    const className = `text-${category}-${variant}`;
+    const family = props["font-family"].includes("font-display")
+      ? "var(--font-display)"
+      : "var(--font-sans)";
+
+    utilityLines.push(`@utility ${className} {`);
+    utilityLines.push(`  font-family: ${family};`);
+    utilityLines.push(`  font-size: ${props["font-size"]};`);
+    utilityLines.push(`  font-weight: ${props["font-weight"]};`);
+    utilityLines.push(`  line-height: ${props["line-height"]};`);
+    utilityLines.push(`  letter-spacing: ${props["letter-spacing"]};`);
+    if (props["text-case"] === "uppercase") {
+      utilityLines.push(`  text-transform: uppercase;`);
+    }
+    utilityLines.push(`}`);
+    utilityLines.push(``);
+  }
+}
+
+const utilities = `/* AUTO-GENERATED — do not edit by hand */
+/* Run \`yarn build:tokens\` to regenerate */
+
+${utilityLines.join("\n")}`;
+
+fs.writeFileSync(path.resolve("src/styles/generated-utilities.css"), utilities, "utf-8");
+console.log(`✓ Utilities written to src/styles/generated-utilities.css`);
