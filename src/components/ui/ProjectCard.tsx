@@ -34,7 +34,7 @@ export default function ProjectCard({
             <Badge key={category} category={category} />
           ))}
         </div>
-        <h3 className="text-headline-medium text-content-default">
+        <h3 className="text-title-large-mobile md:text-title-large">
           {title}
         </h3>
       </div>
