@@ -6,6 +6,8 @@ interface TypewriterTextProps {
   wordDelay?: number
   /** When provided, controls typing start externally (skips internal IntersectionObserver) */
   startTyping?: boolean
+  /** When true, shows all text immediately with no animation */
+  disabled?: boolean
 }
 
 export default function TypewriterText({
@@ -13,6 +15,7 @@ export default function TypewriterText({
   className = '',
   wordDelay = 120,
   startTyping,
+  disabled = false,
 }: TypewriterTextProps) {
   const [visibleCount, setVisibleCount] = useState(0)
   const [hasTriggered, setHasTriggered] = useState(false)
@@ -22,6 +25,7 @@ export default function TypewriterText({
   const isControlled = startTyping !== undefined
 
   useEffect(() => {
+    if (disabled) return
     if (isControlled) {
       if (startTyping && !hasTriggered) setHasTriggered(true)
       return
@@ -41,10 +45,10 @@ export default function TypewriterText({
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [isControlled, startTyping, hasTriggered])
+  }, [disabled, isControlled, startTyping, hasTriggered])
 
   useEffect(() => {
-    if (!hasTriggered) return
+    if (disabled || !hasTriggered) return
     if (visibleCount >= words.length) return
 
     const timer = setTimeout(() => {
@@ -52,7 +56,11 @@ export default function TypewriterText({
     }, wordDelay)
 
     return () => clearTimeout(timer)
-  }, [hasTriggered, visibleCount, words.length, wordDelay])
+  }, [disabled, hasTriggered, visibleCount, words.length, wordDelay])
+
+  if (disabled) {
+    return <p className={className}>{children}</p>
+  }
 
   return (
     <p ref={ref} className={className}>

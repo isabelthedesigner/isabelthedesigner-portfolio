@@ -4,6 +4,7 @@
 @theme {
   --breakpoint-sm: 375px;
   --breakpoint-md: 768px;
+  --breakpoint-desktop: 1024px;
   --breakpoint-lg: 1440px;
   --color-eggshell: #ebe9e6;
   --color-dark-charcoal: #131313;

@@ -29,7 +29,7 @@ export default function SplineViewer({
   maskReveal = false,
   triggerInView,
 }: SplineViewerProps) {
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [internalInView, setInternalInView] = useState(false)
 
@@ -68,8 +68,7 @@ export default function SplineViewer({
         <img
           src={fallbackImage}
           alt={alt}
-          className="w-full h-full object-cover"
-          loading="lazy"
+          className="w-4/5 h-full object-contain mx-auto"
         />
       </div>
     )

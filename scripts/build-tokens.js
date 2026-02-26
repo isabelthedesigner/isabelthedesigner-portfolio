@@ -17,6 +17,7 @@ const add = (prop, value) => lines.push(`  ${prop}: ${value};`);
 // ── Breakpoints ──
 add("--breakpoint-sm", "375px");
 add("--breakpoint-md", "768px");
+add("--breakpoint-desktop", "1024px");
 add("--breakpoint-lg", "1440px");
 
 // ── Global Color Primitives ──
