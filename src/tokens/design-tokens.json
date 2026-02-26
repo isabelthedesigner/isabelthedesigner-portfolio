@@ -147,7 +147,9 @@
         "hot-pink": { "value": "#de2bc0", "global-ref": "color.hot-pink" },
         "periwinkle": { "value": "#6781ff", "global-ref": "color.periwinkle" },
         "eggshell": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
-        "overlay": { "value": "rgba(19, 19, 19, 0.5)", "global-ref": "color.dark-charcoal" }
+        "overlay": { "value": "rgba(19, 19, 19, 0.5)", "global-ref": "color.dark-charcoal" },
+        "link": { "value": "transparent", "global-ref": "color.none" },
+        "link-hover": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
       },
       "content": {
         "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
@@ -357,11 +359,21 @@
           "text-case": "uppercase",
           "text-decoration": "none"
         },
-        "small": {
+        "medium": {
           "font-family": "var(--font-sans)",
           "font-size": "20px",
           "font-weight": "600",
           "line-height": "32px",
+          "letter-spacing": "1px",
+          "paragraph-spacing": "0px",
+          "text-case": "uppercase",
+          "text-decoration": "none"
+        },
+        "small": {
+          "font-family": "var(--font-sans)",
+          "font-size": "16px",
+          "font-weight": "600",
+          "line-height": "24px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
           "text-case": "uppercase",
@@ -394,8 +406,18 @@
         "large": {
           "font-family": "var(--font-sans)",
           "font-size": "20px",
-          "font-weight": "500",
+          "font-weight": "600",
           "line-height": "32px",
+          "letter-spacing": "1px",
+          "paragraph-spacing": "0px",
+          "text-case": "uppercase",
+          "text-decoration": "none"
+        },
+        "medium": {
+          "font-family": "var(--font-sans)",
+          "font-size": "16px",
+          "font-weight": "600",
+          "line-height": "24px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
           "text-case": "uppercase",
@@ -403,12 +425,12 @@
         },
         "small": {
           "font-family": "var(--font-sans)",
-          "font-size": "16px",
-          "font-weight": "500",
-          "line-height": "24px",
-          "letter-spacing": "0px",
+          "font-size": "14px",
+          "font-weight": "600",
+          "line-height": "16px",
+          "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "none",
+          "text-case": "uppercase",
           "text-decoration": "none"
         }
       }

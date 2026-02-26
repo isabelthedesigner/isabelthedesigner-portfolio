@@ -156,8 +156,8 @@ export default function HomePage() {
       </section>
 
       {/* Work Section */}
-      <section className="flex flex-col items-center gap-48 pt-16 pb-120 sm:px-24 sm:pt-24 md:px-24 md:pt-24">
-        <h2 className="text-display-large max-w-[768px] text-center text-content-default">
+      <section className="flex flex-col items-center gap-36 md:gap-48 pt-16 pb-80 md:pb-120 px-24">
+        <h2 className="text-display-large-mobile md:text-display-large max-w-[768px] text-center text-content-default">
           work
         </h2>
         <div className="grid w-full max-w-[1440px] grid-cols-1 gap-40 md:grid-cols-2 lg:grid-cols-3">

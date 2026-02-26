@@ -158,11 +158,20 @@
   text-transform: uppercase;
 }
 
-@utility text-label-small {
+@utility text-label-medium {
   font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 600;
   line-height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@utility text-label-small {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -188,16 +197,26 @@
 @utility text-meta-large {
   font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@utility text-meta-medium {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 @utility text-meta-small {
   font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }

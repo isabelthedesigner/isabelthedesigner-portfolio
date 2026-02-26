@@ -18,7 +18,7 @@ export default function Badge({ category }: BadgeProps) {
 
   return (
     <span
-      className={`text-label-small inline-flex items-center justify-center rounded-4 px-16 py-4 ${style.bg} ${style.text}`}
+      className={`text-meta-small md:text-meta-medium inline-flex items-center justify-center rounded-4 px-12 py-4 md:px-16 md:py-4 ${style.bg} ${style.text}`}
     >
       {category}
     </span>

@@ -15,7 +15,7 @@ type ExternalNavLinkProps = NavLinkBaseProps &
 type NavLinkProps = InternalNavLinkProps | ExternalNavLinkProps
 
 const baseClasses =
-  'inline-block text-title-default-strong text-content-link transition-colors hover:bg-bg-link-hover hover:text-content-link-hover active:bg-bg-link-hover active:text-content-link-hover'
+  'inline-block text-title-default-strong text-content-link hover:bg-bg-link-hover hover:text-content-link-hover active:bg-bg-link-hover active:text-content-link-hover'
 
 function isInternal(props: NavLinkProps): props is InternalNavLinkProps {
   return 'to' in props

@@ -25,6 +25,8 @@
   --color-bg-periwinkle: #6781ff;
   --color-bg-eggshell: #ebe9e6;
   --color-bg-overlay: rgba(19, 19, 19, 0.5);
+  --color-bg-link: transparent;
+  --color-bg-link-hover: #4600ec;
   --color-content-default: #131313;
   --color-content-default-inverse: #ebe9e6;
   --color-content-link: #4600ec;
