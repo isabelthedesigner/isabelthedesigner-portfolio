@@ -147,7 +147,7 @@ export default function HomePage() {
           <div className="w-full max-w-[1248px] md:h-[80vh]">
             <SplineViewer
               sceneUrl={SPLINE_URLS.animation3d}
-              fallbackImage="/images/spline-animation-3d.png"
+              fallbackImage="/images/home-animation-3-d.gif"
               alt="Animation & 3D — interactive retro computer scene"
               className="w-full md:h-full"
               maskReveal={isTablet}
