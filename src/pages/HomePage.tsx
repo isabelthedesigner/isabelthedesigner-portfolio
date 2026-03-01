@@ -169,29 +169,32 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* Scroll guide arrow — fixed clone at viewport bottom, swapped with
-           the in-flow button at the exact pixel where both overlap */}
-      <div ref={sentinelRef} className="flex justify-center py-48">
-        <div ref={anchorRef}>
-          <IconButton
-            icon="Arrow Down"
-            weight="fill"
-            size={isTablet ? 'xl' : 'default'}
-            onClick={next}
-            aria-label="Scroll to next section"
-            className={isPinned ? 'invisible' : ''}
-          />
-        </div>
-      </div>
-      {isPinned && (
-        <IconButton
-          icon="Arrow Down"
-          weight="fill"
-          size={isTablet ? 'xl' : 'default'}
-          onClick={next}
-          aria-label="Scroll to next section"
-          className="fixed bottom-24 left-1/2 -translate-x-1/2 z-10"
-        />
+      {/* Scroll guide arrow — desktop/tablet only */}
+      {isTablet && (
+        <>
+          <div ref={sentinelRef} className="flex justify-center py-48">
+            <div ref={anchorRef}>
+              <IconButton
+                icon="Arrow Down"
+                weight="fill"
+                size="xl"
+                onClick={next}
+                aria-label="Scroll to next section"
+                className={isPinned ? 'invisible' : ''}
+              />
+            </div>
+          </div>
+          {isPinned && (
+            <IconButton
+              icon="Arrow Down"
+              weight="fill"
+              size="xl"
+              onClick={next}
+              aria-label="Scroll to next section"
+              className="fixed bottom-24 left-1/2 -translate-x-1/2 z-10"
+            />
+          )}
+        </>
       )}
 
       {/* Work Section */}
