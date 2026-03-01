@@ -5,6 +5,8 @@
       "dark-charcoal": "#131313",
       "electric-periwinkle": "#4600ec",
       "periwinkle": "#6781ff",
+      "light-periwinkle": "#ABA7FF",
+      "baby-periwinkle": "#D3CFFF",
       "yellow": "#ffca41",
       "hot-pink": "#de2bc0",
       "red": "#d10000",
@@ -158,7 +160,51 @@
         "link-hover": { "value": "#ebe9e6", "global-ref": "color.eggshell" }
       },
       "border": {
-        "default": { "value": "#131313", "global-ref": "color.dark-charcoal" }
+        "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+        "none": { "value": "transparent", "global-ref": "color.transparent" },
+        "focus": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
+      },
+      "button": {
+        "primary": {
+          "bg": {
+            "default": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
+            "hover": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
+            "active": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
+            "focus": { "value": "#ebe9e6", "global-ref": "color.eggshell" }
+          },
+          "content": {
+            "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "hover": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "active": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "focus": { "value": "#131313", "global-ref": "color.dark-charcoal" }
+          },
+          "border": {
+            "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "hover": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "active": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "focus": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
+          }
+        },
+        "tertiary": {
+          "bg": {
+            "default": { "value": "transparent", "global-ref": "color.transparent" },
+            "hover": { "value": "#D3CFFF", "global-ref": "color.baby-periwinkle" },
+            "active": { "value": "#ABA7FF", "global-ref": "color.light-periwinkle" },
+            "focus": { "value": "transparent", "global-ref": "color.transparent" }
+          },
+          "content": {
+            "default": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
+            "hover": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
+            "active": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
+            "focus": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
+          },
+          "border": {
+            "default": { "value": "transparent", "global-ref": "color.transparent" },
+            "hover": { "value": "transparent", "global-ref": "color.transparent" },
+            "active": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
+            "focus": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
+          }
+        }
       }
     },
     "typography": {

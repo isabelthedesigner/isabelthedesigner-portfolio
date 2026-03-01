@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import NavLink from '@/components/ui/NavLink'
-import Icon from '@/components/ui/Icon'
+import IconButton from '@/components/ui/IconButton'
 
 export default function Header() {
   return (
@@ -17,13 +17,7 @@ export default function Header() {
         <NavLink to="/info">info</NavLink>
         <NavLink to="/thoughts">thoughts</NavLink>
       </nav>
-      <button
-        type="button"
-        className="flex cursor-pointer items-center justify-center text-content-link md:hidden"
-        aria-label="Open menu"
-      >
-        <Icon icon="List" size={24} />
-      </button>
+      <IconButton icon="List" aria-label="Open menu" className="md:hidden" />
     </header>
   )
 }

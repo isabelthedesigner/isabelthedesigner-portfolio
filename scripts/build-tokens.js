@@ -40,6 +40,15 @@ for (const [name, token] of Object.entries(s.color.border)) {
   add(`--color-border-${name}`, token.value);
 }
 
+// ── Semantic: Button ──
+for (const [variant, groups] of Object.entries(s.color.button)) {
+  for (const [group, states] of Object.entries(groups)) {
+    for (const [state, token] of Object.entries(states)) {
+      add(`--color-button-${variant}-${group}-${state}`, token.value);
+    }
+  }
+}
+
 // ── Spacing ──
 for (const [name, value] of Object.entries(g.spacing)) {
   add(`--spacing-${name}`, value);
