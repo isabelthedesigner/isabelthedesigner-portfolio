@@ -30,3 +30,7 @@ ExportedObj/
 *.pdb
 *.mdb
 *.opendb
+node_modules
+node_modules/
+dist/
+.vite/
