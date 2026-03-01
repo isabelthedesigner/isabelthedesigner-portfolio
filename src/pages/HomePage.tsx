@@ -81,7 +81,7 @@ export default function HomePage() {
           className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
         >
           <TypewriterText
-            className="text-display-small-mobile md:text-display-small max-w-[768px] text-center text-content-default"
+            className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
             startTyping={isTablet ? text1.isActive : undefined}
             disabled={!isTablet}
           >
@@ -112,7 +112,7 @@ export default function HomePage() {
           className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
         >
           <TypewriterText
-            className="text-display-small-mobile md:text-display-small max-w-[768px] text-center text-content-default"
+            className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
             startTyping={isTablet ? text2.isActive : undefined}
             disabled={!isTablet}
           >
@@ -143,7 +143,7 @@ export default function HomePage() {
           className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
         >
           <TypewriterText
-            className="text-display-small-mobile md:text-display-small max-w-[768px] text-center text-content-default"
+            className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
             startTyping={isTablet ? text3.isActive : undefined}
             disabled={!isTablet}
           >
