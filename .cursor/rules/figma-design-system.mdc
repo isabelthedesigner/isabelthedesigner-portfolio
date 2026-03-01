@@ -1,0 +1,73 @@
+---
+description: Rules for implementing Figma designs using the Figma MCP server. Covers component organization, styling conventions, design tokens, asset handling, and the required Figma-to-code workflow.
+globs: "src/**/*.{tsx,ts,css}"
+alwaysApply: false
+---
+
+# Figma Design System Rules — isabelthedesigner.com
+
+## Component Organization
+
+- UI components (Button, ProjectCard, etc.) go in `src/components/ui/`
+- Layout components (Header, Footer, Section wrappers) go in `src/components/layout/`
+- Spline 3D viewer components go in `src/components/spline/`
+- Page components go in `src/pages/`
+- Shared hooks go in `src/hooks/`
+- IMPORTANT: Always check for an existing component before creating a new one
+
+## Naming Conventions
+
+- Component files: PascalCase (e.g., `ProjectCard.tsx`)
+- Hooks: camelCase with `use` prefix (e.g., `useMediaQuery.ts`)
+- All components export as default
+- Component props use an interface named `{ComponentName}Props`
+
+## Styling Rules
+
+- IMPORTANT: Use Tailwind CSS v4 utility classes for all styling
+- Design tokens are defined in `src/styles/index.css` inside the `@theme` block
+- IMPORTANT: Never hardcode color hex values — use Tailwind token classes (e.g., `text-primary`, `bg-background`)
+- IMPORTANT: Never hardcode spacing pixel values — use Tailwind spacing utilities
+- Responsive breakpoints: `sm` (375px), `md` (768px), `lg` (1440px)
+- Mobile-first approach: base styles are mobile, use `md:` and `lg:` for larger screens
+- Animations use CSS transitions only — no extra animation libraries
+- Custom interactive states (hover, pressed) for Button and ProjectCard will use CSS transitions/transforms
+
+## Asset Handling
+
+- Static images (PNG fallbacks for Spline, etc.) go in `public/images/`
+- Self-hosted font files go in `public/fonts/`
+- IMPORTANT: If the Figma MCP server returns a localhost source for an image or SVG, use that source directly
+- IMPORTANT: DO NOT import or add new icon packages — all assets should come from the Figma payload
+- IMPORTANT: DO NOT use or create placeholders if a localhost source is provided
+
+## Figma MCP Integration — Required Flow
+
+1. Run `get_design_context` first to fetch the structured representation for the exact node(s)
+2. If the response is too large or truncated, run `get_metadata` to get the high-level node map, then re-fetch only the required node(s) with `get_design_context`
+3. Run `get_screenshot` for a visual reference of the node variant being implemented
+4. Only after you have both `get_design_context` and `get_screenshot`, download any assets needed and start implementation
+5. Translate the output (usually React + Tailwind) into this project's conventions and tokens
+6. Validate against Figma for 1:1 look and behavior before marking complete
+
+## Implementation Rules
+
+- Treat the Figma MCP output as a representation of design and behavior, not as final code style
+- Map Figma colors, typography, and spacing to the Tailwind theme tokens in `src/styles/index.css`
+- Reuse existing components from `src/components/` instead of duplicating functionality
+- Use the `@/` path alias for all imports (e.g., `import Button from '@/components/ui/Button'`)
+- Strive for 1:1 visual parity with the Figma design
+- Validate the final UI against the Figma screenshot for both look and behavior
+
+## Spline 3D Renders
+
+- Use the `SplineViewer` component from `src/components/spline/SplineViewer.tsx`
+- It renders `@splinetool/react-spline` on md+ screens and a fallback PNG on mobile
+- The Spline runtime is lazy-loaded to avoid impacting initial bundle size
+
+## Project-Specific Conventions
+
+- TypeScript strict mode is enabled — all props must be typed
+- React Router is used for routing — page components receive route props
+- Path alias `@/*` maps to `src/*`
+- Package manager: yarn (not npm)
