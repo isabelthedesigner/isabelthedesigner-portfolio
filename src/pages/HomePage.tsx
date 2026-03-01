@@ -1,6 +1,9 @@
+import { useRef, useMemo } from 'react'
 import SplineViewer from '@/components/spline/SplineViewer'
+import IconButton from '@/components/ui/IconButton'
 import ProjectCard from '@/components/ui/ProjectCard'
 import TypewriterText from '@/components/ui/TypewriterText'
+import { useScrollGuide } from '@/hooks/useScrollGuide'
 import { useScrollPin } from '@/hooks/useScrollPin'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
@@ -42,6 +45,8 @@ const PROJECTS = [
 export default function HomePage() {
   const isTablet = useMediaQuery('(min-width: 768px)')
 
+  const headerRef = useRef<HTMLElement>(null)
+  const workRef = useRef<HTMLElement>(null)
   const text1 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
   const spline1 = useScrollPin<HTMLElement>({ pinDistance: '+=60%', enabled: isTablet })
   const text2 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
@@ -49,10 +54,17 @@ export default function HomePage() {
   const text3 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
   const spline3 = useScrollPin<HTMLElement>({ pinDistance: '+=60%', enabled: isTablet })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sections = useMemo(
+    () => [headerRef, text1.ref, spline1.ref, text2.ref, spline2.ref, text3.ref, spline3.ref, workRef],
+    [],
+  )
+  const { sentinelRef, anchorRef, isPinned, next } = useScrollGuide({ sections })
+
   return (
     <>
       {/* Spline 3D: Portfolio Header — full-bleed, nav overlays */}
-      <section className="flex w-full items-center justify-center h-dvh">
+      <section ref={headerRef} className="flex w-full items-center justify-center h-dvh">
         <SplineViewer
           sceneUrl={SPLINE_URLS.header}
           fallbackImage="/images/spline-portfolio-header.png"
@@ -157,8 +169,33 @@ export default function HomePage() {
         </section>
       </div>
 
+      {/* Scroll guide arrow — fixed clone at viewport bottom, swapped with
+           the in-flow button at the exact pixel where both overlap */}
+      <div ref={sentinelRef} className="flex justify-center py-48">
+        <div ref={anchorRef}>
+          <IconButton
+            icon="Arrow Down"
+            weight="fill"
+            size={isTablet ? 'xl' : 'default'}
+            onClick={next}
+            aria-label="Scroll to next section"
+            className={isPinned ? 'invisible' : ''}
+          />
+        </div>
+      </div>
+      {isPinned && (
+        <IconButton
+          icon="Arrow Down"
+          weight="fill"
+          size={isTablet ? 'xl' : 'default'}
+          onClick={next}
+          aria-label="Scroll to next section"
+          className="fixed bottom-24 left-1/2 -translate-x-1/2 z-10"
+        />
+      )}
+
       {/* Work Section */}
-      <section className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">
+      <section ref={workRef} className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">
         <h2 className="text-display-large-mobile md:text-display-large max-w-[768px] text-center text-content-default">
           work
         </h2>

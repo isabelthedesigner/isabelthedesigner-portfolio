@@ -65,6 +65,14 @@ body {
   min-height: 100dvh;
 }
 
+:focus-visible {
+  outline-color: var(--color-electric-periwinkle);
+  outline-style: solid;
+  outline-width: var(--border-width-2);
+  border-radius: var(--border-radius-0);
+  outline-offset: var(--spacing-2);
+}
+
 img,
 picture,
 video,

@@ -10,6 +10,7 @@ import {
   X,
   ArrowLeft,
   ArrowRight,
+  ArrowDown,
   ArrowCounterClockwise,
   Pause,
   Play,
@@ -25,6 +26,7 @@ const ICON_MAP: Record<IconName, ComponentType<PhosphorIconProps>> = {
   'X': X,
   'Arrow Left': ArrowLeft,
   'Arrow Right': ArrowRight,
+  'Arrow Down': ArrowDown,
   'Arrow Counter Clockwise': ArrowCounterClockwise,
   'Pause': Pause,
   'Play': Play,
@@ -40,6 +42,7 @@ export type IconName =
   | 'X'
   | 'Arrow Left'
   | 'Arrow Right'
+  | 'Arrow Down'
   | 'Arrow Counter Clockwise'
   | 'Pause'
   | 'Play'
