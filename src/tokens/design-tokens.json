@@ -10,6 +10,7 @@
       "yellow": "#ffca41",
       "hot-pink": "#de2bc0",
       "red": "#d10000",
+      "teal": "#04E1B2",
       "white": "#ffffff",
       "transparent": "transparent"
     },
@@ -145,6 +146,7 @@
         "white": { "value": "#ffffff", "global-ref": "color.white" },
         "red": { "value": "#d10000", "global-ref": "color.red" },
         "electric-periwinkle": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
+        "teal": { "value": "#04E1B2", "global-ref": "color.teal" },
         "yellow": { "value": "#ffca41", "global-ref": "color.yellow" },
         "hot-pink": { "value": "#de2bc0", "global-ref": "color.hot-pink" },
         "periwinkle": { "value": "#6781ff", "global-ref": "color.periwinkle" },
@@ -430,7 +432,7 @@
         "default": {
           "font-family": "var(--font-sans)",
           "font-size": "20px",
-          "font-weight": "400",
+          "font-weight": "300",
           "line-height": "32px",
           "letter-spacing": "0px",
           "paragraph-spacing": "0px",

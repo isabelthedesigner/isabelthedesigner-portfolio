@@ -180,7 +180,7 @@
 @utility text-body-default {
   font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 32px;
   letter-spacing: 0px;
 }
