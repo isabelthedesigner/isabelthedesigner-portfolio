@@ -1,19 +1,23 @@
-import { motion, useAnimation } from 'motion/react'
 import { useEffect, useRef, useState, type ReactNode, type FC } from 'react'
 
 interface ScratchToRevealProps {
   children: ReactNode
-  width: number
-  height: number
+  width?: number
+  height?: number
+  fluidHeight?: boolean
   minScratchPercentage?: number
   className?: string
   onComplete?: () => void
   gradientColors?: [string, string, string]
 }
 
+const DEFAULT_WIDTH = 400
+const DEFAULT_HEIGHT = 320
+
 export const ScratchToReveal: FC<ScratchToRevealProps> = ({
-  width,
-  height,
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT,
+  fluidHeight = false,
   minScratchPercentage = 50,
   onComplete,
   children,
@@ -21,15 +25,31 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
   gradientColors = ['#A97CF8', '#F38CB8', '#FDCC92'],
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const [isScratching, setIsScratching] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
+  const [fluidSize, setFluidSize] = useState({ width: 0, height: 0 })
 
-  const controls = useAnimation()
+  const canvasWidth = fluidHeight ? fluidSize.width : width
+  const canvasHeight = fluidHeight ? fluidSize.height : height
+
+  useEffect(() => {
+    if (!fluidHeight || !containerRef.current) return
+    const el = containerRef.current
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      const { width: w, height: h } = entry.contentRect
+      setFluidSize({ width: Math.floor(w), height: Math.floor(h) })
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [fluidHeight])
 
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
-    if (canvas && ctx) {
+    if (canvas && ctx && canvasWidth > 0 && canvasHeight > 0) {
       ctx.fillStyle = '#ccc'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
@@ -39,7 +59,7 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
-  }, [gradientColors])
+  }, [gradientColors, canvasWidth, canvasHeight])
 
   useEffect(() => {
     const handleMove = (clientX: number, clientY: number) => {
@@ -91,15 +111,6 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
     }
   }
 
-  const startAnimation = async () => {
-    await controls.start({
-      scale: [1, 1.5, 1],
-      rotate: [0, 10, -10, 10, -10, 0],
-      transition: { duration: 0.5 },
-    })
-    onComplete?.()
-  }
-
   const checkCompletion = () => {
     if (isComplete) return
 
@@ -120,27 +131,28 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
       if (percentage >= minScratchPercentage) {
         setIsComplete(true)
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        startAnimation()
+        onComplete?.()
       }
     }
   }
 
   return (
     <div
+      ref={containerRef}
       className={`relative select-none overflow-hidden ${className ?? ''}`}
-      style={{ aspectRatio: `${width} / ${height}` }}
+      style={fluidHeight ? undefined : { aspectRatio: `${width} / ${height}` }}
     >
-      <motion.div animate={controls} className="relative h-full w-full">
+      <div className="relative h-full w-full">
         <canvas
           ref={canvasRef}
-          width={width}
-          height={height}
+          width={canvasWidth}
+          height={canvasHeight}
           className="absolute inset-0 z-10 h-full w-full cursor-grab active:cursor-grabbing"
           onMouseDown={() => setIsScratching(true)}
           onTouchStart={() => setIsScratching(true)}
         />
         <div className="flex h-full w-full items-center justify-center">{children}</div>
-      </motion.div>
+      </div>
     </div>
   )
 }

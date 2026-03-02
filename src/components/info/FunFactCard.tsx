@@ -11,11 +11,10 @@ export default function FunFactCard({ image, text }: FunFactCardProps) {
   return (
     <div className="border-2 border-border-default overflow-hidden">
       <ScratchToReveal
-        width={400}
-        height={320}
+        fluidHeight
         minScratchPercentage={80}
         gradientColors={GRADIENT_COLORS}
-        className="w-full"
+        className="w-full h-full"
       >
         <div className="flex flex-col items-center gap-24 p-24">
           <img
