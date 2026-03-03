@@ -21,7 +21,7 @@ const FUN_FACTS = [
 export default function InfoPage() {
   return (
     <PortraitProvider>
-      <section className="flex flex-col gap-36 px-24 pt-48 pb-80">
+      <section className="flex flex-col gap-36 px-24 pt-24 pb-80">
         {/* Title */}
         <TypewriterText
             className="text-headline-medium-mobile md:text-headline-medium text-content-default"
@@ -36,7 +36,7 @@ export default function InfoPage() {
 
         {/* Bio */}
         <div className="flex flex-col gap-36">
-          <p className="text-headline-small-mobile md:text-headline-small text-content-default">
+          <p className="text-headline-medium-mobile md:text-headline-medium text-content-default">
             Hi, I'm Isabel. In my current ux designer role, I specialize in design systems, with a
             focus on building tools that help teams work faster, more consistently, and at scale.
           </p>
@@ -58,7 +58,7 @@ export default function InfoPage() {
 
         {/* Fun Facts */}
         <div className="flex flex-col gap-36">
-          <h2 className="text-title-large-mobile md:text-title-large text-content-default">
+          <h2 className="text-headline-small-mobile md:text-headline-small text-content-default">
             Here are some fun facts about me (scratch to reveal!)
           </h2>
 
