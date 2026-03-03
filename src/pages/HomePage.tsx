@@ -198,7 +198,7 @@ export default function HomePage() {
       )}
 
       {/* Work Section */}
-      <section ref={workRef} className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">
+      <section ref={workRef} id="work" className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">
         <h2 className="text-display-large-mobile md:text-display-large max-w-[768px] text-center text-content-default">
           work
         </h2>

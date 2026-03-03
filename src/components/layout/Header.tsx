@@ -1,9 +1,32 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { gsap } from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import NavLink from '@/components/ui/NavLink'
 import IconButton from '@/components/ui/IconButton'
 
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
+
 export default function Header() {
-  const isHome = useLocation().pathname === '/'
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const isHome = pathname === '/'
+
+  function handleWorkClick(e: React.MouseEvent) {
+    e.preventDefault()
+    if (isHome) {
+      const el = document.getElementById('work')
+      if (el) {
+        gsap.to(window, {
+          scrollTo: { y: el, autoKill: false },
+          duration: 1,
+          ease: 'power2.inOut',
+        })
+      }
+    } else {
+      navigate('/#work')
+    }
+  }
 
   return (
     <header
@@ -21,7 +44,7 @@ export default function Header() {
         />
       </Link>
       <nav className="hidden items-center gap-48 md:flex">
-        <NavLink to="/">work</NavLink>
+        <NavLink href="/#work" onClick={handleWorkClick}>work</NavLink>
         <NavLink to="/info">info</NavLink>
         <NavLink to="/thoughts">thoughts</NavLink>
       </nav>
