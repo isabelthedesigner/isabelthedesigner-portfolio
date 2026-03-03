@@ -1,6 +1,7 @@
 import { PortraitProvider } from '@/hooks/usePortraitStore'
 import PortraitColorPicker from '@/components/info/PortraitColorPicker'
 import FunFactCard from '@/components/info/FunFactCard'
+import TypewriterText from '@/components/ui/TypewriterText'
 
 const FUN_FACTS = [
   {
@@ -22,9 +23,13 @@ export default function InfoPage() {
     <PortraitProvider>
       <section className="flex flex-col gap-36 px-24 pt-48 pb-80">
         {/* Title */}
-        <h1 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
-          First things first: make me look cool.
-        </h1>
+        <TypewriterText
+            className="text-headline-medium-mobile md:text-headline-medium text-content-default"
+            startTyping={true}
+            disabled={false}
+          >
+            First things first: make me look cool.
+          </TypewriterText>
 
         {/* Portrait + Color Picker */}
         <PortraitColorPicker />
