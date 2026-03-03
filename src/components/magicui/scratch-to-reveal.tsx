@@ -26,6 +26,7 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const lastPointRef = useRef<{ x: number; y: number } | null>(null)
   const [isScratching, setIsScratching] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [fluidSize, setFluidSize] = useState({ width: 0, height: 0 })
@@ -74,6 +75,7 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
     }
     const handleEnd = () => {
       setIsScratching(false)
+      lastPointRef.current = null
       checkCompletion()
     }
 
@@ -105,9 +107,19 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
       const x = clientX - rect.left + 16
       const y = clientY - rect.top + 16
       ctx.globalCompositeOperation = 'destination-out'
+      ctx.lineWidth = 40
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.strokeStyle = 'rgba(0,0,0,1)'
       ctx.beginPath()
-      ctx.arc(x, y, 30, 0, Math.PI * 2)
-      ctx.fill()
+      if (lastPointRef.current) {
+        ctx.moveTo(lastPointRef.current.x, lastPointRef.current.y)
+      } else {
+        ctx.moveTo(x, y)
+      }
+      ctx.lineTo(x, y)
+      ctx.stroke()
+      lastPointRef.current = { x, y }
     }
   }
 
@@ -147,7 +159,8 @@ export const ScratchToReveal: FC<ScratchToRevealProps> = ({
           ref={canvasRef}
           width={canvasWidth}
           height={canvasHeight}
-          className="absolute inset-0 z-10 h-full w-full cursor-grab active:cursor-grabbing"
+          className="absolute inset-0 z-10 h-full w-full"
+          style={{ cursor: "url('/images/penny-cursor.png') 32 32, grab" }}
           onMouseDown={() => setIsScratching(true)}
           onTouchStart={() => setIsScratching(true)}
         />
