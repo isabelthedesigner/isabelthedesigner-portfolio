@@ -11,8 +11,8 @@ export default function PortraitColorPicker() {
   return (
     <div className="flex flex-col md:flex-row gap-48">
       {/* Portrait */}
-      <div className="w-full md:w-[55%] desktop:w-[50%] xl:w-[40%] md:h-[55%] desktop:h-[50%] xl:h-[40%] flex justify-center">
-        <div className="relative w-full aspect-square border-2 border-border-default">
+      <div className="w-full md:w-[55%] desktop:w-[45%] xl:w-[35%] overflow-hidden border-2 border-border-default grid place-items-center">
+        <div className="relative w-full aspect-square">
           <img
             src="/images/info/isabel-portrait.png"
             alt="Isabel's portrait"
@@ -35,7 +35,7 @@ export default function PortraitColorPicker() {
       </div>
 
       {/* Controls */}
-      <div className="w-full md:w-[45%] desktop:w-[50%] xl:w-[60%] flex flex-col justify-center gap-36">
+      <div className="w-full md:w-[45%] desktop:w-[65%] xl:w-[65%] flex flex-col justify-center gap-36">
         <div className="flex flex-col gap-24 desktop:gap-36">
           <SwatchGroup label="HAIR" currentColor={hairColor} onSelect={setHairColor} />
           <SwatchGroup label="GLASSES" currentColor={glassesColor} onSelect={setGlassesColor} />

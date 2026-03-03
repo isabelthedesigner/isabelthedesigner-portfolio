@@ -12,7 +12,7 @@ export default function ColorSwatch({ color, isSelected, onClick }: ColorSwatchP
   return (
     <button
       type="button"
-      className="relative size-36 shrink-0 cursor-pointer border-2 border-border-default"
+      className="relative size-48 shrink-0 cursor-pointer border-2 border-border-default"
       style={{ backgroundColor: color }}
       onClick={onClick}
       aria-label={`Select color ${color}`}
@@ -20,7 +20,7 @@ export default function ColorSwatch({ color, isSelected, onClick }: ColorSwatchP
     >
       {isSelected && (
         <span className="absolute inset-0 flex items-center justify-center">
-          <Icon icon="Checkmark" size={30} weight="bold" className={needsDarkCheck ? 'text-content-default' : 'text-content-default-inverse'} />
+          <Icon icon="Checkmark" size={40} weight="bold" className={needsDarkCheck ? 'text-content-default' : 'text-content-default-inverse'} />
         </span>
       )}
     </button>
