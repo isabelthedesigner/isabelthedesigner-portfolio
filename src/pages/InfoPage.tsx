@@ -58,8 +58,8 @@ export default function InfoPage() {
           </h2>
 
           <div
-            className="mx-auto grid w-full max-w-[1440px] gap-40"
-            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(296px, 1fr))' }}
+            className="mx-auto grid w-full max-w-[1440px] gap-40 grid-cols-1 md:grid-cols-3"
+            style={{ gridTemplateColumns: 'repeat(auto-fill, 1fr))' }}
           >
             {FUN_FACTS.map((fact) => (
               <FunFactCard key={fact.image} image={fact.image} text={fact.text} />

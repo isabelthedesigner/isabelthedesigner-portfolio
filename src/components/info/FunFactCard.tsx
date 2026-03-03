@@ -20,7 +20,7 @@ export default function FunFactCard({ image, text }: FunFactCardProps) {
           <img
             src={image}
             alt=""
-            className="max-w-[207px] w-full aspect-[207/160] object-cover rounded-8"
+            className="max-h-[160px] w-full object-contain rounded-8"
           />
           <p className="text-body-default text-content-default text-center">{text}</p>
         </div>
