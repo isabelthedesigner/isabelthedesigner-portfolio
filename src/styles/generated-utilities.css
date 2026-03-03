@@ -77,9 +77,9 @@
 
 @utility text-headline-small-mobile {
   font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 40px;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 48px;
   letter-spacing: 0px;
 }
 
@@ -94,7 +94,7 @@
 
 @utility text-title-large-mobile {
   font-family: var(--font-display);
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 300;
   line-height: 40px;
   letter-spacing: 0px;
@@ -110,7 +110,7 @@
 
 @utility text-title-large-strong-mobile {
   font-family: var(--font-display);
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 600;
   line-height: 40px;
   letter-spacing: 0px;

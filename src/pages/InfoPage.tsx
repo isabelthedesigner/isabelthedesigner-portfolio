@@ -53,7 +53,7 @@ export default function InfoPage() {
 
         {/* Fun Facts */}
         <div className="flex flex-col gap-36">
-          <h2 className="text-title-default-mobile md:text-title-default text-content-default">
+          <h2 className="text-title-large-mobile md:text-title-large text-content-default">
             Here are some fun facts about me (scratch to reveal!)
           </h2>
 
