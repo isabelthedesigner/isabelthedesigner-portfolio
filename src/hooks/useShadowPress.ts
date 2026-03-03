@@ -1,4 +1,4 @@
-import { useRef, useCallback, type RefObject } from 'react'
+import { useRef, useCallback, type RefObject, type KeyboardEvent } from 'react'
 
 interface ShadowPressOptions {
   /** Shadow offset in pixels (8 for buttons, 16 for cards) */
@@ -14,6 +14,10 @@ interface ShadowPressHandlers {
   onMouseLeave: () => void
   onMouseDown: () => void
   onMouseUp: () => void
+  onFocus: () => void
+  onBlur: () => void
+  onKeyDown: (e: KeyboardEvent) => void
+  onKeyUp: (e: KeyboardEvent) => void
 }
 
 /**
@@ -33,6 +37,7 @@ export function useShadowPress<T extends HTMLElement>(
 
   const isPressed = useRef(false)
   const isHovering = useRef(false)
+  const isFocused = useRef(false)
 
   const hoverShadow = `${shadowSize}px ${shadowSize}px 0 ${shadowColor}`
   const pressedShadow = `0px 0px 0 ${shadowColor}`
@@ -58,11 +63,10 @@ export function useShadowPress<T extends HTMLElement>(
     isPressed.current = false
     if (ref.current) {
       ref.current.style.transform = 'translate(0px, 0px)'
-      const actuallyHovering = ref.current.matches(':hover')
-      if (actuallyHovering) {
+      const activelyEngaged = isHovering.current || isFocused.current
+      if (activelyEngaged) {
         ref.current.style.boxShadow = hoverShadow
       } else {
-        isHovering.current = false
         ref.current.style.boxShadow = ''
       }
     }
@@ -70,7 +74,7 @@ export function useShadowPress<T extends HTMLElement>(
 
   const onMouseLeave = useCallback(() => {
     isHovering.current = false
-    if (ref.current) {
+    if (ref.current && !isFocused.current) {
       ref.current.style.boxShadow = ''
     }
     if (isPressed.current) {
@@ -81,5 +85,53 @@ export function useShadowPress<T extends HTMLElement>(
     }
   }, [ref])
 
-  return { onMouseEnter, onMouseLeave, onMouseDown, onMouseUp }
+  const onFocus = useCallback(() => {
+    isFocused.current = true
+    if (ref.current && !isPressed.current) {
+      ref.current.style.boxShadow = hoverShadow
+      ref.current.style.transition = transition
+    }
+  }, [ref, hoverShadow])
+
+  const onBlur = useCallback(() => {
+    isFocused.current = false
+    if (ref.current && !isHovering.current) {
+      ref.current.style.boxShadow = ''
+    }
+    if (isPressed.current) {
+      isPressed.current = false
+      if (ref.current) {
+        ref.current.style.transform = 'translate(0px, 0px)'
+      }
+    }
+  }, [ref])
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (e.key === ' ') e.preventDefault()
+        isPressed.current = true
+        if (ref.current) {
+          ref.current.style.transform = `translate(${pressOffset}px, ${pressOffset}px)`
+          ref.current.style.boxShadow = pressedShadow
+        }
+      }
+    },
+    [ref, pressOffset, pressedShadow],
+  )
+
+  const onKeyUp = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        isPressed.current = false
+        if (ref.current) {
+          ref.current.style.transform = 'translate(0px, 0px)'
+          ref.current.style.boxShadow = hoverShadow
+        }
+      }
+    },
+    [ref, hoverShadow],
+  )
+
+  return { onMouseEnter, onMouseLeave, onMouseDown, onMouseUp, onFocus, onBlur, onKeyDown, onKeyUp }
 }

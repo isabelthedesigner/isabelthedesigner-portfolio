@@ -56,6 +56,57 @@ export default function ResetButton() {
     }
   }, [])
 
+  const handleFocus = useCallback(() => {
+    if (ref.current && !isPressedRef.current) {
+      ref.current.style.boxShadow = '8px 8px 0 #131313'
+      ref.current.style.transition = 'box-shadow 0.15s linear, transform 0.1s ease'
+    }
+  }, [])
+
+  const handleBlur = useCallback(() => {
+    if (ref.current) {
+      ref.current.style.boxShadow = ''
+    }
+    if (isPressedRef.current) {
+      isPressedRef.current = false
+      if (ref.current) ref.current.style.transform = 'translate(0px, 0px)'
+    }
+  }, [])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        isPressedRef.current = true
+
+        if (ref.current) {
+          ref.current.style.transform = 'translate(8px, 8px)'
+          ref.current.style.boxShadow = '0px 0px 0 #131313'
+
+          const icon = ref.current.querySelector<HTMLElement>('[data-icon]')
+          if (icon) {
+            rotationRef.current -= 360
+            icon.style.transform = `rotate(${rotationRef.current}deg)`
+            icon.style.transition = 'transform 0.5s ease-in-out'
+          }
+        }
+
+        reset()
+      }
+    },
+    [reset],
+  )
+
+  const handleKeyUp = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      isPressedRef.current = false
+      if (ref.current) {
+        ref.current.style.transform = 'translate(0px, 0px)'
+        ref.current.style.boxShadow = '8px 8px 0 #131313'
+      }
+    }
+  }, [])
+
   return (
     <button
       ref={ref}
@@ -65,6 +116,10 @@ export default function ResetButton() {
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
     >
       <span data-icon className="inline-flex">
         <Icon icon="Arrow Counter Clockwise" size={24} />

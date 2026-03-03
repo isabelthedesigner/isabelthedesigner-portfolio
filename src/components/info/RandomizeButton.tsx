@@ -18,7 +18,7 @@ export default function RandomizeButton() {
   const isPressedRef = useRef(false)
 
   const updateColors = useCallback(() => {
-    if (ref.current && !ref.current.matches(':hover')) {
+    if (ref.current && !ref.current.matches(':hover') && !ref.current.matches(':focus')) {
       stopCycling()
       resetColors()
       return
@@ -101,6 +101,47 @@ export default function RandomizeButton() {
     }
   }, [stopCycling, resetColors])
 
+  const handleFocus = useCallback(() => {
+    startCycling()
+  }, [startCycling])
+
+  const handleBlur = useCallback(() => {
+    stopCycling()
+    resetColors()
+    if (isPressedRef.current) {
+      isPressedRef.current = false
+      if (ref.current) ref.current.style.transform = 'translate(0px, 0px)'
+    }
+  }, [stopCycling, resetColors])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        isPressedRef.current = true
+        if (ref.current) {
+          ref.current.style.transform = 'translate(8px, 8px)'
+          ref.current.style.boxShadow = '0px 0px 0 #131313'
+        }
+        randomize()
+      }
+    },
+    [randomize],
+  )
+
+  const handleKeyUp = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        isPressedRef.current = false
+        if (ref.current) {
+          ref.current.style.transform = 'translate(0px, 0px)'
+          ref.current.style.boxShadow = '8px 8px 0 #131313'
+        }
+      }
+    },
+    [],
+  )
+
   return (
     <button
       ref={ref}
@@ -110,6 +151,10 @@ export default function RandomizeButton() {
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
     >
       <span>RANDOMIZE</span>
     </button>
