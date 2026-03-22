@@ -40,7 +40,7 @@ export default function SongPlayer({ className = '' }: SongPlayerProps) {
         </div>
       </div>
       <audio ref={audioRef} src="/audio/opportunities.mp3" loop />
-      <Button iconLeft={isPlaying ? 'Pause' : 'Play'} onClick={handleToggle}>
+      <Button size="default" iconLeft={isPlaying ? 'Pause' : 'Play'} onClick={handleToggle}>
         {isPlaying ? 'PAUSE' : 'PLAY'}
       </Button>
     </div>

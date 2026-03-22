@@ -64,7 +64,7 @@ export default function HomePage() {
   return (
     <>
       {/* Spline 3D: Portfolio Header — full-bleed, nav overlays */}
-      <section ref={headerRef} className="flex w-full items-center justify-center h-dvh">
+      <section ref={headerRef} className="flex w-screen ml-[calc(50%-50vw)] items-center justify-center h-dvh">
         <SplineViewer
           sceneUrl={SPLINE_URLS.header}
           fallbackImage="/images/spline-portfolio-header.png"
@@ -85,7 +85,7 @@ export default function HomePage() {
             startTyping={isTablet ? text1.isActive : undefined}
             disabled={!isTablet}
           >
-            I'm a creative technologist currently specializing in design systems, creating the tools that enable teams to build better products.
+            I'm a multi-disciplinary designer currently specializing in design systems, creating the tools that enable teams to build better products.
           </TypewriterText>
         </section>
 
@@ -198,7 +198,7 @@ export default function HomePage() {
       )}
 
       {/* Work Section */}
-      <section ref={workRef} className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">
+      <section ref={workRef} id="work" className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">
         <h2 className="text-display-large-mobile md:text-display-large max-w-[768px] text-center text-content-default">
           work
         </h2>

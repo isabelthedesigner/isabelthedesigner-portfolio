@@ -1,10 +1,41 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { gsap } from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import NavLink from '@/components/ui/NavLink'
 import IconButton from '@/components/ui/IconButton'
 
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
+
 export default function Header() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const isHome = pathname === '/'
+
+  function handleWorkClick(e: React.MouseEvent) {
+    e.preventDefault()
+    if (isHome) {
+      const el = document.getElementById('work')
+      if (el) {
+        gsap.to(window, {
+          scrollTo: { y: el, autoKill: false },
+          duration: 1,
+          ease: 'power2.inOut',
+        })
+      }
+    } else {
+      navigate('/#work')
+    }
+  }
+
   return (
-    <header className="fixed inset-x-0 top-0 z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between bg-bg-none px-24 py-24">
+    <header
+      className={`${
+        isHome
+          ? 'fixed inset-x-0 mx-auto max-w-[1440px]'
+          : 'sticky'
+      } top-0 z-50 flex w-full items-center justify-between bg-bg-none px-24 py-24`}
+    >
       <Link to="/" className="flex items-center">
         <img
           src="/images/logo-i-color.png"
@@ -13,7 +44,7 @@ export default function Header() {
         />
       </Link>
       <nav className="hidden items-center gap-48 md:flex">
-        <NavLink to="/">work</NavLink>
+        <NavLink href="/#work" onClick={handleWorkClick}>work</NavLink>
         <NavLink to="/info">info</NavLink>
         <NavLink to="/thoughts">thoughts</NavLink>
       </nav>
