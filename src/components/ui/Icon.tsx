@@ -14,6 +14,7 @@ import {
   ArrowCounterClockwise,
   Pause,
   Play,
+  Image,
 } from '@phosphor-icons/react'
 
 const ICON_MAP: Record<IconName, ComponentType<PhosphorIconProps>> = {
@@ -30,6 +31,7 @@ const ICON_MAP: Record<IconName, ComponentType<PhosphorIconProps>> = {
   'Arrow Counter Clockwise': ArrowCounterClockwise,
   'Pause': Pause,
   'Play': Play,
+  'Image': Image,
 }
 
 export type IconName =
@@ -46,6 +48,7 @@ export type IconName =
   | 'Arrow Counter Clockwise'
   | 'Pause'
   | 'Play'
+  | 'Image'
 
 interface IconProps {
   icon: IconName
