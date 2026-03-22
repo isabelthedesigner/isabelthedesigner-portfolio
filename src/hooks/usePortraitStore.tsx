@@ -1,18 +1,21 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
+import tokens from '@/tokens/design-tokens.json'
+
+const bg = tokens.semantic.color.bg
 
 export const COLOR_PALETTE = [
-  '#d10000',  // Red
-  '#DE2BC0',  // Pink
-  '#FFCA41',  // Yellow
-  '#04E1B2',  // Teal
-  '#6781FF',  // Periwinkle
-  '#4600EC',  // Electric Periwinkle
+  bg.red.value,
+  bg['hot-pink'].value,
+  bg.yellow.value,
+  bg.teal.value,
+  bg.periwinkle.value,
+  bg['electric-periwinkle'].value,
 ] as const
 
 const DEFAULTS = {
-  hairColor: '#6781FF',
-  glassesColor: '#FFCA41',
-  lipstickColor: '#d10000',
+  hairColor: bg.periwinkle.value,
+  glassesColor: bg.yellow.value,
+  lipstickColor: bg.red.value,
 } as const
 
 interface PortraitStore {
