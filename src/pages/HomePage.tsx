@@ -85,7 +85,7 @@ export default function HomePage() {
             startTyping={isTablet ? text1.isActive : undefined}
             disabled={!isTablet}
           >
-            I'm a creative technologist currently specializing in design systems, creating the tools that enable teams to build better products.
+            I'm a multi-disciplinary designer currently specializing in design systems, creating the tools that enable teams to build better products.
           </TypewriterText>
         </section>
 
