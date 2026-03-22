@@ -155,7 +155,6 @@
   font-weight: 600;
   line-height: 32px;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 @utility text-label-medium {
@@ -164,7 +163,6 @@
   font-weight: 600;
   line-height: 32px;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 @utility text-label-small {
@@ -173,7 +171,6 @@
   font-weight: 600;
   line-height: 24px;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 /* ── body ── */

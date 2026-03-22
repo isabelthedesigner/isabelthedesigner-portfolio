@@ -19,12 +19,12 @@
   --color-hot-pink: #de2bc0;
   --color-red: #d10000;
   --color-teal: #04E1B2;
-  --color-white: #ffffff;
   --color-transparent: transparent;
   --color-bg-default: #ebe9e6;
+  --color-bg-hover: #D7D5D3;
+  --color-bg-active: #B6B5B3;
   --color-bg-none: transparent;
   --color-bg-strong: #323131;
-  --color-bg-white: #ffffff;
   --color-bg-red: #d10000;
   --color-bg-electric-periwinkle: #4600ec;
   --color-bg-teal: #04E1B2;
@@ -32,7 +32,6 @@
   --color-bg-hot-pink: #de2bc0;
   --color-bg-periwinkle: #6781ff;
   --color-bg-eggshell: #ebe9e6;
-  --color-bg-overlay: rgba(19, 19, 19, 0.5);
   --color-bg-link: transparent;
   --color-bg-link-hover: #4600ec;
   --color-content-default: #323131;

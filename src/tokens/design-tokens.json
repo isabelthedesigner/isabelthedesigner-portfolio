@@ -426,7 +426,7 @@
           "line-height": "32px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "uppercase",
+          "text-case": "none",
           "text-decoration": "none"
         },
         "medium": {
@@ -436,7 +436,7 @@
           "line-height": "32px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "uppercase",
+          "text-case": "none",
           "text-decoration": "none"
         },
         "small": {
@@ -446,7 +446,7 @@
           "line-height": "24px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "uppercase",
+          "text-case": "none",
           "text-decoration": "none"
         }
       },
