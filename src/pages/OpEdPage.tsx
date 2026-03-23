@@ -1,82 +1,98 @@
-import { useState } from 'react'
-import Checkbox from '@/components/ui/Checkbox'
-import CheckboxField from '@/components/ui/CheckboxField'
-import TabGroup from '@/components/ui/TabGroup'
-import Field from '@/components/ui/Field'
-import RangeSlider from '@/components/ui/RangeSlider'
+import Badge from '@/components/ui/Badge'
+import FontPreview from '@/components/op-ed/FontPreview'
+import AdCreator from '@/components/op-ed/AdCreator'
+
+const FEATURE_CARDS = [
+  {
+    image: '/images/op-ed/op-ed_case-study-1.png',
+    caption: 'Elevated crossbars and strokes',
+  },
+  {
+    image: '/images/op-ed/op-ed_case-study-2.png',
+    caption: 'Curved, calligraphic serifs',
+  },
+  {
+    image: '/images/op-ed/op-ed_case-study-3.png',
+    caption: 'Extended language support',
+  },
+] as const
 
 export default function OpEdPage() {
-  const [checked1, setChecked1] = useState(false)
-  const [checked2, setChecked2] = useState(true)
-  const [checkboxFieldChecked, setCheckboxFieldChecked] = useState(false)
-  const [activeTab, setActiveTab] = useState('layout')
-  const [fieldValue, setFieldValue] = useState('')
-  const [sliderValue, setSliderValue] = useState(56)
-
   return (
-    <div className="flex flex-col gap-64 px-24 py-48">
-      <h1 className="text-display-large text-content-default">
-        Component Test Page
-      </h1>
-
-      {/* Checkbox */}
-      <section className="flex flex-col gap-16">
-        <h2 className="text-label-large text-content-default">Checkbox</h2>
-        <div className="flex gap-16 items-center">
-          <Checkbox checked={checked1} onChange={setChecked1} />
-          <Checkbox checked={checked2} onChange={setChecked2} />
+    <section className="flex flex-col gap-96 px-24 pt-24 pb-80">
+      {/* Hero + Feature Cards */}
+      <div className="flex flex-col gap-48">
+        {/* Title + Badge */}
+        <div className="flex flex-col gap-24">
+          <h1 className="text-headline-large-mobile md:text-headline-large text-content-default">
+            Op-ed, a semi-condensed serif typeface
+          </h1>
+          <div className="flex items-center">
+            <Badge category="Type Design" />
+          </div>
         </div>
-      </section>
 
-      {/* Checkbox Field */}
-      <section className="flex flex-col gap-16">
-        <h2 className="text-label-large text-content-default">
-          Checkbox Field
+        {/* Intro content */}
+        <div className="flex flex-col gap-24">
+          <p className="text-body-default text-content-default">
+            Inspired by the typography that defined 70s and 80s newspapers and magazines, Op-ed is a
+            semi-condensed typeface with curved serifs and nostalgic charm. It embodies the sleek yet
+            playful visual style of that era. These typefaces often balanced elegance with boldness,
+            using decorative serifs and compact forms for impactful headlines. Op-ed channels this
+            aesthetic, blending classic editorial sophistication with a contemporary design for
+            versatile applications.
+          </p>
+
+          <div className="flex flex-col gap-8">
+            <p className="text-label-medium text-content-default">
+              Features Op-ed includes are:
+            </p>
+            <ul className="text-body-default text-content-default list-disc ml-[30px] flex flex-col gap-0">
+              <li>5 font weights (Extra Light, Light, Regular, Semibold, Bold)</li>
+              <li>Variable font</li>
+              <li>Supports multiple languages (Basic Latin)</li>
+              <li>Planned features: Additional glyphs, italic variants</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="grid w-full gap-40 grid-cols-1 md:grid-cols-3">
+          {FEATURE_CARDS.map((card) => (
+            <div
+              key={card.caption}
+              className="bg-bg-default border-2 border-border-default flex flex-col gap-24 items-center justify-center p-24 min-w-0"
+            >
+              <div className="relative w-full aspect-[1280/1024]">
+                <img
+                  src={card.image}
+                  alt={card.caption}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-body-default text-content-default text-center w-full">
+                {card.caption}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Ad Creator */}
+      <div className="flex flex-col gap-36">
+        <h2 className="text-headline-small-mobile md:text-headline-small text-content-default">
+          Create your own advertisement with Op-ed
         </h2>
-        <CheckboxField
-          label="Option label"
-          checked={checkboxFieldChecked}
-          onChange={setCheckboxFieldChecked}
-        />
-      </section>
+        <AdCreator />
+      </div>
 
-      {/* Tab Group */}
-      <section className="flex flex-col gap-16">
-        <h2 className="text-label-large text-content-default">Tab Group</h2>
-        <div className="w-[400px]">
-          <TabGroup
-            tabs={[
-              { label: 'LAYOUT', value: 'layout' },
-              { label: 'IMAGE', value: 'image' },
-              { label: 'TEXT', value: 'text' },
-            ]}
-            activeValue={activeTab}
-            onChange={setActiveTab}
-          />
-        </div>
-      </section>
-
-      {/* Field */}
-      <section className="flex flex-col gap-16">
-        <h2 className="text-label-large text-content-default">Field</h2>
-        <div className="w-[320px]">
-          <Field
-            placeholder="Text here"
-            value={fieldValue}
-            onChange={(e) => setFieldValue(e.target.value)}
-          />
-        </div>
-      </section>
-
-      {/* Range Slider */}
-      <section className="flex flex-col gap-16">
-        <h2 className="text-label-large text-content-default">
-          Range Slider
+      {/* Font Preview */}
+      <div className="flex flex-col gap-36">
+        <h2 className="text-headline-small-mobile md:text-headline-small text-content-default">
+          Font preview
         </h2>
-        <div className="w-[320px]">
-          <RangeSlider value={sliderValue} onChange={setSliderValue} />
-        </div>
-      </section>
-    </div>
+        <FontPreview />
+      </div>
+    </section>
   )
 }
