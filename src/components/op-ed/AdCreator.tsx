@@ -2,6 +2,7 @@ import { useState } from 'react'
 import TabGroup from '@/components/ui/TabGroup'
 import CheckboxField from '@/components/ui/CheckboxField'
 import ColorSwatch from '@/components/info/ColorSwatch'
+import Field from '@/components/ui/Field'
 import Icon from '@/components/ui/Icon'
 import AdCanvas from './AdCanvas'
 import tokens from '@/tokens/design-tokens.json'
@@ -233,8 +234,6 @@ export default function AdCreator() {
           taglineText={taglineText}
           taglineWeight={taglineWeight}
           taglineColor={taglineColor}
-          onHeadlineChange={setHeadlineText}
-          onTaglineChange={setTaglineText}
         />
       </div>
 
@@ -285,6 +284,19 @@ export default function AdCreator() {
           {/* TEXT tab */}
           {activeTab === 'text' && (
             <div className="flex flex-col gap-48">
+              {/* Headline Text */}
+              <div className="flex flex-col gap-16">
+                <p className="text-label-medium text-content-default">
+                  HEADLINE TEXT
+                </p>
+                <Field
+                  type="text"
+                  value={headlineText}
+                  onChange={(e) => setHeadlineText(e.target.value)}
+                  placeholder="Your headline here"
+                />
+              </div>
+
               {/* Headline Font Weight */}
               <div className="flex flex-col gap-16">
                 <p className="text-label-medium text-content-default">
@@ -335,6 +347,19 @@ export default function AdCreator() {
                     />
                   ))}
                 </div>
+              </div>
+
+              {/* Tagline Text */}
+              <div className="flex flex-col gap-16">
+                <p className="text-label-medium text-content-default">
+                  TAGLINE TEXT
+                </p>
+                <Field
+                  type="text"
+                  value={taglineText}
+                  onChange={(e) => setTaglineText(e.target.value)}
+                  placeholder="Your tagline here"
+                />
               </div>
 
               {/* Tagline Font Weight */}

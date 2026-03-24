@@ -1,3 +1,6 @@
+import { TransformWrapper, TransformComponent, useControls } from 'react-zoom-pan-pinch'
+import IconButton from '@/components/ui/IconButton'
+
 interface AdCanvasProps {
   layout: number
   image: string
@@ -9,8 +12,6 @@ interface AdCanvasProps {
   taglineText: string
   taglineWeight: number
   taglineColor: string
-  onHeadlineChange: (text: string) => void
-  onTaglineChange: (text: string) => void
 }
 
 const HEADLINE_SIZES = {
@@ -28,20 +29,16 @@ function HeadlineEl({
   weight,
   size,
   color,
-  onChange,
 }: {
   text: string
   weight: number
   size: 'sm' | 'md' | 'lg'
   color: string
-  onChange: (t: string) => void
 }) {
   const s = HEADLINE_SIZES[size]
   return (
     <div
-      contentEditable
-      suppressContentEditableWarning
-      className="outline-none text-center w-full break-words"
+      className="text-center w-full break-words"
       style={{
         fontFamily: '"Op-Ed Variable", "Op-Ed", serif',
         fontSize: s.fontSize,
@@ -49,7 +46,6 @@ function HeadlineEl({
         fontWeight: weight,
         color,
       }}
-      onInput={(e) => onChange(e.currentTarget.textContent ?? '')}
     >
       {text}
     </div>
@@ -60,18 +56,14 @@ function TaglineEl({
   text,
   weight,
   color,
-  onChange,
 }: {
   text: string
   weight: number
   color: string
-  onChange: (t: string) => void
 }) {
   return (
     <div
-      contentEditable
-      suppressContentEditableWarning
-      className="outline-none text-center w-full break-words"
+      className="text-center w-full break-words"
       style={{
         fontFamily: '"Op-Ed Variable", "Op-Ed", serif',
         fontSize: TAGLINE_STYLE.fontSize,
@@ -79,7 +71,6 @@ function TaglineEl({
         fontWeight: weight,
         color,
       }}
-      onInput={(e) => onChange(e.currentTarget.textContent ?? '')}
     >
       {text}
     </div>
@@ -96,6 +87,16 @@ function ImageEl({ src }: { src: string }) {
   )
 }
 
+function ZoomControls() {
+  const { zoomIn, zoomOut } = useControls()
+  return (
+    <div className="absolute bottom-16 right-16 flex flex-col gap-8 z-10">
+      <IconButton icon="Plus" variant="secondary" onClick={() => zoomIn()} />
+      <IconButton icon="Minus" variant="secondary" onClick={() => zoomOut()} />
+    </div>
+  )
+}
+
 export default function AdCanvas(props: AdCanvasProps) {
   const {
     layout,
@@ -108,8 +109,6 @@ export default function AdCanvas(props: AdCanvasProps) {
     taglineText,
     taglineWeight,
     taglineColor,
-    onHeadlineChange,
-    onTaglineChange,
   } = props
 
   const hasTagline = showsTagline(layout)
@@ -120,7 +119,6 @@ export default function AdCanvas(props: AdCanvasProps) {
       weight={headlineWeight}
       size={headlineSize}
       color={headlineColor}
-      onChange={onHeadlineChange}
     />
   )
 
@@ -129,7 +127,6 @@ export default function AdCanvas(props: AdCanvasProps) {
       text={taglineText}
       weight={taglineWeight}
       color={taglineColor}
-      onChange={onTaglineChange}
     />
   ) : null
 
@@ -215,8 +212,16 @@ export default function AdCanvas(props: AdCanvasProps) {
   )
 
   return (
-    <div className="w-full h-[575px] border-2 border-border-default bg-bg-default flex items-center justify-center p-24">
-      {innerContent}
+    <div className="relative w-full h-[575px] border-2 border-border-default bg-bg-default overflow-hidden">
+      <TransformWrapper initialScale={1} minScale={0.25} maxScale={3} centerOnInit>
+        <TransformComponent
+          wrapperStyle={{ width: '100%', height: '100%' }}
+          contentStyle={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+        >
+          {innerContent}
+        </TransformComponent>
+        <ZoomControls />
+      </TransformWrapper>
     </div>
   )
 }
