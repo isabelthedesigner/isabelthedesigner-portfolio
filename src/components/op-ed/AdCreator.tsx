@@ -297,18 +297,18 @@ export default function AdCreator() {
                 />
               </div>
 
-              {/* Headline Font Weight */}
+              {/* Headline Color */}
               <div className="flex flex-col gap-16">
                 <p className="text-label-medium text-content-default">
-                  HEADLINE FONT WEIGHT
+                  HEADLINE COLOR
                 </p>
                 <div className="flex flex-wrap gap-16">
-                  {WEIGHT_OPTIONS.map((w) => (
-                    <WeightOption
-                      key={`hw-${w}`}
-                      weight={w}
-                      selected={headlineWeight === w}
-                      onClick={() => setHeadlineWeight(w)}
+                  {COLOR_OPTIONS.map((c) => (
+                    <ColorSwatch
+                      key={`hc-${c.value}`}
+                      color={c.value}
+                      isSelected={headlineColor === c.value}
+                      onClick={() => setHeadlineColor(c.value)}
                     />
                   ))}
                 </div>
@@ -332,18 +332,18 @@ export default function AdCreator() {
                 </div>
               </div>
 
-              {/* Headline Color */}
+              {/* Headline Font Weight */}
               <div className="flex flex-col gap-16">
                 <p className="text-label-medium text-content-default">
-                  HEADLINE COLOR
+                  HEADLINE FONT WEIGHT
                 </p>
                 <div className="flex flex-wrap gap-16">
-                  {COLOR_OPTIONS.map((c) => (
-                    <ColorSwatch
-                      key={`hc-${c.value}`}
-                      color={c.value}
-                      isSelected={headlineColor === c.value}
-                      onClick={() => setHeadlineColor(c.value)}
+                  {WEIGHT_OPTIONS.map((w) => (
+                    <WeightOption
+                      key={`hw-${w}`}
+                      weight={w}
+                      selected={headlineWeight === w}
+                      onClick={() => setHeadlineWeight(w)}
                     />
                   ))}
                 </div>
@@ -360,6 +360,23 @@ export default function AdCreator() {
                   onChange={(e) => setTaglineText(e.target.value)}
                   placeholder="Your tagline here"
                 />
+              </div>
+
+              {/* Tagline Color */}
+              <div className="flex flex-col gap-16">
+                <p className="text-label-medium text-content-default">
+                  TAGLINE COLOR
+                </p>
+                <div className="flex flex-wrap gap-16">
+                  {COLOR_OPTIONS.map((c) => (
+                    <ColorSwatch
+                      key={`tc-${c.value}`}
+                      color={c.value}
+                      isSelected={taglineColor === c.value}
+                      onClick={() => setTaglineColor(c.value)}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Tagline Font Weight */}
@@ -379,22 +396,6 @@ export default function AdCreator() {
                 </div>
               </div>
 
-              {/* Tagline Color */}
-              <div className="flex flex-col gap-16">
-                <p className="text-label-medium text-content-default">
-                  TAGLINE COLOR
-                </p>
-                <div className="flex flex-wrap gap-16">
-                  {COLOR_OPTIONS.map((c) => (
-                    <ColorSwatch
-                      key={`tc-${c.value}`}
-                      color={c.value}
-                      isSelected={taglineColor === c.value}
-                      onClick={() => setTaglineColor(c.value)}
-                    />
-                  ))}
-                </div>
-              </div>
             </div>
           )}
         </div>
