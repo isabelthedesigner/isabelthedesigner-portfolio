@@ -94,12 +94,12 @@ function LayoutThumbnail({
             key={i}
             className="flex-1 min-h-0 w-full border-2 border-border-default bg-bg-default flex items-center justify-center"
           >
-            <Icon icon="Image" size={24} weight="regular" className="text-content-default" />
+            <Icon icon="Image" size={24} weight="fill" className="text-content-default" />
           </div>
         )
       })}
       {selected && (
-        <span className="absolute bottom-0 right-0 inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
+        <span className="absolute bottom-[-2px] right-[-2px] inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
           <Icon icon="Checkmark" size={16} className="text-content-default-inverse" />
         </span>
       )}
@@ -121,7 +121,7 @@ function WeightOption({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative bg-bg-default border-2 border-border-default flex flex-col items-center justify-center pb-16 pt-8 px-16 shrink-0 w-[90px] cursor-pointer"
+      className="relative bg-bg-default border-2 border-border-default flex flex-col items-center justify-center pb-8 pt-12 px-16 shrink-0 w-[90px] cursor-pointer"
     >
       <span
         className="text-[64px] leading-[64px] text-center text-content-default"
@@ -133,7 +133,7 @@ function WeightOption({
         Aa
       </span>
       {selected && (
-        <span className="absolute bottom-0 right-0 inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
+        <span className="absolute bottom-[-2px] right-[-2px] inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
           <Icon icon="Checkmark" size={16} className="text-content-default-inverse" />
         </span>
       )}
@@ -157,7 +157,7 @@ function SizeOption({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative bg-bg-default border-2 border-border-default flex flex-col h-[88px] items-center justify-end pb-16 pt-8 px-16 shrink-0 w-[90px] cursor-pointer"
+      className="relative bg-bg-default border-2 border-border-default flex flex-col h-[88px] items-center justify-end pb-8 px-16 shrink-0 w-[90px] cursor-pointer"
     >
       <span
         className="text-center text-content-default"
@@ -171,7 +171,7 @@ function SizeOption({
         Aa
       </span>
       {selected && (
-        <span className="absolute bottom-0 right-0 inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
+        <span className="absolute bottom-[-2px] right-[-2px] inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
           <Icon icon="Checkmark" size={16} className="text-content-default-inverse" />
         </span>
       )}
