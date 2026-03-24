@@ -11,7 +11,7 @@ interface RangeSliderProps {
 }
 
 export default function RangeSlider({
-  min = 8,
+  min = 1,
   max = 300,
   value,
   onChange,
@@ -75,7 +75,7 @@ export default function RangeSlider({
   }, [])
 
   return (
-    <div ref={sliderRef} className={`flex items-center gap-8 ${className}`}>
+    <div ref={sliderRef} className={`flex items-center gap-16 ${className}`}>
       {showIndicators && (
         <span className="font-sans text-[24px] font-light leading-[32px] text-content-default shrink-0 select-none">
           A
@@ -86,7 +86,7 @@ export default function RangeSlider({
         {/* Clickable track area */}
         <div
           ref={trackRef}
-          className="relative flex items-center h-[30px] cursor-pointer"
+          className="relative flex items-center h-[30px] w-[120px] cursor-pointer"
           onMouseDown={handleTrackMouseDown}
         >
           <div className="relative h-4 w-full bg-charcoal">

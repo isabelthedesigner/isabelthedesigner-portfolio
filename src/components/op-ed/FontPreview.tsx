@@ -28,9 +28,9 @@ export default function FontPreview() {
   const handleFontSizeInput = (val: string) => {
     const num = parseInt(val, 10)
     if (!isNaN(num)) {
-      setFontSize(Math.min(300, Math.max(8, num)))
+      setFontSize(Math.min(300, Math.max(1, num)))
     } else if (val === '') {
-      setFontSize(8)
+      setFontSize(1)
     }
   }
 
@@ -46,7 +46,7 @@ export default function FontPreview() {
                 icon="Minus"
                 variant="secondary"
                 aria-label="Decrease font size"
-                onClick={() => setFontSize((s) => Math.max(8, s - 1))}
+                onClick={() => setFontSize((s) => Math.max(1, s - 1))}
               />
               <Field
                 type="text"
@@ -55,7 +55,7 @@ export default function FontPreview() {
                 value={fontSize}
                 onChange={(e) => handleFontSizeInput(e.target.value)}
                 onBlur={() => {
-                  if (fontSize < 8) setFontSize(8)
+                  if (fontSize < 1) setFontSize(1)
                   if (fontSize > 300) setFontSize(300)
                 }}
                 aria-label="Font size"
@@ -67,9 +67,9 @@ export default function FontPreview() {
                 onClick={() => setFontSize((s) => Math.min(300, s + 1))}
               />
             </div>
-            <div className="w-[160px]">
+            <div className="w-[120px]">
               <RangeSlider
-                min={8}
+                min={1}
                 max={300}
                 value={fontSize}
                 onChange={setFontSize}
@@ -103,7 +103,7 @@ export default function FontPreview() {
       <div
         contentEditable
         suppressContentEditableWarning
-        className="text-content-default outline-none w-full break-words"
+        className="text-content-default border-2 border-transparent hover:border-2 hover:border-border-default active:border-2 active:border-border-default focus-visible:border-2 focus-visible:border-border-default w-full break-words"
         style={{
           fontFamily: '"Op-Ed Variable", "Op-Ed", serif',
           fontSize: `${fontSize}px`,
