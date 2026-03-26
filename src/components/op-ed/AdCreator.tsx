@@ -219,6 +219,8 @@ export default function AdCreator() {
   const [headlineText, setHeadlineText] = useState('Your headline here')
   const [taglineText, setTaglineText] = useState('Your tagline here')
 
+  const hasTagline = LAYOUTS[selectedLayout]?.some(b => b.type === 'tagline') ?? false
+
   return (
     <div className="flex flex-col md:flex-row gap-48 md:h-[575px]">
       {/* Canvas */}
@@ -349,52 +351,56 @@ export default function AdCreator() {
                 </div>
               </div>
 
-              {/* Tagline Text */}
-              <div className="flex flex-col gap-16">
-                <p className="text-label-medium text-content-default">
-                  TAGLINE TEXT
-                </p>
-                <Field
-                  type="text"
-                  value={taglineText}
-                  onChange={(e) => setTaglineText(e.target.value)}
-                  placeholder="Your tagline here"
-                />
-              </div>
-
-              {/* Tagline Color */}
-              <div className="flex flex-col gap-16">
-                <p className="text-label-medium text-content-default">
-                  TAGLINE COLOR
-                </p>
-                <div className="flex flex-wrap gap-16">
-                  {COLOR_OPTIONS.map((c) => (
-                    <ColorSwatch
-                      key={`tc-${c.value}`}
-                      color={c.value}
-                      isSelected={taglineColor === c.value}
-                      onClick={() => setTaglineColor(c.value)}
+              {hasTagline && (
+                <>
+                  {/* Tagline Text */}
+                  <div className="flex flex-col gap-16">
+                    <p className="text-label-medium text-content-default">
+                      TAGLINE TEXT
+                    </p>
+                    <Field
+                      type="text"
+                      value={taglineText}
+                      onChange={(e) => setTaglineText(e.target.value)}
+                      placeholder="Your tagline here"
                     />
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              {/* Tagline Font Weight */}
-              <div className="flex flex-col gap-16">
-                <p className="text-label-medium text-content-default">
-                  TAGLINE FONT WEIGHT
-                </p>
-                <div className="flex flex-wrap gap-16">
-                  {WEIGHT_OPTIONS.map((w) => (
-                    <WeightOption
-                      key={`tw-${w}`}
-                      weight={w}
-                      selected={taglineWeight === w}
-                      onClick={() => setTaglineWeight(w)}
-                    />
-                  ))}
-                </div>
-              </div>
+                  {/* Tagline Color */}
+                  <div className="flex flex-col gap-16">
+                    <p className="text-label-medium text-content-default">
+                      TAGLINE COLOR
+                    </p>
+                    <div className="flex flex-wrap gap-16">
+                      {COLOR_OPTIONS.map((c) => (
+                        <ColorSwatch
+                          key={`tc-${c.value}`}
+                          color={c.value}
+                          isSelected={taglineColor === c.value}
+                          onClick={() => setTaglineColor(c.value)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tagline Font Weight */}
+                  <div className="flex flex-col gap-16">
+                    <p className="text-label-medium text-content-default">
+                      TAGLINE FONT WEIGHT
+                    </p>
+                    <div className="flex flex-wrap gap-16">
+                      {WEIGHT_OPTIONS.map((w) => (
+                        <WeightOption
+                          key={`tw-${w}`}
+                          weight={w}
+                          selected={taglineWeight === w}
+                          onClick={() => setTaglineWeight(w)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
 
             </div>
           )}
