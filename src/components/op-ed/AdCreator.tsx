@@ -71,7 +71,7 @@ function LayoutThumbnail({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative bg-bg-default border-2 border-border-default flex flex-col gap-8 h-[120px] items-center p-8 shrink-0 w-[93px] cursor-pointer"
+      className="relative bg-bg-default border-2 border-border-default flex flex-col gap-8 h-[156px] items-center p-8 shrink-0 w-[120px] cursor-pointer"
     >
       {blocks.map((block, i) => {
         if (block.type === 'headline') {
@@ -194,7 +194,7 @@ function ImageOption({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative h-[116px] w-[93px] shrink-0 cursor-pointer overflow-hidden"
+      className="relative h-[156px] w-[120px] shrink-0 cursor-pointer overflow-hidden"
     >
       <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
       {selected && (
@@ -208,14 +208,14 @@ function ImageOption({
 
 export default function AdCreator() {
   const [activeTab, setActiveTab] = useState('layout')
-  const [selectedLayout, setSelectedLayout] = useState(0)
+  const [selectedLayout, setSelectedLayout] = useState(4)
   const [selectedImage, setSelectedImage] = useState(0)
-  const [fullBleed, setFullBleed] = useState(true)
-  const [headlineWeight, setHeadlineWeight] = useState(200)
-  const [headlineSize, setHeadlineSize] = useState<'sm' | 'md' | 'lg'>('lg')
-  const [headlineColor, setHeadlineColor] = useState(bg.default.value)
-  const [taglineWeight, setTaglineWeight] = useState(200)
-  const [taglineColor, setTaglineColor] = useState(bg.default.value)
+  const [fullBleed, setFullBleed] = useState(false)
+  const [headlineWeight, setHeadlineWeight] = useState(400)
+  const [headlineSize, setHeadlineSize] = useState<'sm' | 'md' | 'lg'>('sm')
+  const [headlineColor, setHeadlineColor] = useState(bg.strong.value)
+  const [taglineWeight, setTaglineWeight] = useState(400)
+  const [taglineColor, setTaglineColor] = useState(bg.strong.value)
   const [headlineText, setHeadlineText] = useState('Your headline here')
   const [taglineText, setTaglineText] = useState('Your tagline here')
 

@@ -131,13 +131,13 @@ export default function AdCanvas(props: AdCanvasProps) {
   ) : null
 
   const imageSection = (
-    <div className="flex-1 min-h-0 overflow-hidden flex items-center justify-center">
+    <div className="flex-1 min-h-0 overflow-hidden flex items-center justify-center py-16">
       <ImageEl src={image} />
     </div>
   )
 
   const textSection = (
-    <div className="flex flex-col items-center justify-center gap-8 p-16">
+    <div className="flex flex-col items-center justify-center gap-8 p-0">
       {headline}
       {tagline}
     </div>
@@ -175,12 +175,12 @@ export default function AdCanvas(props: AdCanvasProps) {
         )
       case 4: {
         const topText = (
-          <div className="flex flex-col items-center justify-center gap-8 p-16">
+          <div className="flex flex-col items-center justify-center gap-8 p-0">
             {headline}
           </div>
         )
         const bottomText = hasTagline ? (
-          <div className="flex flex-col items-center justify-center gap-8 p-16">
+          <div className="flex flex-col items-center justify-center gap-8 p-0">
             {tagline}
           </div>
         ) : null
@@ -197,12 +197,26 @@ export default function AdCanvas(props: AdCanvasProps) {
     }
   }
 
+  const fullBleedJustify =
+    layout === 4 ? 'justify-between' :
+    layout === 0 || layout === 2 ? 'justify-start' :
+    'justify-end'
+
   const innerContent = fullBleed ? (
     <div className="relative h-[84%] aspect-[77/96] border-2 border-border-default overflow-hidden">
       <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-      <div className="relative inset-0 flex flex-col justify-end p-24 gap-8">
-        {headline}
-        {tagline}
+      <div className={`absolute inset-0 flex flex-col ${fullBleedJustify} p-16 gap-8`}>
+        {layout === 4 ? (
+          <>
+            {headline}
+            {tagline}
+          </>
+        ) : (
+          <div className="flex flex-col items-center gap-8">
+            {headline}
+            {tagline}
+          </div>
+        )}
       </div>
     </div>
   ) : (

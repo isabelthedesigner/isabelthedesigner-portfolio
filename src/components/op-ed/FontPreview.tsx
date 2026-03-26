@@ -15,7 +15,7 @@ const WEIGHT_TABS = [
 const WEIGHT_VALUES = [200, 300, 400, 600, 700]
 
 const DEFAULT_TEXT =
-  'A quick brown fox jumped over the lazy dog and the fox ended up on a sidewalk next to a snail'
+  'I typed 80 WPM on my IBM Selectric typewriter to win a cubicle makeover'
 
 export default function FontPreview() {
   const [fontSize, setFontSize] = useState(56)
