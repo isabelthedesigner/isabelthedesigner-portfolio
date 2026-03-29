@@ -24,24 +24,19 @@ function smoothScrollTo(hash: string, attempt = 0) {
   })
 }
 
-function ScrollToTop() {
-  const { pathname, hash } = useLocation()
+export default function RootLayout() {
+  const location = useLocation()
 
   useEffect(() => {
-    if (hash) {
-      smoothScrollTo(hash)
+    if (location.hash) {
+      smoothScrollTo(location.hash)
     } else {
       window.scrollTo(0, 0)
     }
-  }, [pathname, hash])
+  }, [location.pathname, location.hash])
 
-  return null
-}
-
-export default function RootLayout() {
   return (
     <div className="relative flex min-h-dvh flex-col max-w-[1440px] mx-auto">
-      <ScrollToTop />
       <Header />
       <main className="flex-1">
         <Outlet />

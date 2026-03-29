@@ -12,6 +12,18 @@ export default function Header() {
   const navigate = useNavigate()
   const isHome = pathname === '/'
 
+  function handleLogoClick(e: React.MouseEvent) {
+    if (isHome) {
+      e.preventDefault()
+      gsap.to(window, {
+        scrollTo: { y: 0, autoKill: false },
+        duration: 1,
+        ease: 'power2.inOut',
+      })
+      window.history.replaceState(null, '', '/')
+    }
+  }
+
   function handleWorkClick(e: React.MouseEvent) {
     e.preventDefault()
     if (isHome) {
@@ -22,6 +34,7 @@ export default function Header() {
           duration: 1,
           ease: 'power2.inOut',
         })
+        window.history.replaceState(null, '', '/#work')
       }
     } else {
       navigate('/#work')
@@ -36,7 +49,7 @@ export default function Header() {
           : 'sticky'
       } top-0 z-50 flex w-full items-center justify-between bg-bg-none px-24 py-24`}
     >
-      <Link to="/" className="flex items-center">
+      <Link to="/" onClick={handleLogoClick} className="flex items-center">
         <img
           src="/images/logo-i-color.png"
           alt="Isabel the designer logo"
