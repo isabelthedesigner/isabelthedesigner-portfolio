@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { useShadowPress } from '@/hooks/useShadowPress'
+import TransitionLink from '@/components/TransitionLink'
 import Badge from '@/components/ui/Badge'
 
 type BadgeCategory = '3D' | 'Animation' | 'AR' | 'Design Systems' | 'Type Design' | 'UX'
@@ -22,7 +22,7 @@ export default function ProjectCard({
   const shadowHandlers = useShadowPress(ref, { shadowSize: 16 })
 
   return (
-    <Link
+    <TransitionLink
       ref={ref}
       to={to}
       className={`flex min-h-[325px] md:min-h-[460px] flex-col items-start justify-between border-2 border-border-default bg-bg-default p-24 md:p-36 transition-[box-shadow,transform] ${className}`}
@@ -42,6 +42,6 @@ export default function ProjectCard({
         VIEW PROJECT
         <img src="/images/arrow-right.svg" alt="" className="size-12 md:size-16" />
       </span>
-    </Link>
+    </TransitionLink>
   )
 }
