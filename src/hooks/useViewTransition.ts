@@ -37,41 +37,41 @@ export function useViewTransition() {
     // Browser back/forward will still get the correct CSS direction
     // but will not run inside startViewTransition.
     //
-    // const handlePopState = () => {
-    //   const currentIdx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
-    //   const direction: Direction = currentIdx < prevIdxRef.current ? 'backward' : 'forward';
-    //   document.documentElement.dataset.transition = direction;
-    //   prevIdxRef.current = currentIdx;
-    //   setTimeout(() => {
-    //     delete document.documentElement.dataset.transition;
-    //   }, 500);
-    // };
-
     const handlePopState = () => {
-      if (handlingPopRef.current) return
-
-      const currentIdx =
-        (window.history.state as { idx?: number } | null)?.idx ?? 0
-      const prevIdx = prevIdxRef.current
-      const delta = currentIdx - prevIdx
-
-      const direction: Direction =
-        currentIdx < prevIdx ? 'backward' : 'forward'
-
-      handlingPopRef.current = true
-      window.history.go(-delta)
-
+      const currentIdx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+      const direction: Direction = currentIdx < prevIdxRef.current ? 'backward' : 'forward';
+      document.documentElement.dataset.transition = direction;
+      prevIdxRef.current = currentIdx;
       setTimeout(() => {
-        runTransition(direction, () => {
-          window.history.go(delta)
-        })
+        delete document.documentElement.dataset.transition;
+      }, 500);
+    };
 
-        setTimeout(() => {
-          prevIdxRef.current = currentIdx
-          handlingPopRef.current = false
-        }, 50)
-      }, 50)
-    }
+    // const handlePopState = () => {
+    //   if (handlingPopRef.current) return
+
+    //   const currentIdx =
+    //     (window.history.state as { idx?: number } | null)?.idx ?? 0
+    //   const prevIdx = prevIdxRef.current
+    //   const delta = currentIdx - prevIdx
+
+    //   const direction: Direction =
+    //     currentIdx < prevIdx ? 'backward' : 'forward'
+
+    //   handlingPopRef.current = true
+    //   window.history.go(-delta)
+
+    //   setTimeout(() => {
+    //     runTransition(direction, () => {
+    //       window.history.go(delta)
+    //     })
+
+    //     setTimeout(() => {
+    //       prevIdxRef.current = currentIdx
+    //       handlingPopRef.current = false
+    //     }, 50)
+    //   }, 50)
+    // }
 
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
