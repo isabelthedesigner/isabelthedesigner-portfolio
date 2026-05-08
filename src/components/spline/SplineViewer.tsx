@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef, useState, useEffect } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { DitherReveal } from './DitherReveal'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 
@@ -11,7 +12,7 @@ interface SplineViewerProps {
   /** Alt text for the fallback image */
   alt: string
   className?: string
-  /** Plays a bottom-right clip-path reveal when the element enters the viewport */
+  /** Plays a dithering pixel reveal when the element enters the viewport */
   maskReveal?: boolean
   /** When provided, controls the mask reveal externally (skips internal IntersectionObserver) */
   triggerInView?: boolean
@@ -54,32 +55,16 @@ export default function SplineViewer({
     return () => observer.disconnect()
   }, [isControlled, maskReveal, isDesktop])
 
-  const hiddenStyle = maskReveal && !inView
-    ? { clipPath: 'inset(100% 0 0 100%)' } as const
-    : undefined
-
-  if (!isDesktop) {
-    return (
-      <div
-        ref={wrapperRef}
-        className={`${className} ${inView && maskReveal ? 'mask-reveal-br' : ''}`}
-        style={hiddenStyle}
-      >
-        <img
-          src={fallbackImage}
-          alt={alt}
-          className="w-4/5 h-full object-contain mx-auto"
-        />
-      </div>
-    )
-  }
-
-  return (
-    <div
-      ref={wrapperRef}
-      className={`${className} ${inView && maskReveal ? 'mask-reveal-br' : ''}`}
-      style={hiddenStyle}
-    >
+  const content = !isDesktop ? (
+    <div ref={wrapperRef} className={className}>
+      <img
+        src={fallbackImage}
+        alt={alt}
+        className="w-4/5 h-full object-contain mx-auto"
+      />
+    </div>
+  ) : (
+    <div ref={wrapperRef} className={className}>
       <Suspense
         fallback={
           <img
@@ -93,5 +78,39 @@ export default function SplineViewer({
         <Spline scene={sceneUrl} className="w-full h-full" />
       </Suspense>
     </div>
+  )
+
+  if (!maskReveal) return content
+
+  return (
+    <DitherReveal
+      trigger={isControlled ? inView : undefined}
+      className={className}
+    >
+      {!isDesktop ? (
+        <div ref={wrapperRef} className="w-full h-full">
+          <img
+            src={fallbackImage}
+            alt={alt}
+            className="w-4/5 h-full object-contain mx-auto"
+          />
+        </div>
+      ) : (
+        <div ref={wrapperRef} className="w-full h-full">
+          <Suspense
+            fallback={
+              <img
+                src={fallbackImage}
+                alt={alt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            }
+          >
+            <Spline scene={sceneUrl} className="w-full h-full" />
+          </Suspense>
+        </div>
+      )}
+    </DitherReveal>
   )
 }

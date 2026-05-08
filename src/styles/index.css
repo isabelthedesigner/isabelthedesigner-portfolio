@@ -44,6 +44,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Op-Ed Variable";
+  src: url("/fonts/Op-EdVF.ttf") format("truetype");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ───── Global Resets ───── */
 
 *,
@@ -65,12 +73,14 @@ body {
   min-height: 100dvh;
 }
 
-:focus-visible {
-  outline-color: var(--color-electric-periwinkle);
-  outline-style: solid;
-  outline-width: var(--border-width-2);
-  border-radius: var(--border-radius-0);
-  outline-offset: var(--spacing-2);
+@layer base {
+  :focus-visible {
+    outline-color: var(--color-electric-periwinkle);
+    outline-style: solid;
+    outline-width: var(--border-width-2);
+    border-radius: var(--border-radius-0);
+    outline-offset: var(--spacing-2);
+  }
 }
 
 img,
@@ -84,21 +94,6 @@ svg {
 
 a:not([class]) {
   color: inherit;
-}
-
-/* ───── Mask Reveal Animation ───── */
-
-@keyframes mask-reveal-br {
-  from {
-    clip-path: inset(100% 0 0 100%);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@utility mask-reveal-br {
-  animation: mask-reveal-br 1500ms cubic-bezier(0.33, 1, 0.68, 1) 50ms both;
 }
 
 /* ───── Marquee Animation ───── */
@@ -119,4 +114,31 @@ a:not([class]) {
   100% {
     transform: translateX(-50%);
   }
+}
+
+/* ───── Diagonal Mask Reveal Transitions ───── */
+
+/* Forward: new page reveals from top-right corner */
+@keyframes diagonal-forward-in {
+  from { clip-path: polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%); }
+  to   { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+}
+
+/* Backward: new page reveals from bottom-left corner */
+@keyframes diagonal-backward-in {
+  from { clip-path: polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%); }
+  to   { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+}
+
+/* Old page stays static while new page wipes over it */
+::view-transition-old(root) {
+  animation: none;
+}
+
+[data-transition="forward"]::view-transition-new(root) {
+  animation: diagonal-forward-in 0.8s ease-out forwards;
+}
+
+[data-transition="backward"]::view-transition-new(root) {
+  animation: diagonal-backward-in 0.8s ease-out forwards;
 }

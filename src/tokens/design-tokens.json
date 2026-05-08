@@ -2,7 +2,10 @@
   "global": {
     "color": {
       "eggshell": "#ebe9e6",
-      "dark-charcoal": "#131313",
+      "baby-charcoal": "#D7D5D3",
+      "light-charcoal": "#B6B5B3",
+      "charcoal": "#969492",
+      "dark-charcoal": "#323131",
       "electric-periwinkle": "#4600ec",
       "periwinkle": "#6781ff",
       "light-periwinkle": "#ABA7FF",
@@ -11,7 +14,6 @@
       "hot-pink": "#de2bc0",
       "red": "#d10000",
       "teal": "#04E1B2",
-      "white": "#ffffff",
       "transparent": "transparent"
     },
     "typography": {
@@ -126,14 +128,14 @@
         "y": "4px",
         "blur": "0px",
         "spread": "0px",
-        "color": "#131313"
+        "color": "#323131"
       },
       "default": {
         "x": "8px",
         "y": "8px",
         "blur": "0px",
         "spread": "0px",
-        "color": "#131313"
+        "color": "#323131"
       }
     }
   },
@@ -141,9 +143,10 @@
     "color": {
       "bg": {
         "default": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
+        "hover": { "value": "#D7D5D3", "global-ref": "color.baby-charcoal" },
+        "active": { "value": "#B6B5B3", "global-ref": "color.light-charcoal" },
         "none": { "value": "transparent", "global-ref": "color.transparent" },
-        "strong": { "value": "#131313", "global-ref": "color.dark-charcoal" },
-        "white": { "value": "#ffffff", "global-ref": "color.white" },
+        "strong": { "value": "#323131", "global-ref": "color.dark-charcoal" },
         "red": { "value": "#d10000", "global-ref": "color.red" },
         "electric-periwinkle": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
         "teal": { "value": "#04E1B2", "global-ref": "color.teal" },
@@ -151,18 +154,17 @@
         "hot-pink": { "value": "#de2bc0", "global-ref": "color.hot-pink" },
         "periwinkle": { "value": "#6781ff", "global-ref": "color.periwinkle" },
         "eggshell": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
-        "overlay": { "value": "rgba(19, 19, 19, 0.5)", "global-ref": "color.dark-charcoal" },
         "link": { "value": "transparent", "global-ref": "color.none" },
         "link-hover": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
       },
       "content": {
-        "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+        "default": { "value": "#323131", "global-ref": "color.dark-charcoal" },
         "default-inverse": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
         "link": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
         "link-hover": { "value": "#ebe9e6", "global-ref": "color.eggshell" }
       },
       "border": {
-        "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+        "default": { "value": "#323131", "global-ref": "color.dark-charcoal" },
         "none": { "value": "transparent", "global-ref": "color.transparent" },
         "focus": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
       },
@@ -175,16 +177,36 @@
             "focus": { "value": "#ebe9e6", "global-ref": "color.eggshell" }
           },
           "content": {
-            "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
-            "hover": { "value": "#131313", "global-ref": "color.dark-charcoal" },
-            "active": { "value": "#131313", "global-ref": "color.dark-charcoal" },
-            "focus": { "value": "#131313", "global-ref": "color.dark-charcoal" }
+            "default": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "hover": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "active": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "focus": { "value": "#323131", "global-ref": "color.dark-charcoal" }
           },
           "border": {
-            "default": { "value": "#131313", "global-ref": "color.dark-charcoal" },
-            "hover": { "value": "#131313", "global-ref": "color.dark-charcoal" },
-            "active": { "value": "#131313", "global-ref": "color.dark-charcoal" },
+            "default": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "hover": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "active": { "value": "#323131", "global-ref": "color.dark-charcoal" },
             "focus": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" }
+          }
+        },
+        "secondary": {
+          "bg": {
+            "default": { "value": "#ebe9e6", "global-ref": "color.eggshell" },
+            "hover": { "value": "#D7D5D3", "global-ref": "color.baby-charcoal" },
+            "active": { "value": "#B6B5B3", "global-ref": "color.light-charcoal" },
+            "focus": { "value": "#ebe9e6", "global-ref": "color.eggshell" }
+          },
+          "content": {
+            "default": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "hover": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "active": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "focus": { "value": "#323131", "global-ref": "color.dark-charcoal" }
+          },
+          "border": {
+            "default": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "hover": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "active": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+            "focus": { "value": "#323131", "global-ref": "color.dark-charcoal" }
           }
         },
         "tertiary": {
@@ -404,7 +426,7 @@
           "line-height": "32px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "uppercase",
+          "text-case": "none",
           "text-decoration": "none"
         },
         "medium": {
@@ -414,7 +436,7 @@
           "line-height": "32px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "uppercase",
+          "text-case": "none",
           "text-decoration": "none"
         },
         "small": {
@@ -424,7 +446,7 @@
           "line-height": "24px",
           "letter-spacing": "1px",
           "paragraph-spacing": "0px",
-          "text-case": "uppercase",
+          "text-case": "none",
           "text-decoration": "none"
         }
       },

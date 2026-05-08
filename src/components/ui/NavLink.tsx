@@ -1,13 +1,15 @@
-import { Link as RouterLink } from 'react-router-dom'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import { useViewTransition } from '@/hooks/useViewTransition'
 
 type NavLinkBaseProps = {
   children: ReactNode
   className?: string
 }
 
-type InternalNavLinkProps = NavLinkBaseProps &
-  Omit<ComponentPropsWithoutRef<typeof RouterLink>, 'className'>
+type InternalNavLinkProps = NavLinkBaseProps & {
+  to: string
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+}
 
 type ExternalNavLinkProps = NavLinkBaseProps &
   Omit<ComponentPropsWithoutRef<'a'>, 'className'>
@@ -26,14 +28,24 @@ export default function NavLink({
   className = '',
   ...props
 }: NavLinkProps) {
+  const { navigateWithTransition } = useViewTransition()
   const classes = `${baseClasses} ${className}`
 
   if (isInternal({ children, className, ...props })) {
-    const { to, ...rest } = props as InternalNavLinkProps
+    const { to, onClick, ...rest } = props as InternalNavLinkProps
     return (
-      <RouterLink to={to} className={classes} {...rest}>
+      <a
+        href={to}
+        className={classes}
+        onClick={(e) => {
+          e.preventDefault()
+          onClick?.(e)
+          navigateWithTransition(to)
+        }}
+        {...rest}
+      >
         {children}
-      </RouterLink>
+      </a>
     )
   }
 

@@ -1,4 +1,15 @@
 import Icon from '@/components/ui/Icon'
+import tokens from '@/tokens/design-tokens.json'
+
+const bg = tokens.semantic.color.bg
+
+const DARK_CHECK_COLORS = [
+  bg.yellow.value,
+  bg.teal.value,
+  bg['hot-pink'].value,
+  bg.periwinkle.value,
+  bg.eggshell.value,
+].map(c => c.toUpperCase())
 
 interface ColorSwatchProps {
   color: string
@@ -7,7 +18,7 @@ interface ColorSwatchProps {
 }
 
 export default function ColorSwatch({ color, isSelected, onClick }: ColorSwatchProps) {
-  const needsDarkCheck = ['#FFCA41', '#04E1B2', '#DE2BC0'].includes(color.toUpperCase())
+  const needsDarkCheck = DARK_CHECK_COLORS.includes(color.toUpperCase())
 
   return (
     <button
