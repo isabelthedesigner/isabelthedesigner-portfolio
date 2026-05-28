@@ -16,9 +16,9 @@ const SPLINE_URLS = {
 
 const PROJECTS = [
   {
-    to: '/work/leaf-animation-tokens',
-    title: 'Bringing care to motion: creating animation tokens for Leaf Design System',
-    badges: ['UX', 'Design Systems', 'Animation'] as const,
+    to: '/work/phonofile',
+    title: 'Phonofile, a physical music catalog app',
+    badges: ['UX', 'Design Systems', 'Animation', '3D'] as const,
   },
   {
     to: '/work/op-ed-typeface',
@@ -26,20 +26,20 @@ const PROJECTS = [
     badges: ['Type Design'] as const,
   },
   {
-    to: '/work/retro-desk-supply',
-    title: 'Retro desk supply series',
-    badges: ['Animation', '3D'] as const,
+    to: '/work/leaf-animation-tokens',
+    title: 'Bringing care to motion: creating animation tokens for Leaf Design System',
+    badges: ['UX', 'Design Systems', 'Animation'] as const,
   },
-  {
-    to: '/work/phonofile',
-    title: 'Phonofile, a physical music catalog app',
-    badges: ['UX', 'Design Systems', 'Animation', '3D'] as const,
-  },
-  {
-    to: '/work/fundamental-sans',
-    title: 'Fundamental Sans, a neo-grotesque & geometric typeface',
-    badges: ['Type Design'] as const,
-  },
+  // {
+  //   to: '/work/retro-desk-supply',
+  //   title: 'Retro desk supply series',
+  //   badges: ['Animation', '3D'] as const,
+  // },
+  // {
+  //   to: '/work/fundamental-sans',
+  //   title: 'Fundamental Sans, a neo-grotesque & geometric typeface',
+  //   badges: ['Type Design'] as const,
+  // },
 ] as const
 
 export default function HomePage() {

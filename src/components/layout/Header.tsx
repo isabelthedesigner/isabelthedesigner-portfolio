@@ -62,7 +62,7 @@ export default function Header() {
       <nav className="hidden items-center gap-48 md:flex">
         <NavLink href="/#work" onClick={handleWorkClick}>work</NavLink>
         <NavLink to="/info">info</NavLink>
-        <NavLink to="/thoughts">thoughts</NavLink>
+        {/* <NavLink to="/thoughts">thoughts</NavLink> */}
       </nav>
       <IconButton icon="List" aria-label="Open menu" className="md:hidden" />
     </header>
