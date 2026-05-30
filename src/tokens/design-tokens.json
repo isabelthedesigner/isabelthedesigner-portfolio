@@ -147,6 +147,7 @@
         "active": { "value": "#B6B5B3", "global-ref": "color.light-charcoal" },
         "none": { "value": "transparent", "global-ref": "color.transparent" },
         "strong": { "value": "#323131", "global-ref": "color.dark-charcoal" },
+        "subtle": { "value": "#D7D5D3", "global-ref": "color.baby-charcoal" },
         "red": { "value": "#d10000", "global-ref": "color.red" },
         "electric-periwinkle": { "value": "#4600ec", "global-ref": "color.electric-periwinkle" },
         "teal": { "value": "#04E1B2", "global-ref": "color.teal" },

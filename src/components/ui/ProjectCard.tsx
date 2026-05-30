@@ -2,8 +2,18 @@ import { useRef } from 'react'
 import { useShadowPress } from '@/hooks/useShadowPress'
 import TransitionLink from '@/components/TransitionLink'
 import Badge from '@/components/ui/Badge'
+import type { BadgeVariant } from '@/components/ui/Badge'
 
 type BadgeCategory = '3D' | 'Animation' | 'AR' | 'Design Systems' | 'Type Design' | 'UX'
+
+const CATEGORY_VARIANT: Record<BadgeCategory, BadgeVariant> = {
+  UX: 'yellow',
+  'Design Systems': 'periwinkle',
+  Animation: 'electric-periwinkle',
+  'Type Design': 'hot-pink',
+  '3D': 'red',
+  AR: 'periwinkle',
+}
 
 interface ProjectCardProps {
   to: string
@@ -31,7 +41,7 @@ export default function ProjectCard({
       <div className="flex w-full flex-col gap-16">
         <div className="flex flex-wrap gap-8">
           {badges.map((category) => (
-            <Badge key={category} category={category} />
+            <Badge key={category} variant={CATEGORY_VARIANT[category]}>{category}</Badge>
           ))}
         </div>
         <h3 className="text-title-large-mobile md:text-title-large">

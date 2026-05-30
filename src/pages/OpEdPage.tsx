@@ -28,7 +28,7 @@ export default function OpEdPage() {
             Op-ed, a semi-condensed serif typeface
           </h1>
           <div className="flex items-center">
-            <Badge category="Type Design" />
+            <Badge variant="hot-pink">Type Design</Badge>
           </div>
         </div>
 
