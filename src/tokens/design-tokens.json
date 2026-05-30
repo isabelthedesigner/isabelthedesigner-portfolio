@@ -120,7 +120,13 @@
       "2": "2px"
     },
     "border-style": {
-      "solid": "solid"
+      "solid": "solid",
+      "dotted": {
+        "width": "2px",
+        "dash": "2px",
+        "gap": "8px",
+        "color-ref": "color.border-default"
+      }
     },
     "shadow": {
       "small": {
