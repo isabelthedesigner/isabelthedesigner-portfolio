@@ -102,6 +102,9 @@ for (const [category, variants] of Object.entries(s.typography)) {
     utilityLines.push(`  font-weight: ${props["font-weight"]};`);
     utilityLines.push(`  line-height: ${props["line-height"]};`);
     utilityLines.push(`  letter-spacing: ${props["letter-spacing"]};`);
+    if (props["font-style"]) {
+      utilityLines.push(`  font-style: ${props["font-style"]};`);
+    }
     if (props["text-case"] === "uppercase") {
       utilityLines.push(`  text-transform: uppercase;`);
     }

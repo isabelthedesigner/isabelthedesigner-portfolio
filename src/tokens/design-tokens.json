@@ -79,6 +79,10 @@
       "text-decoration": {
         "none": "none",
         "underline": "underline"
+      },
+      "font-style": {
+        "normal": "normal",
+        "italic": "italic"
       }
     },
     "spacing": {
@@ -474,6 +478,17 @@
           "font-weight": "600",
           "line-height": "32px",
           "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "none"
+        },
+        "default-italic": {
+          "font-family": "var(--font-sans)",
+          "font-size": "20px",
+          "font-weight": "300",
+          "line-height": "32px",
+          "letter-spacing": "0px",
+          "font-style": "italic",
           "paragraph-spacing": "0px",
           "text-case": "none",
           "text-decoration": "none"

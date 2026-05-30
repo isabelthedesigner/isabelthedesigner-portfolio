@@ -3,6 +3,7 @@ import RootLayout from './components/layout/RootLayout'
 import HomePage from './pages/HomePage'
 import InfoPage from './pages/InfoPage'
 import OpEdPage from './pages/OpEdPage'
+import PhonofilePage from './pages/PhonofilePage'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="info" element={<InfoPage />} />
           <Route path="work/op-ed-typeface" element={<OpEdPage />} />
+          <Route path="work/phonofile" element={<PhonofilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

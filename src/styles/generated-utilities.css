@@ -190,6 +190,15 @@
   letter-spacing: 0px;
 }
 
+@utility text-body-default-italic {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 32px;
+  letter-spacing: 0px;
+  font-style: italic;
+}
+
 /* ── meta ── */
 @utility text-meta-large {
   font-family: var(--font-sans);
