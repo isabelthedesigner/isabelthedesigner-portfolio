@@ -88,7 +88,7 @@ export default function PhonofilePage() {
 
       {/* Video: views */}
       <figure className="flex flex-col gap-16">
-        <div className="relative w-full aspect-[16/9]">
+        <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
           <video
             src="/images/phonofile/phonofile_views.mp4"
             autoPlay
@@ -128,7 +128,7 @@ export default function PhonofilePage() {
 
       {/* Video: onboarding */}
       <figure className="flex flex-col gap-16">
-        <div className="relative w-full aspect-[16/9]">
+        <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
           <video
             src="/images/phonofile/phonofile_onboarding.mp4"
             autoPlay
@@ -145,7 +145,7 @@ export default function PhonofilePage() {
 
       {/* Video: theme switcher */}
       <figure className="flex flex-col gap-16">
-        <div className="relative w-full aspect-[16/9]">
+        <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
           <video
             src="/images/phonofile/phonofile_theme-switcher-bg.mp4"
             autoPlay
