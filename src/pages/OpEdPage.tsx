@@ -80,7 +80,7 @@ export default function OpEdPage() {
 
       {/* Ad Creator */}
       <div className="flex flex-col gap-36">
-        <h2 className="text-headline-small-mobile md:text-headline-small text-content-default">
+        <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
           Create your own advertisement with Op-ed
         </h2>
         <AdCreator />
@@ -88,7 +88,7 @@ export default function OpEdPage() {
 
       {/* Font Preview */}
       <div className="flex flex-col gap-36">
-        <h2 className="text-headline-small-mobile md:text-headline-small text-content-default">
+        <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
           Font preview
         </h2>
         <FontPreview />
