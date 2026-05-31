@@ -117,21 +117,12 @@ for (const [category, variants] of Object.entries(s.typography)) {
 const dotted = g["border-style"].dotted;
 const dottedColor = `var(--color-${dotted["color-ref"].replace("color.", "").replace(".", "-")})`;
 const dottedWidth = dotted.width;
-const dottedDash = dotted.dash;
-const dottedPeriod = `${parseFloat(dotted.dash) + parseFloat(dotted.gap)}px`;
-const dottedGradient = (deg) =>
-  `repeating-linear-gradient(${deg}, ${dottedColor}, ${dottedColor} ${dottedDash}, transparent ${dottedDash}, transparent ${dottedPeriod})`;
+const dottedRadius = `var(--radius-${dotted.radius})`;
 
 utilityLines.push(`/* ── border ── */`);
 utilityLines.push(`@utility border-dotted-line {`);
-utilityLines.push(`  background-image:`);
-utilityLines.push(`    ${dottedGradient("90deg")},`);
-utilityLines.push(`    ${dottedGradient("180deg")},`);
-utilityLines.push(`    ${dottedGradient("90deg")},`);
-utilityLines.push(`    ${dottedGradient("180deg")};`);
-utilityLines.push(`  background-position: left top, right top, left bottom, left top;`);
-utilityLines.push(`  background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;`);
-utilityLines.push(`  background-size: 100% ${dottedWidth}, ${dottedWidth} 100%, 100% ${dottedWidth}, ${dottedWidth} 100%;`);
+utilityLines.push(`  border: ${dottedWidth} dotted ${dottedColor};`);
+utilityLines.push(`  border-radius: ${dottedRadius};`);
 utilityLines.push(`}`);
 utilityLines.push(``);
 

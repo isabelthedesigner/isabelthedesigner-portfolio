@@ -23,13 +23,9 @@ export default function InfoPage() {
     <PortraitProvider>
       <section className="flex flex-col gap-36 px-24 pt-24 pb-80">
         {/* Title */}
-        <TypewriterText
-            className="text-headline-medium-mobile md:text-headline-medium text-content-default"
-            startTyping={true}
-            disabled={false}
-          >
-            First things first: make me look cool.
-          </TypewriterText>
+        <h1 className="text-headline-large-mobile md:text-headline-large text-content-default">
+          First things first: make me look cool.
+        </h1>
 
         {/* Portrait + Color Picker */}
         <PortraitColorPicker />

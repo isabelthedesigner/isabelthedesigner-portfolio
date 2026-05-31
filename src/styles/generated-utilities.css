@@ -229,12 +229,6 @@
 
 /* ── border ── */
 @utility border-dotted-line {
-  background-image:
-    repeating-linear-gradient(90deg, var(--color-border-default), var(--color-border-default) 2px, transparent 2px, transparent 10px),
-    repeating-linear-gradient(180deg, var(--color-border-default), var(--color-border-default) 2px, transparent 2px, transparent 10px),
-    repeating-linear-gradient(90deg, var(--color-border-default), var(--color-border-default) 2px, transparent 2px, transparent 10px),
-    repeating-linear-gradient(180deg, var(--color-border-default), var(--color-border-default) 2px, transparent 2px, transparent 10px);
-  background-position: left top, right top, left bottom, left top;
-  background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
-  background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+  border: 2px dotted var(--color-border-default);
+  border-radius: var(--radius-undefined);
 }
