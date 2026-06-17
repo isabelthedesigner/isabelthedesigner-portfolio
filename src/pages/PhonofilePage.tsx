@@ -1,30 +1,6 @@
 import Badge from '@/components/ui/Badge'
 import Alert from '@/components/ui/Alert'
 
-const GAPS = [
-  {
-    issue: 'ISSUE #1',
-    subtitle: 'You find out you own it when you get home',
-    cta: 'CHECK BEFORE YOU BUY',
-    description:
-      'Check your collection from the store to make sure you never accidentally buy Rumours for the third time.',
-  },
-  {
-    issue: 'ISSUE #2',
-    subtitle: 'Every new item is a chore',
-    cta: 'POINT, SCAN, DONE',
-    description:
-      'Cataloging manually is tedious. Barcode scanning removes almost all of the friction.',
-  },
-  {
-    issue: 'ISSUE #3',
-    subtitle: 'A collection full of data, none of it visible',
-    cta: 'SEE WHAT YOU ACTUALLY OWN',
-    description:
-      'A collection built over years contains patterns worth surfacing: dominant genres, format habits, gaps in a discography',
-  },
-] as const
-
 const UPCOMING_FEATURES = [
   {
     title: 'Collection stats',
@@ -54,7 +30,7 @@ const UPCOMING_FEATURES = [
 
 export default function PhonofilePage() {
   return (
-    <section className="flex flex-col gap-56 px-24 pt-24 pb-80">
+    <section className="flex flex-col gap-48 px-24 pt-24 pb-80">
       {/* Title + Badges */}
       <div className="flex flex-col gap-24">
         <h1 className="text-headline-large-mobile md:text-headline-large text-content-default">
@@ -72,7 +48,7 @@ export default function PhonofilePage() {
       <Alert>This project is actively in design and development.</Alert>
 
       {/* Intro */}
-      <div className="flex flex-col gap-36">
+      <div className="flex flex-col gap-24">
         <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
           A mobile app for folks who buy too much music and aren't sorry about it
         </h2>
@@ -83,6 +59,16 @@ export default function PhonofilePage() {
           (and had to return 😐) an album more than once. Phonofile is my answer to that problem: a
           mobile app for cataloging physical music collections so you always know what you have
           before you buy it again (and again).
+        </p>
+      </div>
+
+      {/* Do I already own this? */}
+      <div className="flex flex-col gap-24">
+        <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
+          "Do I already own this?"
+        </h2>
+        <p className="text-body-default text-content-default">
+          Phonofile is built to answer that question before you reach the register. That shaped two views: a list view for scanning a lot of titles at once, and a stack view for browsing by cover.
         </p>
       </div>
 
@@ -103,27 +89,18 @@ export default function PhonofilePage() {
         </figcaption>
       </figure>
 
-      {/* The gaps that Phonofile fills */}
-      <div className="flex flex-col gap-36">
+      {/* Point, scan, done. */}
+      <div className="flex flex-col gap-24">
         <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
-          The gaps that Phonofile fills
+          Point, scan, done.
         </h2>
-        <div className="flex flex-col gap-56">
-          {GAPS.map((gap) => (
-            <div key={gap.issue} className="flex flex-col gap-24">
-              <div className="flex flex-col gap-8 items-start">
-                <Badge variant="subtle">{gap.issue}</Badge>
-                <p className="text-body-default text-content-default">{gap.subtitle}</p>
-              </div>
-              <div className="flex flex-col gap-8 items-start">
-                <Badge variant="electric-periwinkle">{gap.cta}</Badge>
-                <p className="text-title-large-mobile md:text-title-large text-content-default">
-                  {gap.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <p className="text-body-default text-content-default">
+          Cataloging by hand is the fastest way to abandon an app like this, so adding an album is
+          one scan. Phonofile fills in the rest. The honest tradeoff: barcodes break down right where
+          collectors live. Old vinyl predates them, and nobody is scanning an 8 track. So the flow
+          needs a graceful manual path, and the design cannot punish the items that will not scan,
+          because those are often the ones people care about most.
+        </p>
       </div>
 
       {/* Video: onboarding */}
@@ -143,6 +120,36 @@ export default function PhonofilePage() {
         </figcaption>
       </figure>
 
+      {/* See what you actually own */}
+      <div className="flex flex-col gap-24">
+        <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
+          See what you actually own
+        </h2>
+        <p className="text-body-default text-content-default">
+          A collection built over years hides patterns worth surfacing: dominant genres, format
+          habits, the gap you did not realize you were one album from closing. This is a deliberate
+          later phase, not something half finished. Clean, structured data on every item is the
+          foundation that makes it possible.
+        </p>
+      </div>
+
+      {/* A system, not a stack of screens */}
+      <div className="flex flex-col gap-24">
+        <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
+          A system, not a stack of screens
+        </h2>
+        <p className="text-body-default text-content-default">
+          I built Phonofile on a token system, the same way I build at work. I used Leonardo Color to
+          create seven color palettes matched in luminosity, so 200 is equally light whether it is
+          cerulean or salmon. That consistency is what lets a single factory turn any palette into
+          the same set of semantic tokens, which a{' '}
+          <span className="text-body-default-mono">useColors</span> hook feeds to a small component
+          library (Tag, Avatar, and the rest). Color is the only token that lives in app state, so
+          picking a palette recolors the whole app at once, while spacing, type, and border radius
+          stay put.
+        </p>
+      </div>
+
       {/* Video: theme switcher */}
       <figure className="flex flex-col gap-16">
         <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
@@ -161,7 +168,7 @@ export default function PhonofilePage() {
       </figure>
 
       {/* Upcoming features */}
-      <div className="flex flex-col gap-36">
+      <div className="flex flex-col gap-24">
         <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
           Upcoming features
         </h2>

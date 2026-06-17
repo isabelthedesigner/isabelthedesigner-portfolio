@@ -73,6 +73,7 @@ add("--shadow-default", `${def.x} ${def.y} ${def.blur} var(--color-border-defaul
 // ── Font Families ──
 add("--font-display", g.typography["font-family"].display);
 add("--font-sans", g.typography["font-family"].sans);
+add("--font-mono", g.typography["font-family"].mono);
 
 const theme = `/* AUTO-GENERATED — do not edit by hand */
 /* Run \`node scripts/build-tokens.js\` to regenerate */
@@ -94,6 +95,8 @@ for (const [category, variants] of Object.entries(s.typography)) {
     const className = `text-${category}-${variant}`;
     const family = props["font-family"].includes("font-display")
       ? "var(--font-display)"
+      : props["font-family"].includes("font-mono")
+      ? "var(--font-mono)"
       : "var(--font-sans)";
 
     utilityLines.push(`@utility ${className} {`);

@@ -114,4 +114,5 @@
   --shadow-default: 8px 8px 0px var(--color-border-default);
   --font-display: 'Op-Ed', serif;
   --font-sans: 'Inclusive Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }

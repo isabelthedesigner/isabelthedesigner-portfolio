@@ -33,17 +33,14 @@ export default function InfoPage() {
         {/* Bio */}
         <div className="flex flex-col gap-36">
           <p className="text-headline-medium-mobile md:text-headline-medium text-content-default">
-            Hi, I'm Isabel. In my current ux designer role, I specialize in design systems, with a
-            focus on building tools that help teams work faster, more consistently, and at scale.
+            Hi, I'm Isabel. I specialize in design systems, with a focus on building tools that help teams work faster, more consistently, and at scale.
           </p>
 
           <div className="flex flex-col gap-36">
             <p className="text-body-default text-content-default">
               I'm known for taking complex problems and turning them into clear, practical solutions.
               I love digging into messy systems work, collaborating across teams, and finding smart
-              ways to improve how people build and use design. I bring a balance of visual craft,
-              strategic mindset, and implementation fluency that allows me to connect the dots between
-              design, engineering, and product goals.
+              ways to improve how people build and use design. I bring a balance of visual craft, strategic thinking, and the ability to prototype in code, which lets me connect the dots between design, engineering, and product.
             </p>
             <p className="text-body-default text-content-default">
               Type design, 3D, and animation are creative spaces where I experiment, stay curious, and
