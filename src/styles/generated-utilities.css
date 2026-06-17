@@ -190,6 +190,31 @@
   letter-spacing: 0px;
 }
 
+@utility text-body-default-italic {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 32px;
+  letter-spacing: 0px;
+  font-style: italic;
+}
+
+@utility text-body-default-mono {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+@utility text-body-small-mono {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+}
+
 /* ── meta ── */
 @utility text-meta-large {
   font-family: var(--font-sans);
@@ -216,4 +241,10 @@
   line-height: 16px;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+/* ── border ── */
+@utility border-dotted-line {
+  border: 2px dotted var(--color-border-default);
+  border-radius: var(--radius-undefined);
 }

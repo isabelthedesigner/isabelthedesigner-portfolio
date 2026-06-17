@@ -73,6 +73,7 @@ add("--shadow-default", `${def.x} ${def.y} ${def.blur} var(--color-border-defaul
 // ── Font Families ──
 add("--font-display", g.typography["font-family"].display);
 add("--font-sans", g.typography["font-family"].sans);
+add("--font-mono", g.typography["font-family"].mono);
 
 const theme = `/* AUTO-GENERATED — do not edit by hand */
 /* Run \`node scripts/build-tokens.js\` to regenerate */
@@ -94,6 +95,8 @@ for (const [category, variants] of Object.entries(s.typography)) {
     const className = `text-${category}-${variant}`;
     const family = props["font-family"].includes("font-display")
       ? "var(--font-display)"
+      : props["font-family"].includes("font-mono")
+      ? "var(--font-mono)"
       : "var(--font-sans)";
 
     utilityLines.push(`@utility ${className} {`);
@@ -102,6 +105,9 @@ for (const [category, variants] of Object.entries(s.typography)) {
     utilityLines.push(`  font-weight: ${props["font-weight"]};`);
     utilityLines.push(`  line-height: ${props["line-height"]};`);
     utilityLines.push(`  letter-spacing: ${props["letter-spacing"]};`);
+    if (props["font-style"]) {
+      utilityLines.push(`  font-style: ${props["font-style"]};`);
+    }
     if (props["text-case"] === "uppercase") {
       utilityLines.push(`  text-transform: uppercase;`);
     }
@@ -109,6 +115,19 @@ for (const [category, variants] of Object.entries(s.typography)) {
     utilityLines.push(``);
   }
 }
+
+// ── Border: dotted line ──
+const dotted = g["border-style"].dotted;
+const dottedColor = `var(--color-${dotted["color-ref"].replace("color.", "").replace(".", "-")})`;
+const dottedWidth = dotted.width;
+const dottedRadius = `var(--radius-${dotted.radius})`;
+
+utilityLines.push(`/* ── border ── */`);
+utilityLines.push(`@utility border-dotted-line {`);
+utilityLines.push(`  border: ${dottedWidth} dotted ${dottedColor};`);
+utilityLines.push(`  border-radius: ${dottedRadius};`);
+utilityLines.push(`}`);
+utilityLines.push(``);
 
 const utilities = `/* AUTO-GENERATED — do not edit by hand */
 /* Run \`yarn build:tokens\` to regenerate */
