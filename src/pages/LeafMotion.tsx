@@ -106,11 +106,11 @@ const COMPONENT_DEMOS = [
 const CIGNA_CLIPS = [
   {
     video: '/images/leaf-motion/chc-2.0_app-intro.mp4',
-    caption: 'Cigna Healthcare app opening sequence screen',
+    caption: 'App launch, where the logo sprouts in and dashboard cards unfurl and settle into place.',
   },
   {
     video: '/images/leaf-motion/chc-2.0_conversation-module.mp4',
-    caption: 'Cigna Healthcare app conversation module chat sequence',
+    caption: 'An AI conversation carries a user from a weight loss question to a booked lab appointment, with cards unfurling, buttons and radio fields blooming and transitions easing between each step.',
   },
 ] as const
 
