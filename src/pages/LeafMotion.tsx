@@ -175,7 +175,7 @@ export default function LeafMotion() {
       </h2>
 
       {/* Decision #1 */}
-      <div className="flex flex-col gap-36">
+      <div className="flex flex-col gap-48">
         <div className="flex flex-col gap-24">
           <div className="flex flex-col items-start gap-8">
             <Badge variant="electric-periwinkle">DECISION #1</Badge>
@@ -222,7 +222,7 @@ export default function LeafMotion() {
       </div>
 
       {/* Decision #2 */}
-      <div className="flex flex-col gap-36">
+      <div className="flex flex-col gap-48">
         <div className="flex flex-col gap-24">
           <div className="flex flex-col items-start gap-8">
             <Badge variant="electric-periwinkle">DECISION #2</Badge>
