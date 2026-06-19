@@ -184,11 +184,7 @@ export default function LeafMotion() {
             </h3>
           </div>
           <p className="text-body-default text-content-default">
-            Tokens alone wouldn't solve the consistency problem. Teams need a framework to evaluate
-            whether an animation is right for our brand. I defined five guiding principles based on
-            the principle theme: Growth &amp; Lifecycle. These principles defined our stance on
-            motion and give designers and engineers a way to measure animation decisions rather than
-            based on personal preference.
+          Tokens alone wouldn't solve consistency. Teams needed a way to judge whether an animation was right for the brand, and it had to work across The Cigna Group and its brands like Cigna Healthcare and Evernorth. So I defined five guiding principles grounded in Growth &amp; Lifecycle, a shared way to measure motion decisions instead of leaning on personal preference.
           </p>
         </div>
 
@@ -326,7 +322,7 @@ export default function LeafMotion() {
       {/* Component demos */}
       <div className="grid grid-cols-1 gap-40 md:grid-cols-2">
         {COMPONENT_DEMOS.map((demo) => (
-          <div key={demo.video} className="flex flex-col gap-24 bg-bg-default">
+          <div key={demo.video} className="flex flex-col gap-16 bg-bg-default">
             <div className="relative aspect-[1300/1000] w-full border-2 border-border-default">
               <video
                 src={demo.video}
