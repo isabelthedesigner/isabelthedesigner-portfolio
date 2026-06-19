@@ -222,7 +222,7 @@ export default function AdCreator() {
   const hasTagline = LAYOUTS[selectedLayout]?.some(b => b.type === 'tagline') ?? false
 
   return (
-    <div className="flex flex-col md:flex-row gap-48 md:h-[575px]">
+    <div className="flex flex-col md:flex-row gap-24 md:h-[575px]">
       {/* Canvas */}
       <div className="w-full md:w-[55%] desktop:w-[65%] xl:w-[65%]">
         <AdCanvas

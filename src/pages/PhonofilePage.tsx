@@ -56,7 +56,7 @@ export default function PhonofilePage() {
           My husband and I have a large physical music collection (vinyl, CDs, cassettes and even a
           few 8-tracks). Every time I walk into a record store, I have the same problem: I find
           something I might already own, and I have no quick way to check. I've definitely bought
-          (and had to return 😐) an album more than once. Phonofile is my answer to that problem: a
+          (and had to go back and return 😐) an album more than once. Phonofile is my answer to that problem: a
           mobile app for cataloging physical music collections so you always know what you have
           before you buy it again (and again).
         </p>
@@ -95,11 +95,7 @@ export default function PhonofilePage() {
           Point, scan, done.
         </h2>
         <p className="text-body-default text-content-default">
-          Cataloging by hand is the fastest way to abandon an app like this, so adding an album is
-          one scan. Phonofile fills in the rest. The honest tradeoff: barcodes break down right where
-          collectors live. Old vinyl predates them, and nobody is scanning an 8 track. So the flow
-          needs a graceful manual path, and the design cannot punish the items that will not scan,
-          because those are often the ones people care about most.
+        Manual cataloging is the fastest way to abandon an app like this. One scan and Phonofile fills in the rest. And for the things barcodes cannot read, like 8-tracks or a vinyl that has been through it, there is still a manual entry flow.
         </p>
       </div>
 
