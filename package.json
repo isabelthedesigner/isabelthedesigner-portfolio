@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "yarn build:tokens && vite",
-    "build": "tsc -b && vite build",
+    "build": "yarn build:tokens && tsc -b && vite build && cp dist/index.html dist/404.html",
     "preview": "vite preview",
     "build:tokens": "node scripts/build-tokens.js"
   },

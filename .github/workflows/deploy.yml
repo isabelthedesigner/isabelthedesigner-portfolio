@@ -1,50 +1,36 @@
-name: Build & Deploy to Dreamhost
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Install Yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build
-        run: yarn build
-
-      # SPA fallback: copy index.html so Dreamhost serves it for all routes
-      - name: Create .htaccess for SPA routing
-        run: |
-          cat > dist/.htaccess << 'EOF'
-          RewriteEngine On
-          RewriteBase /
-          RewriteRule ^index\.html$ - [L]
-          RewriteCond %{REQUEST_FILENAME} !-f
-          RewriteCond %{REQUEST_FILENAME} !-d
-          RewriteRule . /index.html [L]
-          EOF
-
-      - name: Deploy via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.DREAMHOST_SERVER }}
-          username: ${{ secrets.DREAMHOST_USERNAME }}
-          password: ${{ secrets.DREAMHOST_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: ${{ secrets.DREAMHOST_REMOTE_PATH }}
-          protocol: ftps
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
