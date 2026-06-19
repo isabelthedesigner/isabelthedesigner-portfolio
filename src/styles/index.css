@@ -124,12 +124,6 @@ a:not([class]) {
   to   { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
 }
 
-/* Backward: new page reveals from bottom-left corner */
-@keyframes diagonal-backward-in {
-  from { clip-path: polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%); }
-  to   { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
-}
-
 /* Old page stays static while new page wipes over it */
 ::view-transition-old(root) {
   animation: none;
@@ -137,8 +131,4 @@ a:not([class]) {
 
 [data-transition="forward"]::view-transition-new(root) {
   animation: diagonal-forward-in 0.8s ease-out forwards;
-}
-
-[data-transition="backward"]::view-transition-new(root) {
-  animation: diagonal-backward-in 0.8s ease-out forwards;
 }
