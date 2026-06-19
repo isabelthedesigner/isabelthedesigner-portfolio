@@ -71,7 +71,7 @@ function LayoutThumbnail({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative bg-bg-default border-2 border-border-default flex flex-col gap-8 h-[156px] items-center p-8 shrink-0 w-[120px] cursor-pointer"
+      className="relative bg-bg-default border-2 border-border-default flex flex-col gap-8 aspect-[120/156] items-center p-8 w-full cursor-pointer"
     >
       {blocks.map((block, i) => {
         if (block.type === 'headline') {
@@ -122,7 +122,7 @@ function WeightOption({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative bg-bg-default border-2 border-border-default flex flex-col items-center justify-center pb-8 pt-12 px-16 shrink-0 w-[90px] cursor-pointer"
+      className="relative bg-bg-default border-2 border-border-default flex flex-col h-[88px] items-center justify-center pb-8 pt-12 px-16 w-full cursor-pointer"
     >
       <span
         className="text-[64px] leading-[64px] text-center text-content-default"
@@ -158,7 +158,7 @@ function SizeOption({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative bg-bg-default border-2 border-border-default flex flex-col h-[88px] items-center justify-end pb-8 px-16 shrink-0 w-[90px] cursor-pointer"
+      className="relative bg-bg-default border-2 border-border-default flex flex-col h-[88px] items-center justify-end pb-8 px-16 w-full cursor-pointer"
     >
       <span
         className="text-center text-content-default"
@@ -194,7 +194,7 @@ function ImageOption({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="relative h-[156px] w-[120px] shrink-0 cursor-pointer overflow-hidden"
+      className="relative aspect-[120/156] w-full cursor-pointer overflow-hidden"
     >
       <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
       {selected && (
@@ -222,7 +222,7 @@ export default function AdCreator() {
   const hasTagline = LAYOUTS[selectedLayout]?.some(b => b.type === 'tagline') ?? false
 
   return (
-    <div className="flex flex-col md:flex-row gap-48 md:h-[575px]">
+    <div className="flex flex-col md:flex-row gap-24 md:h-[575px]">
       {/* Canvas */}
       <div className="w-full md:w-[55%] desktop:w-[65%] xl:w-[65%]">
         <AdCanvas
@@ -247,11 +247,11 @@ export default function AdCreator() {
           onChange={setActiveTab}
         />
 
-        <div className="border-2 border-border-default border-t-0 p-36 overflow-y-auto flex-1 min-h-0">
+        <div className="border-2 border-border-default border-t-0 p-24 overflow-y-auto flex-1 min-h-0">
           {/* LAYOUT tab */}
           {activeTab === 'layout' && (
             <div className="flex flex-col gap-24">
-              <div className="flex flex-wrap gap-16">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(72px,1fr))] gap-16 md:grid-cols-3">
                 {LAYOUTS.map((blocks, i) => (
                   <LayoutThumbnail
                     key={i}
@@ -271,7 +271,7 @@ export default function AdCreator() {
 
           {/* IMAGE tab */}
           {activeTab === 'image' && (
-            <div className="flex flex-wrap gap-16">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(72px,1fr))] gap-16 md:grid-cols-3">
               {AD_IMAGES.map((src, i) => (
                 <ImageOption
                   key={i}
@@ -285,7 +285,7 @@ export default function AdCreator() {
 
           {/* TEXT tab */}
           {activeTab === 'text' && (
-            <div className="flex flex-col gap-48">
+            <div className="flex flex-col gap-36">
               {/* Headline Text */}
               <div className="flex flex-col gap-16">
                 <p className="text-label-medium text-content-default">
@@ -321,7 +321,7 @@ export default function AdCreator() {
                 <p className="text-label-medium text-content-default">
                   HEADLINE SIZE
                 </p>
-                <div className="flex flex-wrap gap-12">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(72px,1fr))] gap-12 md:grid-cols-3">
                   {SIZE_OPTIONS.map((opt) => (
                     <SizeOption
                       key={opt.key}
@@ -339,7 +339,7 @@ export default function AdCreator() {
                 <p className="text-label-medium text-content-default">
                   HEADLINE FONT WEIGHT
                 </p>
-                <div className="flex flex-wrap gap-16">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(72px,1fr))] gap-16 md:grid-cols-3">
                   {WEIGHT_OPTIONS.map((w) => (
                     <WeightOption
                       key={`hw-${w}`}
@@ -388,7 +388,7 @@ export default function AdCreator() {
                     <p className="text-label-medium text-content-default">
                       TAGLINE FONT WEIGHT
                     </p>
-                    <div className="flex flex-wrap gap-16">
+                    <div className="grid grid-cols-[repeat(auto-fill,minmax(72px,1fr))] gap-16 md:grid-cols-3">
                       {WEIGHT_OPTIONS.map((w) => (
                         <WeightOption
                           key={`tw-${w}`}

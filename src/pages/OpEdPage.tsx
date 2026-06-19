@@ -19,7 +19,7 @@ const FEATURE_CARDS = [
 
 export default function OpEdPage() {
   return (
-    <section className="flex flex-col gap-96 px-24 pt-24 pb-80">
+    <section className="flex flex-col gap-48 px-24 pt-24 pb-80">
       {/* Hero + Feature Cards */}
       <div className="flex flex-col gap-48">
         {/* Title + Badge */}
@@ -32,49 +32,56 @@ export default function OpEdPage() {
           </div>
         </div>
 
-        {/* Intro content */}
-        <div className="flex flex-col gap-24">
-          <p className="text-body-default text-content-default">
-            Inspired by the typography that defined 70s and 80s newspapers and magazines, Op-ed is a
-            semi-condensed typeface with curved serifs and nostalgic charm. It embodies the sleek yet
-            playful visual style of that era. These typefaces often balanced elegance with boldness,
-            using decorative serifs and compact forms for impactful headlines. Op-ed channels this
-            aesthetic, blending classic editorial sophistication with a contemporary design for
-            versatile applications.
-          </p>
+        {/* Intro paragraph */}
+        <p className="text-body-default text-content-default">
+          Inspired by the typography that defined 70s and 80s newspapers and magazines, Op-ed is a
+          semi-condensed typeface with curved serifs and nostalgic charm. It embodies the sleek yet
+          playful visual style of that era. These typefaces often balanced elegance with boldness,
+          using decorative serifs and compact forms for impactful headlines. Op-ed channels this
+          aesthetic, blending classic editorial sophistication with a contemporary design for
+          versatile applications.
+        </p>
 
-          <div className="flex flex-col gap-8">
-            <p className="text-label-medium text-content-default">
-              Features Op-ed includes are:
-            </p>
+        {/* Features and characteristics */}
+        <div className="flex flex-col gap-36">
+          <h2 className="text-headline-medium-mobile md:text-headline-medium text-content-default">
+            Features and characteristics
+          </h2>
+
+          {/* Feature Cards */}
+          <div className="grid w-full gap-40 grid-cols-1 md:grid-cols-3">
+            {FEATURE_CARDS.map((card) => (
+              <div
+                key={card.caption}
+                className="bg-bg-default border-2 border-border-default flex flex-col gap-24 items-center justify-center p-24 min-w-0"
+              >
+                <div className="relative w-full aspect-[1280/1024]">
+                  <img
+                    src={card.image}
+                    alt={card.caption}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-body-default text-content-default text-center w-full">
+                  {card.caption}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Additional features */}
+          <div className="flex flex-col gap-24">
+            <h3 className="text-headline-small-mobile md:text-headline-small text-content-default">
+              Additional features
+            </h3>
             <ul className="text-body-default text-content-default list-disc ml-[30px] flex flex-col gap-0">
               <li>5 font weights (Extra Light, Light, Regular, Semibold, Bold)</li>
               <li>Variable font</li>
-              <li>Supports multiple languages (Basic Latin)</li>
-              <li>Planned features: Additional glyphs, italic variants</li>
             </ul>
+            <p className="text-body-default text-content-default">
+              Planned features include additional glyphs, italic variants
+            </p>
           </div>
-        </div>
-
-        {/* Feature Cards */}
-        <div className="grid w-full gap-40 grid-cols-1 md:grid-cols-3">
-          {FEATURE_CARDS.map((card) => (
-            <div
-              key={card.caption}
-              className="bg-bg-default border-2 border-border-default flex flex-col gap-24 items-center justify-center p-24 min-w-0"
-            >
-              <div className="relative w-full aspect-[1280/1024]">
-                <img
-                  src={card.image}
-                  alt={card.caption}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <p className="text-body-default text-content-default text-center w-full">
-                {card.caption}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
 

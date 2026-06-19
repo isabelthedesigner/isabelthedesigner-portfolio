@@ -6,10 +6,11 @@ export default function Footer() {
     <footer className="mx-auto flex w-full max-w-[1440px] flex-col gap-48 p-24 md:px-24 md:py-24">
       <div className="flex w-full flex-col items-start gap-48 md:flex-row md:flex-wrap md:justify-between">
         <div className="flex flex-col items-start gap-24">
-          <NavLink href="mailto:hi@isabelthedesigner.com">
+          <NavLink size="default" href="mailto:hi@isabelthedesigner.com">
             hi@isabelthedesigner.com
           </NavLink>
           <NavLink
+            size="default"
             href="https://www.linkedin.com/in/isabelmramos"
             target="_blank"
             rel="noopener noreferrer"
@@ -17,6 +18,7 @@ export default function Footer() {
             linkedin
           </NavLink>
           <NavLink
+            size="default"
             href="https://bsky.app/profile/isabelthedesigner.bsky.social"
             target="_blank"
             rel="noopener noreferrer"

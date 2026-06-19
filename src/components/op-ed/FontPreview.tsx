@@ -40,7 +40,7 @@ export default function FontPreview() {
         {/* Font size controls */}
         <div className="flex flex-col gap-16 shrink-0 w-full md:w-auto">
           <p className="text-label-medium text-content-default">FONT SIZE</p>
-          <div className="flex flex-wrap items-center gap-36">
+          <div className="flex flex-wrap items-center gap-36 md:flex-col md:items-start desktop:flex-row desktop:items-center">
             <div className="flex items-center gap-8">
               <IconButton
                 icon="Minus"

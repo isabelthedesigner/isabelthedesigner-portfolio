@@ -71,6 +71,8 @@ export default function HomePage() {
           alt="Isabel — 3D typographic header"
           className="w-full h-full"
           maskReveal
+          revealOnLoad
+          revealKey="home-header"
         />
       </section>
 
@@ -84,6 +86,7 @@ export default function HomePage() {
             className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
             startTyping={isTablet ? text1.isActive : undefined}
             disabled={!isTablet}
+            revealKey="home-text-1"
           >
             I'm a multi-disciplinary designer currently specializing in design systems, creating the tools that enable teams to build better products.
           </TypewriterText>
@@ -102,6 +105,7 @@ export default function HomePage() {
               className="w-full md:h-full"
               maskReveal={isTablet}
               triggerInView={isTablet ? spline1.isActive : undefined}
+              revealKey="home-spline-1"
             />
           </div>
         </section>
@@ -115,6 +119,7 @@ export default function HomePage() {
             className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
             startTyping={isTablet ? text2.isActive : undefined}
             disabled={!isTablet}
+            revealKey="home-text-2"
           >
             I'm a typography enthusiast specializing in custom typeface design, crafting fonts that blend functionality with retro flair.
           </TypewriterText>
@@ -133,6 +138,7 @@ export default function HomePage() {
               className="w-full md:h-full"
               maskReveal={isTablet}
               triggerInView={isTablet ? spline2.isActive : undefined}
+              revealKey="home-spline-2"
             />
           </div>
         </section>
@@ -146,6 +152,7 @@ export default function HomePage() {
             className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
             startTyping={isTablet ? text3.isActive : undefined}
             disabled={!isTablet}
+            revealKey="home-text-3"
           >
             I also dabble in animation and 3d design for funsies, exploring motion and depth to expand on creative possibilities.
           </TypewriterText>
@@ -164,6 +171,7 @@ export default function HomePage() {
               className="w-full md:h-full"
               maskReveal={isTablet}
               triggerInView={isTablet ? spline3.isActive : undefined}
+              revealKey="home-spline-3"
             />
           </div>
         </section>

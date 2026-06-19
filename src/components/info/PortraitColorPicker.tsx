@@ -9,7 +9,7 @@ export default function PortraitColorPicker() {
     usePortraitStore()
 
   return (
-    <div className="flex flex-col md:flex-row gap-48">
+    <div className="flex flex-col md:flex-row gap-40">
       {/* Portrait */}
       <div className="w-full md:w-[55%] desktop:w-[45%] xl:w-[35%] overflow-hidden border-2 border-border-default grid place-items-center">
         <div className="relative w-full aspect-square">

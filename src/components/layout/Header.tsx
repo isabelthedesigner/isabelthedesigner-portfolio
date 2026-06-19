@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
@@ -5,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useViewTransition } from '@/hooks/useViewTransition'
 import NavLink from '@/components/ui/NavLink'
 import IconButton from '@/components/ui/IconButton'
+import MobileMenu from '@/components/layout/MobileMenu'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
 
@@ -12,6 +14,15 @@ export default function Header() {
   const { pathname } = useLocation()
   const { navigateWithTransition } = useViewTransition()
   const isHome = pathname === '/'
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  function openMenu() {
+    setMenuOpen(true)
+  }
+
+  function closeMenu() {
+    setMenuOpen(false)
+  }
 
   function handleLogoClick(e: React.MouseEvent) {
     e.preventDefault()
@@ -64,7 +75,17 @@ export default function Header() {
         <NavLink to="/info">info</NavLink>
         {/* <NavLink to="/thoughts">thoughts</NavLink> */}
       </nav>
-      <IconButton icon="List" aria-label="Open menu" className="md:hidden" />
+      <IconButton
+        icon="List"
+        aria-label="Open menu"
+        className="md:hidden"
+        onClick={openMenu}
+      />
+      <MobileMenu
+        open={menuOpen}
+        onClose={closeMenu}
+        onNavigate={() => setMenuOpen(false)}
+      />
     </header>
   )
 }

@@ -8,7 +8,7 @@ import LeafMotion from './pages/LeafMotion'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter unstable_useTransitions={false}>
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<HomePage />} />

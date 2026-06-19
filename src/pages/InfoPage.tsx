@@ -20,7 +20,7 @@ const FUN_FACTS = [
 export default function InfoPage() {
   return (
     <PortraitProvider>
-      <section className="flex flex-col gap-36 px-24 pt-24 pb-80">
+      <section className="flex flex-col gap-48 px-24 pt-24 pb-80">
         {/* Title */}
         <h1 className="text-headline-large-mobile md:text-headline-large text-content-default">
           First things first: make me look cool.
@@ -30,12 +30,12 @@ export default function InfoPage() {
         <PortraitColorPicker />
 
         {/* Bio */}
-        <div className="flex flex-col gap-36">
+        <div className="flex flex-col gap-24">
           <p className="text-headline-medium-mobile md:text-headline-medium text-content-default">
             Hi, I'm Isabel. I specialize in design systems, with a focus on building tools that help teams work faster, more consistently, and at scale.
           </p>
 
-          <div className="flex flex-col gap-36">
+          <div className="flex flex-col gap-24">
             <p className="text-body-default text-content-default">
               I'm known for taking complex problems and turning them into clear, practical solutions.
               I love digging into messy systems work, collaborating across teams, and finding smart
