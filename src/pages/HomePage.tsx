@@ -71,6 +71,7 @@ export default function HomePage() {
           alt="Isabel — 3D typographic header"
           className="w-full h-full"
           maskReveal
+          revealOnLoad
         />
       </section>
 

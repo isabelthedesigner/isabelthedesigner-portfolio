@@ -16,6 +16,8 @@ interface SplineViewerProps {
   maskReveal?: boolean
   /** When provided, controls the mask reveal externally (skips internal IntersectionObserver) */
   triggerInView?: boolean
+  /** Delays the mask reveal until the Spline scene has actually loaded (with a safety timeout) */
+  revealOnLoad?: boolean
 }
 
 /**
@@ -29,13 +31,27 @@ export default function SplineViewer({
   className = '',
   maskReveal = false,
   triggerInView,
+  revealOnLoad = false,
 }: SplineViewerProps) {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [internalInView, setInternalInView] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
   const isControlled = triggerInView !== undefined
   const inView = isControlled ? triggerInView : internalInView
+
+  const revealTrigger = revealOnLoad ? loaded : isControlled ? inView : undefined
+
+  useEffect(() => {
+    if (!revealOnLoad) return
+    if (!isDesktop) {
+      setLoaded(true)
+      return
+    }
+    const t = setTimeout(() => setLoaded(true), 4000)
+    return () => clearTimeout(t)
+  }, [revealOnLoad, isDesktop])
 
   useEffect(() => {
     if (isControlled || !maskReveal || !wrapperRef.current) return
@@ -84,7 +100,7 @@ export default function SplineViewer({
 
   return (
     <DitherReveal
-      trigger={isControlled ? inView : undefined}
+      trigger={revealTrigger}
       className={className}
     >
       {!isDesktop ? (
@@ -107,7 +123,11 @@ export default function SplineViewer({
               />
             }
           >
-            <Spline scene={sceneUrl} className="w-full h-full" />
+            <Spline
+              scene={sceneUrl}
+              className="w-full h-full"
+              onLoad={() => setLoaded(true)}
+            />
           </Suspense>
         </div>
       )}
