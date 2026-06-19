@@ -15,6 +15,9 @@ import {
   Pause,
   Play,
   Image,
+  Leaf,
+  Plant,
+  Tree,
 } from '@phosphor-icons/react'
 
 const ICON_MAP: Record<IconName, ComponentType<PhosphorIconProps>> = {
@@ -32,6 +35,9 @@ const ICON_MAP: Record<IconName, ComponentType<PhosphorIconProps>> = {
   'Pause': Pause,
   'Play': Play,
   'Image': Image,
+  'Leaf': Leaf,
+  'Plant': Plant,
+  'Tree': Tree,
 }
 
 export type IconName =
@@ -49,6 +55,9 @@ export type IconName =
   | 'Pause'
   | 'Play'
   | 'Image'
+  | 'Leaf'
+  | 'Plant'
+  | 'Tree'
 
 interface IconProps {
   icon: IconName

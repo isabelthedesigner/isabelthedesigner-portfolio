@@ -1,7 +1,6 @@
 import { PortraitProvider } from '@/hooks/usePortraitStore'
 import PortraitColorPicker from '@/components/info/PortraitColorPicker'
 import FunFactCard from '@/components/info/FunFactCard'
-import TypewriterText from '@/components/ui/TypewriterText'
 
 const FUN_FACTS = [
   {
