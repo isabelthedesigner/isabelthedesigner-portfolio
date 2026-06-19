@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef, useState, useEffect } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { hasRevealed, markRevealed } from '@/lib/revealMemory'
 import { DitherReveal } from './DitherReveal'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
@@ -18,6 +19,8 @@ interface SplineViewerProps {
   triggerInView?: boolean
   /** Delays the mask reveal until the Spline scene has actually loaded (with a safety timeout) */
   revealOnLoad?: boolean
+  /** Unique id used to remember if this reveal already played this session; if so, the animation is skipped */
+  revealKey?: string
 }
 
 /**
@@ -32,11 +35,14 @@ export default function SplineViewer({
   maskReveal = false,
   triggerInView,
   revealOnLoad = false,
+  revealKey,
 }: SplineViewerProps) {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [internalInView, setInternalInView] = useState(false)
   const [loaded, setLoaded] = useState(false)
+
+  const alreadyRevealed = revealKey ? hasRevealed(revealKey) : false
 
   const isControlled = triggerInView !== undefined
   const inView = isControlled ? triggerInView : internalInView
@@ -52,6 +58,12 @@ export default function SplineViewer({
     const t = setTimeout(() => setLoaded(true), 4000)
     return () => clearTimeout(t)
   }, [revealOnLoad, isDesktop])
+
+  // Remember the reveal as soon as it starts, so navigating back doesn't replay it
+  useEffect(() => {
+    if (!revealKey || alreadyRevealed) return
+    if (revealTrigger === true) markRevealed(revealKey)
+  }, [revealKey, alreadyRevealed, revealTrigger])
 
   useEffect(() => {
     if (isControlled || !maskReveal || !wrapperRef.current) return
@@ -101,6 +113,7 @@ export default function SplineViewer({
   return (
     <DitherReveal
       trigger={revealTrigger}
+      skip={alreadyRevealed}
       className={className}
     >
       {!isDesktop ? (

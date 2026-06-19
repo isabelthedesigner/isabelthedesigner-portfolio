@@ -44,6 +44,8 @@ interface DitherRevealProps {
   trigger?: boolean
   onComplete?: () => void
   className?: string
+  /** When true, renders children fully revealed with no overlay or animation */
+  skip?: boolean
 }
 
 export function DitherReveal({
@@ -56,6 +58,7 @@ export function DitherReveal({
   trigger,
   onComplete,
   className,
+  skip = false,
 }: DitherRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef    = useRef<HTMLCanvasElement>(null)
@@ -134,44 +137,47 @@ export function DitherReveal({
 
   // Draw the fully-covered initial frame
   useEffect(() => {
+    if (skip) return
     drawFrame(0)
-  }, [drawFrame])
+  }, [drawFrame, skip])
 
   // Uncontrolled mode: start after delay
   useEffect(() => {
-    if (trigger !== undefined) return
+    if (skip || trigger !== undefined) return
 
     const t = setTimeout(startAnim, delay)
     return () => {
       clearTimeout(t)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [trigger, delay, startAnim])
+  }, [trigger, delay, startAnim, skip])
 
   // Controlled mode: start when trigger flips to true
   useEffect(() => {
-    if (trigger !== true) return
+    if (skip || trigger !== true) return
 
     const t = setTimeout(startAnim, delay)
     return () => {
       clearTimeout(t)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [trigger, delay, startAnim])
+  }, [trigger, delay, startAnim, skip])
 
   return (
     <div ref={containerRef} className={className} style={{ position: 'relative' }}>
       {children}
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 1,
-          pointerEvents: 'none',
-          imageRendering: 'pixelated',
-        }}
-      />
+      {!skip && (
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            pointerEvents: 'none',
+            imageRendering: 'pixelated',
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { hasRevealed, markRevealed } from '@/lib/revealMemory'
 
 interface TypewriterTextProps {
   children: string
@@ -8,6 +9,8 @@ interface TypewriterTextProps {
   startTyping?: boolean
   /** When true, shows all text immediately with no animation */
   disabled?: boolean
+  /** Unique id used to remember if this typing already played this session; if so, the text shows instantly */
+  revealKey?: string
 }
 
 export default function TypewriterText({
@@ -16,16 +19,20 @@ export default function TypewriterText({
   wordDelay = 120,
   startTyping,
   disabled = false,
+  revealKey,
 }: TypewriterTextProps) {
   const [visibleCount, setVisibleCount] = useState(0)
   const [hasTriggered, setHasTriggered] = useState(false)
   const ref = useRef<HTMLParagraphElement>(null)
   const words = children.split(/\s+/)
 
+  const alreadyRevealed = revealKey ? hasRevealed(revealKey) : false
+  const showInstantly = disabled || alreadyRevealed
+
   const isControlled = startTyping !== undefined
 
   useEffect(() => {
-    if (disabled) return
+    if (showInstantly) return
     if (isControlled) {
       if (startTyping && !hasTriggered) setHasTriggered(true)
       return
@@ -45,20 +52,23 @@ export default function TypewriterText({
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [disabled, isControlled, startTyping, hasTriggered])
+  }, [showInstantly, isControlled, startTyping, hasTriggered])
 
   useEffect(() => {
-    if (disabled || !hasTriggered) return
-    if (visibleCount >= words.length) return
+    if (showInstantly || !hasTriggered) return
+    if (visibleCount >= words.length) {
+      if (revealKey) markRevealed(revealKey)
+      return
+    }
 
     const timer = setTimeout(() => {
       setVisibleCount((c) => c + 1)
     }, wordDelay)
 
     return () => clearTimeout(timer)
-  }, [disabled, hasTriggered, visibleCount, words.length, wordDelay])
+  }, [showInstantly, hasTriggered, visibleCount, words.length, wordDelay, revealKey])
 
-  if (disabled) {
+  if (showInstantly) {
     return <p className={className}>{children}</p>
   }
 
