@@ -1,6 +1,7 @@
 import { useViewTransition } from '@/hooks/useViewTransition'
 import NavLink from '@/components/ui/NavLink'
 import IconButton from '@/components/ui/IconButton'
+import Image from '@/components/ui/Image'
 
 interface MobileMenuProps {
   open: boolean
@@ -26,10 +27,11 @@ export default function MobileMenu({
     <div className="fixed inset-0 z-[60] flex flex-col bg-bg-default md:hidden">
       <div className="flex w-full items-center justify-between px-24 py-24">
         <a href="/" onClick={handleLogoClick} className="flex items-center">
-          <img
+          <Image
             src="/images/logo-i-color.png"
             alt="Isabel the designer logo"
             className="size-48 object-contain"
+            priority
           />
         </a>
         <IconButton icon="X" aria-label="Close menu" onClick={onClose} />

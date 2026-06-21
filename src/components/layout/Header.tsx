@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useViewTransition } from '@/hooks/useViewTransition'
 import NavLink from '@/components/ui/NavLink'
 import IconButton from '@/components/ui/IconButton'
+import Image from '@/components/ui/Image'
 import MobileMenu from '@/components/layout/MobileMenu'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
@@ -64,10 +65,11 @@ export default function Header() {
       } top-0 z-50 flex w-full items-center justify-between bg-bg-none px-24 py-24`}
     >
       <a href="/" onClick={handleLogoClick} className="flex items-center">
-        <img
+        <Image
           src="/images/logo-i-color.png"
           alt="Isabel the designer logo"
           className="size-48 md:size-[72px] object-contain"
+          priority
         />
       </a>
       <nav className="hidden items-center gap-48 md:flex">

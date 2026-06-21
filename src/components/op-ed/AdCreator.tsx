@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TabGroup from '@/components/ui/TabGroup'
+import Image from '@/components/ui/Image'
 import CheckboxField from '@/components/ui/CheckboxField'
 import ColorSwatch from '@/components/info/ColorSwatch'
 import Field from '@/components/ui/Field'
@@ -196,7 +197,7 @@ function ImageOption({
       aria-pressed={selected}
       className="relative aspect-[120/156] w-full cursor-pointer overflow-hidden"
     >
-      <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <Image src={src} alt="" className="absolute inset-0 w-full h-full object-cover" />
       {selected && (
         <span className="absolute bottom-0 right-0 inline-flex items-center justify-center size-24 border-2 border-border-default bg-bg-electric-periwinkle">
           <Icon icon="Checkmark" size={16} className="text-content-default-inverse" />

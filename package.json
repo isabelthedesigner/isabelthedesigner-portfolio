@@ -7,7 +7,8 @@
     "dev": "yarn build:tokens && vite",
     "build": "yarn build:tokens && tsc -b && vite build && cp dist/index.html dist/404.html",
     "preview": "vite preview",
-    "build:tokens": "node scripts/build-tokens.js"
+    "build:tokens": "node scripts/build-tokens.js",
+    "optimize:media": "node scripts/optimize-media.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -26,6 +27,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4.2.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"

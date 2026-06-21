@@ -1,5 +1,6 @@
 import Badge from '@/components/ui/Badge'
 import Alert from '@/components/ui/Alert'
+import LazyVideo from '@/components/ui/LazyVideo'
 
 const UPCOMING_FEATURES = [
   {
@@ -75,12 +76,8 @@ export default function PhonofilePage() {
       {/* Video: views */}
       <figure className="flex flex-col gap-16">
         <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
-          <video
+          <LazyVideo
             src="/images/phonofile/phonofile_views.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
@@ -102,12 +99,8 @@ export default function PhonofilePage() {
       {/* Video: onboarding */}
       <figure className="flex flex-col gap-16">
         <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
-          <video
+          <LazyVideo
             src="/images/phonofile/phonofile_onboarding.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
@@ -149,12 +142,8 @@ export default function PhonofilePage() {
       {/* Video: theme switcher */}
       <figure className="flex flex-col gap-16">
         <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
-          <video
+          <LazyVideo
             src="/images/phonofile/phonofile_theme-switcher-bg.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>

@@ -1,6 +1,8 @@
 import { lazy, Suspense, useRef, useState, useEffect } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { hasRevealed, markRevealed } from '@/lib/revealMemory'
+import Image from '@/components/ui/Image'
+import LazyVideo from '@/components/ui/LazyVideo'
 import { DitherReveal } from './DitherReveal'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
@@ -8,8 +10,10 @@ const Spline = lazy(() => import('@splinetool/react-spline'))
 interface SplineViewerProps {
   /** Spline scene URL for the 3D embed */
   sceneUrl: string
-  /** Path to the fallback PNG image shown on mobile */
-  fallbackImage: string
+  /** Path to the fallback image shown on mobile / while Spline loads */
+  fallbackImage?: string
+  /** Path to a fallback MP4 (looping, muted) shown instead of an image, e.g. for animated content */
+  fallbackVideo?: string
   /** Alt text for the fallback image */
   alt: string
   className?: string
@@ -21,6 +25,8 @@ interface SplineViewerProps {
   revealOnLoad?: boolean
   /** Unique id used to remember if this reveal already played this session; if so, the animation is skipped */
   revealKey?: string
+  /** Above-the-fold media (e.g. the hero): load the fallback eagerly with high priority */
+  priority?: boolean
 }
 
 /**
@@ -30,12 +36,14 @@ interface SplineViewerProps {
 export default function SplineViewer({
   sceneUrl,
   fallbackImage,
+  fallbackVideo,
   alt,
   className = '',
   maskReveal = false,
   triggerInView,
   revealOnLoad = false,
   revealKey,
+  priority = false,
 }: SplineViewerProps) {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -83,26 +91,25 @@ export default function SplineViewer({
     return () => observer.disconnect()
   }, [isControlled, maskReveal, isDesktop])
 
+  const renderFallback = (imgClassName: string) => {
+    if (fallbackVideo) {
+      return <LazyVideo src={fallbackVideo} className={imgClassName} />
+    }
+    if (fallbackImage) {
+      return (
+        <Image src={fallbackImage} alt={alt} className={imgClassName} priority={priority} />
+      )
+    }
+    return null
+  }
+
   const content = !isDesktop ? (
     <div ref={wrapperRef} className={className}>
-      <img
-        src={fallbackImage}
-        alt={alt}
-        className="w-4/5 h-full object-contain mx-auto"
-      />
+      {renderFallback('w-4/5 h-full object-contain mx-auto')}
     </div>
   ) : (
     <div ref={wrapperRef} className={className}>
-      <Suspense
-        fallback={
-          <img
-            src={fallbackImage}
-            alt={alt}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        }
-      >
+      <Suspense fallback={renderFallback('w-full h-full object-cover')}>
         <Spline scene={sceneUrl} className="w-full h-full" />
       </Suspense>
     </div>
@@ -118,24 +125,11 @@ export default function SplineViewer({
     >
       {!isDesktop ? (
         <div ref={wrapperRef} className="w-full h-full">
-          <img
-            src={fallbackImage}
-            alt={alt}
-            className="w-4/5 h-full object-contain mx-auto"
-          />
+          {renderFallback('w-4/5 h-full object-contain mx-auto')}
         </div>
       ) : (
         <div ref={wrapperRef} className="w-full h-full">
-          <Suspense
-            fallback={
-              <img
-                src={fallbackImage}
-                alt={alt}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            }
-          >
+          <Suspense fallback={renderFallback('w-full h-full object-cover')}>
             <Spline
               scene={sceneUrl}
               className="w-full h-full"

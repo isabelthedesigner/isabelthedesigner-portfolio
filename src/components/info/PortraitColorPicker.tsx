@@ -1,4 +1,5 @@
 import { usePortraitStore } from '@/hooks/usePortraitStore'
+import Image from '@/components/ui/Image'
 import { HairSVG, GlassesSVG, LipstickSVG } from './PortraitSVGs'
 import SwatchGroup from './SwatchGroup'
 import RandomizeButton from './RandomizeButton'
@@ -13,7 +14,7 @@ export default function PortraitColorPicker() {
       {/* Portrait */}
       <div className="w-full md:w-[55%] desktop:w-[45%] xl:w-[35%] overflow-hidden border-2 border-border-default grid place-items-center">
         <div className="relative w-full aspect-square">
-          <img
+          <Image
             src="/images/info/isabel-portrait.png"
             alt="Isabel's portrait"
             className="absolute object-contain"

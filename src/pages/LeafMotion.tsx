@@ -1,6 +1,7 @@
 import Badge from '@/components/ui/Badge'
 import Alert from '@/components/ui/Alert'
 import Icon, { type IconName } from '@/components/ui/Icon'
+import LazyVideo from '@/components/ui/LazyVideo'
 
 const PROBLEMS = [
   {
@@ -200,12 +201,8 @@ export default function LeafMotion() {
                 className="flex flex-col md:flex-row md:items-center gap-36 border-2 border-border-default bg-bg-default p-24"
               >
                 <div className="relative aspect-[183/110] w-full md:w-[183px] md:shrink-0 border-2 border-border-default">
-                  <video
+                  <LazyVideo
                     src={principle.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
@@ -324,12 +321,8 @@ export default function LeafMotion() {
         {COMPONENT_DEMOS.map((demo) => (
           <div key={demo.video} className="flex flex-col gap-16 bg-bg-default">
             <div className="relative aspect-[1300/1000] w-full border-2 border-border-default">
-              <video
+              <LazyVideo
                 src={demo.video}
-                autoPlay
-                loop
-                muted
-                playsInline
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
@@ -346,12 +339,8 @@ export default function LeafMotion() {
       {CIGNA_CLIPS.map((clip) => (
         <figure key={clip.video} className="flex flex-col gap-16">
           <div className="relative w-full aspect-[3/5] sm:aspect-[2/3] md:aspect-[4/3] lg:aspect-[16/9]">
-            <video
+            <LazyVideo
               src={clip.video}
-              autoPlay
-              loop
-              muted
-              playsInline
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>

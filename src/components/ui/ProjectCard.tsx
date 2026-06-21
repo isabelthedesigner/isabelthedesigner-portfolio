@@ -50,7 +50,7 @@ export default function ProjectCard({
       </div>
       <span className="text-label-small md:text-label-medium inline-flex items-center gap-8 text-content-link">
         VIEW PROJECT
-        <img src="/images/arrow-right.svg" alt="" className="size-12 md:size-16" />
+        <img src="/images/arrow-right.svg" alt="" className="size-12 md:size-16" loading="lazy" decoding="async" />
       </span>
     </TransitionLink>
   )
