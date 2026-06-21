@@ -1,4 +1,5 @@
 import Badge from '@/components/ui/Badge'
+import Image from '@/components/ui/Image'
 import FontPreview from '@/components/op-ed/FontPreview'
 import AdCreator from '@/components/op-ed/AdCreator'
 
@@ -56,7 +57,7 @@ export default function OpEdPage() {
                 className="bg-bg-default border-2 border-border-default flex flex-col gap-24 items-center justify-center p-24 min-w-0"
               >
                 <div className="relative w-full aspect-[1280/1024]">
-                  <img
+                  <Image
                     src={card.image}
                     alt={card.caption}
                     className="absolute inset-0 w-full h-full object-cover"

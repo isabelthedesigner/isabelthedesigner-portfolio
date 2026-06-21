@@ -1,4 +1,5 @@
 import { ScratchToReveal } from '@/components/magicui/scratch-to-reveal'
+import Image from '@/components/ui/Image'
 
 interface FunFactCardProps {
   image: string
@@ -17,7 +18,7 @@ export default function FunFactCard({ image, text }: FunFactCardProps) {
         className="w-full h-full"
       >
         <div className="flex flex-col items-center gap-24 p-24">
-          <img
+          <Image
             src={image}
             alt=""
             className="max-h-[160px] w-full object-contain rounded-8"

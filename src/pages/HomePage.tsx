@@ -73,6 +73,7 @@ export default function HomePage() {
           maskReveal
           revealOnLoad
           revealKey="home-header"
+          priority
         />
       </section>
 
@@ -166,7 +167,7 @@ export default function HomePage() {
           <div className="w-full max-w-[1248px] md:h-[80vh]">
             <SplineViewer
               sceneUrl={SPLINE_URLS.animation3d}
-              fallbackImage="/images/home-animation-3-d.gif"
+              fallbackImage="/images/home-animation-3-d.webp"
               alt="Animation & 3D — interactive retro computer scene"
               className="w-full md:h-full"
               maskReveal={isTablet}

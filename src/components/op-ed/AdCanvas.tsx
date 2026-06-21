@@ -1,5 +1,6 @@
 import { TransformWrapper, TransformComponent, useControls } from 'react-zoom-pan-pinch'
 import IconButton from '@/components/ui/IconButton'
+import Image from '@/components/ui/Image'
 
 interface AdCanvasProps {
   layout: number
@@ -79,7 +80,7 @@ function TaglineEl({
 
 function ImageEl({ src }: { src: string }) {
   return (
-    <img
+    <Image
       src={src}
       alt=""
       className="max-w-full max-h-full object-contain"
@@ -204,7 +205,7 @@ export default function AdCanvas(props: AdCanvasProps) {
 
   const innerContent = fullBleed ? (
     <div className="relative h-[84%] aspect-[77/96] border-2 border-border-default overflow-hidden">
-      <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <Image src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
       <div className={`absolute inset-0 flex flex-col ${fullBleedJustify} p-16 gap-8`}>
         {layout === 4 ? (
           <>
