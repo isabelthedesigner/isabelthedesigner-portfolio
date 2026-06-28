@@ -27,6 +27,8 @@ interface SplineViewerProps {
   revealKey?: string
   /** Above-the-fold media (e.g. the hero): load the fallback eagerly with high priority */
   priority?: boolean
+  /** Fires when the Spline scene finishes loading */
+  onLoaded?: () => void
 }
 
 /**
@@ -44,6 +46,7 @@ export default function SplineViewer({
   revealOnLoad = false,
   revealKey,
   priority = false,
+  onLoaded,
 }: SplineViewerProps) {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -55,7 +58,7 @@ export default function SplineViewer({
   const isControlled = triggerInView !== undefined
   const inView = isControlled ? triggerInView : internalInView
 
-  const revealTrigger = revealOnLoad ? loaded : isControlled ? inView : undefined
+  const revealTrigger = revealOnLoad ? loaded : inView
 
   useEffect(() => {
     if (!revealOnLoad) return
@@ -110,7 +113,11 @@ export default function SplineViewer({
   ) : (
     <div ref={wrapperRef} className={className}>
       <Suspense fallback={renderFallback('w-full h-full object-cover')}>
-        <Spline scene={sceneUrl} className="w-full h-full" />
+        <Spline
+          scene={sceneUrl}
+          className="w-full h-full"
+          onLoad={() => { setLoaded(true); onLoaded?.() }}
+        />
       </Suspense>
     </div>
   )
@@ -133,7 +140,7 @@ export default function SplineViewer({
             <Spline
               scene={sceneUrl}
               className="w-full h-full"
-              onLoad={() => setLoaded(true)}
+              onLoad={() => { setLoaded(true); onLoaded?.() }}
             />
           </Suspense>
         </div>
