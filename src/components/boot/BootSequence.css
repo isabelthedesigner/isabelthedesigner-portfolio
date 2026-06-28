@@ -1,0 +1,58 @@
+/* ───── CRT Boot Sequence ───── */
+
+/* Chrome layer fades out on exit; cross-blends with the dither dissolve. */
+.boot-chrome {
+  transition: opacity 300ms ease-out;
+}
+
+.boot-chrome--exit {
+  opacity: 0;
+}
+
+/* Blinking terminal cursor on the trailing underscore. */
+.boot-cursor {
+  animation: boot-blink 1s steps(1, end) infinite;
+}
+
+@keyframes boot-blink {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Power-on flash: brief full-field flash fading to transparent. */
+.boot-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--color-content-default-inverse);
+  animation: boot-power-on 380ms ease-out forwards;
+}
+
+.boot-flash--skip {
+  animation-duration: 150ms;
+}
+
+@keyframes boot-power-on {
+  0%   { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+/* Faint horizontal scanlines, tinted on-palette against the periwinkle field. */
+.boot-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  background: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-electric-periwinkle) 55%, black) 0,
+    color-mix(in srgb, var(--color-electric-periwinkle) 55%, black) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-cursor { animation: none; }
+  .boot-flash { animation: none; opacity: 0; }
+}

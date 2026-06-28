@@ -1,11 +1,13 @@
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import SplineViewer from '@/components/spline/SplineViewer'
+import BootSequence from '@/components/boot/BootSequence'
 import IconButton from '@/components/ui/IconButton'
 import ProjectCard from '@/components/ui/ProjectCard'
 import TypewriterText from '@/components/ui/TypewriterText'
 import { useScrollGuide } from '@/hooks/useScrollGuide'
 import { useScrollPin } from '@/hooks/useScrollPin'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { hasRevealed } from '@/lib/revealMemory'
 
 const SPLINE_URLS = {
   header: 'https://prod.spline.design/EW9vZmJdPt5tgtEJ/scene.splinecode',
@@ -45,6 +47,20 @@ const PROJECTS = [
 export default function HomePage() {
   const isTablet = useMediaQuery('(min-width: 768px)')
 
+  const [splineLoaded, setSplineLoaded] = useState(false)
+  // Decide synchronously so the boot is part of the first render (no flash of the site).
+  const [showBoot, setShowBoot] = useState(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)').matches
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    return desktop && !reduce && !hasRevealed('boot')
+  })
+
+  // Safety: the bar always completes even if onLoad never fires (slow / failed / CORS).
+  useEffect(() => {
+    const t = setTimeout(() => setSplineLoaded(true), 4000)
+    return () => clearTimeout(t)
+  }, [])
+
   const headerRef = useRef<HTMLElement>(null)
   const workRef = useRef<HTMLElement>(null)
   const text1 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
@@ -64,17 +80,23 @@ export default function HomePage() {
   return (
     <>
       {/* Spline 3D: Portfolio Header — full-bleed, nav overlays */}
-      <section ref={headerRef} className="flex w-screen ml-[calc(50%-50vw)] items-center justify-center h-dvh">
+      <section ref={headerRef} className="relative flex w-screen ml-[calc(50%-50vw)] items-center justify-center h-dvh">
+        {/* Hero scene: loads behind the boot, shows instantly, NO dither props */}
         <SplineViewer
           sceneUrl={SPLINE_URLS.header}
           fallbackImage="/images/spline-portfolio-header.png"
           alt="Isabel — 3D typographic header"
-          className="w-full h-full"
-          maskReveal
-          revealOnLoad
-          revealKey="home-header"
+          className="absolute inset-0 h-full w-full"
+          onLoaded={() => setSplineLoaded(true)}
           priority
         />
+
+        {showBoot && (
+          <BootSequence
+            splineLoaded={splineLoaded}
+            onComplete={() => setShowBoot(false)}
+          />
+        )}
       </section>
 
       <div className="flex flex-col gap-120 md:contents">
