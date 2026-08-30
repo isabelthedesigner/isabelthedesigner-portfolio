@@ -98,6 +98,15 @@ a:not([class]) {
 
 /* ───── Marquee Animation ───── */
 
+/* ───── Wordmark SVG ───── */
+
+.wordmark path {
+  fill: var(--color-bg-subtle);
+  stroke: var(--color-border-default);
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -131,4 +140,15 @@ a:not([class]) {
 
 [data-transition="forward"]::view-transition-new(root) {
   animation: diagonal-forward-in 0.8s ease-out forwards;
+}
+
+/* ───── Portrait Hover Wiggle ───── */
+
+@keyframes portrait-wiggle {
+  0%   { rotate: 0deg; }
+  20%  { rotate: 4deg; }
+  40%  { rotate: -4deg; }
+  60%  { rotate: 3deg; }
+  80%  { rotate: -2deg; }
+  100% { rotate: 0deg; }
 }
