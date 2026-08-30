@@ -20,6 +20,26 @@ const QUEUE: QueueItem[] = [
 
 const IDX = Object.fromEntries(QUEUE.map((q, i) => [q.id, i])) as Record<string, number>
 
+const GREETINGS = [
+  'Hello there!',
+  'Oh, hey!',
+  'Hey, you!',
+  'Welcome!',
+  "Glad you're here!",
+] as const
+
+const WEIGHTS = [36, 16, 16, 16, 16]
+
+function weightedPick(weights: readonly number[]): number {
+  const total = weights.reduce((sum, w) => sum + w, 0)
+  let r = Math.random() * total
+  for (let i = 0; i < weights.length; i++) {
+    r -= weights[i]
+    if (r < 0) return i
+  }
+  return weights.length - 1
+}
+
 /* ─── Extrusion constants ─────────────────────────────── */
 
 const VIEWBOX_W = 1001.5
@@ -79,16 +99,10 @@ function IsabelWordmark({ className }: { className?: string }) {
   const hovering = useRef(false)
   const geoRef = useRef({ layers: 0, perLayer: 0 })
 
-  const canHover = useRef(
-    typeof window !== 'undefined' &&
-      window.matchMedia('(hover: hover)').matches &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
-
   useEffect(() => {
     const svg = svgRef.current
     const stack = stackRef.current
-    if (!svg || !stack || !canHover.current) return
+    if (!svg || !stack) return
 
     const style = getComputedStyle(document.documentElement)
     const backRgb = parseHex(style.getPropertyValue('--color-bg-red').trim())
@@ -141,7 +155,10 @@ function IsabelWordmark({ className }: { className?: string }) {
   }, [])
 
   useEffect(() => {
-    if (!canHover.current) return
+    const canHover =
+      window.matchMedia('(hover: hover)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!canHover) return
 
     const svg = svgRef.current
     const stack = stackRef.current
@@ -250,10 +267,9 @@ function IsabelWordmark({ className }: { className?: string }) {
 }
 
 export default function HeroIntro() {
-  const reduceMotion = useRef(
-    typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
+  const [greeting, setGreeting] = useState<string>(GREETINGS[0])
+  const [reduceMotion, setReduceMotion] = useState(false)
+  const [ready, setReady] = useState(false)
 
   const [allRevealed, setAllRevealed] = useState(false)
   useEffect(() => {
@@ -266,18 +282,38 @@ export default function HeroIntro() {
     }
   }, [])
 
-  const skipSequence = reduceMotion.current || allRevealed
+  useEffect(() => {
+    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
 
-  const [cursor, setCursor] = useState(0)
+    let i = weightedPick(WEIGHTS)
+    try {
+      const last = Number(sessionStorage.getItem('hero-greeting') ?? -1)
+      if (i === last && GREETINGS.length > 1) i = weightedPick(WEIGHTS)
+      sessionStorage.setItem('hero-greeting', String(i))
+    } catch {
+      // Safari private mode / embedded webviews
+    }
+    setGreeting(GREETINGS[i])
+    setReady(true)
+  }, [])
+
+  const skipSequence = reduceMotion || allRevealed
+
+  const [cursor, setCursor] = useState(-1)
 
   useEffect(() => {
-    if (skipSequence) setCursor(QUEUE.length)
-  }, [skipSequence])
+    if (!ready) return
+    if (skipSequence) {
+      setCursor(QUEUE.length)
+      return
+    }
+    if (cursor < 0) setCursor(0)
+  }, [skipSequence, ready, cursor])
 
   const advance = useCallback(() => setCursor((c) => c + 1), [])
 
   useEffect(() => {
-    if (skipSequence || cursor >= QUEUE.length) return
+    if (skipSequence || cursor < 0 || cursor >= QUEUE.length) return
     const item = QUEUE[cursor]
     if (item.wait === 'callback') return
     const timer = setTimeout(advance, item.wait)
@@ -289,20 +325,21 @@ export default function HeroIntro() {
   return (
     <section className="flex w-full items-center justify-center px-6 md:px-24 pt-[30vh] md:pt-[30vh] pb-[144px] md:pb-24">
       <div className="flex flex-col items-center gap-4 max-w-[342px] md:max-w-[1248px] w-full">
-        {/* Line 1: "Hello there!" + portrait */}
+        {/* Line 1: greeting + portrait */}
         <div className="flex flex-row items-center gap-8 md:gap-16 justify-center">
           <TypewriterText
             className="text-display-small-mobile md:text-display-small text-content-default"
             startTyping={reached('type-hello')}
             wordDelay={WORD_DELAY}
             revealKey="hero-hello"
+            disabled={reduceMotion}
             onComplete={advance}
           >
-            Hello there!
+            {greeting}
           </TypewriterText>
 
           <div
-            className="shrink-0 w-[64px] h-[64px] md:w-[96px] md:h-[96px] grayscale transition-[transform,filter,opacity] duration-500 ease-out hover:-translate-y-[16px] hover:grayscale-0 hover:animate-[portrait-wiggle_0.6s_ease-out]"
+            className="shrink-0 w-[64px] h-[64px] md:w-[96px] md:h-[96px] grayscale transition-[transform,filter,opacity] duration-500 ease-out hover:-translate-y-[16px] hover:grayscale-0 hover:animate-[portrait-wiggle_0.6s_ease-out] motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:grayscale motion-reduce:hover:animate-none"
             style={{ opacity: reached('show-portrait') ? 1 : 0 }}
           >
             <img
@@ -322,13 +359,14 @@ export default function HeroIntro() {
             startTyping={reached('type-iam')}
             wordDelay={WORD_DELAY}
             revealKey="hero-iam"
+            disabled={reduceMotion}
             onComplete={advance}
           >
             I am
           </TypewriterText>
 
           <div
-            className="shrink-0 w-[112px] h-[48px] md:w-[225px] md:h-[96px] transition-opacity duration-200"
+            className="shrink-0 w-[112px] h-[48px] md:w-[225px] md:h-[96px] transition-opacity duration-200 motion-reduce:transition-none"
             style={{ opacity: reached('show-wordmark') ? 1 : 0 }}
           >
             <IsabelWordmark className="wordmark w-full h-full" />
@@ -339,6 +377,7 @@ export default function HeroIntro() {
             startTyping={reached('type-designer')}
             wordDelay={WORD_DELAY}
             revealKey="hero-thedesigner"
+            disabled={reduceMotion}
           >
             the designer.
           </TypewriterText>

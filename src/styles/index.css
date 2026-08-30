@@ -210,4 +210,6 @@ a:not([class]) {
 
 @media (prefers-reduced-motion: reduce) {
   .grain-overlay { animation: none; }
+  .wordmark-face,
+  .wordmark-extrusion { transition: none; }
 }
