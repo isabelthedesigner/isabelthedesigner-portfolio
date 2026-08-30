@@ -71,6 +71,7 @@ body {
   color: var(--color-content-default);
   background-color: var(--color-bg-default);
   min-height: 100dvh;
+  text-wrap: pretty;
 }
 
 @layer base {
@@ -97,6 +98,16 @@ a:not([class]) {
 }
 
 /* ───── Marquee Animation ───── */
+
+/* ───── Wordmark SVG ───── */
+
+.wordmark-face {
+  transition: fill 200ms ease;
+}
+
+.wordmark-extrusion {
+  transition: opacity 200ms ease;
+}
 
 @keyframes marquee {
   0% {
@@ -131,4 +142,74 @@ a:not([class]) {
 
 [data-transition="forward"]::view-transition-new(root) {
   animation: diagonal-forward-in 0.8s ease-out forwards;
+}
+
+/* ─── PrintBay: CSS-driven slot & printer geometry ────── */
+
+.print-bay {
+  --printer-h: 600px;
+  --printer-w: calc(var(--printer-h) * 876 / 966);
+  --front-offset: calc(var(--printer-w) * 0.08105);
+  --tuck: calc(var(--printer-w) * 0.12);
+  --printer-overhang: calc(var(--printer-w) * 0.6);
+  --printer-translate: var(--printer-overhang);
+  --slot-w: calc(100vw - var(--printer-w) + var(--printer-translate) + var(--front-offset) + var(--tuck));
+}
+
+@media (min-width: 1440px) {
+  .print-bay {
+    --printer-translate: max(0px, calc(var(--printer-overhang) - (100vw - 1440px)));
+  }
+}
+
+/* ─── PrintBay mobile: rotated printer + vertical scroll ── */
+
+.print-bay-mobile {
+  --m-printer-w: min(100vw, 324px);
+  --m-printer-h: calc(var(--m-printer-w) * 876 / 966);
+}
+
+@keyframes portrait-wiggle {
+  0%   { rotate: 0deg; }
+  20%  { rotate: 4deg; }
+  40%  { rotate: -4deg; }
+  60%  { rotate: 3deg; }
+  80%  { rotate: -2deg; }
+  100% { rotate: 0deg; }
+}
+
+/* ─── Grain overlay ──────────────────────────────────────── */
+
+.grain-overlay {
+  position: fixed;
+  inset: -100px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: url(/images/noise-96.png);
+  background-size: 96px 96px;
+  background-repeat: repeat;
+  mix-blend-mode: normal;
+  will-change: transform;
+  animation: grain 1s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%   { transform: translate(0, 0) }
+  10%  { transform: translate(-19px, -29px) }
+  20%  { transform: translate(-53px, 11px) }
+  30%  { transform: translate(29px, -61px) }
+  40%  { transform: translate(-17px, 43px) }
+  50%  { transform: translate(-59px, 37px) }
+  60%  { transform: translate(47px, -13px) }
+  70%  { transform: translate(-7px, 53px) }
+  80%  { transform: translate(37px, 19px) }
+  90%  { transform: translate(-43px, -47px) }
+  100% { transform: translate(0, 0) }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-overlay { animation: none; }
+  .wordmark-face,
+  .wordmark-extrusion { transition: none; }
 }

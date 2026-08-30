@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { hasRevealed, markRevealed } from '@/lib/revealMemory'
 
 interface TypewriterTextProps {
@@ -11,6 +11,8 @@ interface TypewriterTextProps {
   disabled?: boolean
   /** Unique id used to remember if this typing already played this session; if so, the text shows instantly */
   revealKey?: string
+  /** Fires once all words are visible (or instantly if showInstantly) */
+  onComplete?: () => void
 }
 
 export default function TypewriterText({
@@ -20,6 +22,7 @@ export default function TypewriterText({
   startTyping,
   disabled = false,
   revealKey,
+  onComplete,
 }: TypewriterTextProps) {
   const [visibleCount, setVisibleCount] = useState(0)
   const [hasTriggered, setHasTriggered] = useState(false)
@@ -28,6 +31,8 @@ export default function TypewriterText({
 
   const alreadyRevealed = revealKey ? hasRevealed(revealKey) : false
   const showInstantly = disabled || alreadyRevealed
+
+  const completeFiredRef = useRef(false)
 
   const isControlled = startTyping !== undefined
 
@@ -58,6 +63,8 @@ export default function TypewriterText({
     if (showInstantly || !hasTriggered) return
     if (visibleCount >= words.length) {
       if (revealKey) markRevealed(revealKey)
+      completeFiredRef.current = true
+      onComplete?.()
       return
     }
 
@@ -66,23 +73,33 @@ export default function TypewriterText({
     }, wordDelay)
 
     return () => clearTimeout(timer)
-  }, [showInstantly, hasTriggered, visibleCount, words.length, wordDelay, revealKey])
+  }, [showInstantly, hasTriggered, visibleCount, words.length, wordDelay, revealKey, onComplete])
+
+  useEffect(() => {
+    if (showInstantly && onComplete && !completeFiredRef.current) {
+      if (isControlled && !startTyping) return
+      completeFiredRef.current = true
+      onComplete()
+    }
+  }, [showInstantly, isControlled, startTyping, onComplete])
 
   if (showInstantly) {
-    return <p className={className}>{children}</p>
+    const visible = !isControlled || startTyping
+    return <p className={className} style={visible ? undefined : { opacity: 0 }}>{children}</p>
   }
 
   return (
-    <p ref={ref} className={className}>
+    <p ref={ref} className={`whitespace-normal ${className}`}>
       {words.map((word, i) => (
-        <span
-          key={i}
-          className="inline-block transition-opacity duration-150"
-          style={{ opacity: i < visibleCount ? 1 : 0 }}
-        >
-          {word}
-          {i < words.length - 1 && '\u00A0'}
-        </span>
+        <Fragment key={i}>
+          <span
+            className="inline-block transition-opacity duration-150"
+            style={{ opacity: i < visibleCount ? 1 : 0 }}
+          >
+            {word}
+          </span>
+          {i < words.length - 1 ? ' ' : null}
+        </Fragment>
       ))}
     </p>
   )

@@ -1,20 +1,7 @@
-import { useRef, useMemo, useState, useEffect } from 'react'
-import SplineViewer from '@/components/spline/SplineViewer'
-import BootSequence from '@/components/boot/BootSequence'
-import IconButton from '@/components/ui/IconButton'
+import { useRef } from 'react'
+import HeroIntro from '@/components/home/HeroIntro'
+import PrintBay from '@/components/home/PrintBay'
 import ProjectCard from '@/components/ui/ProjectCard'
-import TypewriterText from '@/components/ui/TypewriterText'
-import { useScrollGuide } from '@/hooks/useScrollGuide'
-import { useScrollPin } from '@/hooks/useScrollPin'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
-import { hasRevealed } from '@/lib/revealMemory'
-
-const SPLINE_URLS = {
-  header: 'https://prod.spline.design/EW9vZmJdPt5tgtEJ/scene.splinecode',
-  designSystem: 'https://prod.spline.design/vun7zojAqJkae44f/scene.splinecode',
-  typeDesign: 'https://prod.spline.design/ikrsxHExiNYglGCf/scene.splinecode',
-  animation3d: 'https://prod.spline.design/sFJKyBfgHW1TZsCK/scene.splinecode',
-}
 
 const PROJECTS = [
   {
@@ -32,201 +19,16 @@ const PROJECTS = [
     title: 'Bringing care to motion: creating animation tokens for Leaf Design System',
     badges: ['UX', 'Design Systems', 'Animation'] as const,
   },
-  // {
-  //   to: '/work/retro-desk-supply',
-  //   title: 'Retro desk supply series',
-  //   badges: ['Animation', '3D'] as const,
-  // },
-  // {
-  //   to: '/work/fundamental-sans',
-  //   title: 'Fundamental Sans, a neo-grotesque & geometric typeface',
-  //   badges: ['Type Design'] as const,
-  // },
 ] as const
 
 export default function HomePage() {
-  const isTablet = useMediaQuery('(min-width: 768px)')
-
-  const [splineLoaded, setSplineLoaded] = useState(false)
-  // Decide synchronously so the boot is part of the first render (no flash of the site).
-  const [showBoot, setShowBoot] = useState(() => {
-    const desktop = window.matchMedia('(min-width: 1024px)').matches
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    return desktop && !reduce && !hasRevealed('boot')
-  })
-
-  // Safety: the bar always completes even if onLoad never fires (slow / failed / CORS).
-  useEffect(() => {
-    const t = setTimeout(() => setSplineLoaded(true), 4000)
-    return () => clearTimeout(t)
-  }, [])
-
-  const headerRef = useRef<HTMLElement>(null)
   const workRef = useRef<HTMLElement>(null)
-  const text1 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
-  const spline1 = useScrollPin<HTMLElement>({ pinDistance: '+=60%', enabled: isTablet })
-  const text2 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
-  const spline2 = useScrollPin<HTMLElement>({ pinDistance: '+=60%', enabled: isTablet })
-  const text3 = useScrollPin<HTMLElement>({ pinDistance: '+=40%', enabled: isTablet })
-  const spline3 = useScrollPin<HTMLElement>({ pinDistance: '+=60%', enabled: isTablet })
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sections = useMemo(
-    () => [headerRef, text1.ref, spline1.ref, text2.ref, spline2.ref, text3.ref, spline3.ref, workRef],
-    [],
-  )
-  const { sentinelRef, anchorRef, isPinned, next } = useScrollGuide({ sections })
 
   return (
     <>
-      {/* Spline 3D: Portfolio Header — full-bleed, nav overlays */}
-      <section ref={headerRef} className="relative flex w-screen ml-[calc(50%-50vw)] items-center justify-center h-dvh">
-        {/* Hero scene: loads behind the boot, shows instantly, NO dither props */}
-        <SplineViewer
-          sceneUrl={SPLINE_URLS.header}
-          fallbackImage="/images/spline-portfolio-header.png"
-          alt="Isabel — 3D typographic header"
-          className="absolute inset-0 h-full w-full"
-          onLoaded={() => setSplineLoaded(true)}
-          priority
-        />
+      <HeroIntro />
 
-        {showBoot && (
-          <BootSequence
-            splineLoaded={splineLoaded}
-            onComplete={() => setShowBoot(false)}
-          />
-        )}
-      </section>
-
-      <div className="flex flex-col gap-120 md:contents">
-        {/* Text Section 1 */}
-        <section
-          ref={text1.ref}
-          className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
-        >
-          <TypewriterText
-            className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
-            startTyping={isTablet ? text1.isActive : undefined}
-            disabled={!isTablet}
-            revealKey="home-text-1"
-          >
-            I'm a multi-disciplinary designer currently specializing in design systems, creating the tools that enable teams to build better products.
-          </TypewriterText>
-        </section>
-
-        {/* Spline 3D: Design System */}
-        <section
-          ref={spline1.ref}
-          className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
-        >
-          <div className="w-full max-w-[1248px] md:h-[80vh]">
-            <SplineViewer
-              sceneUrl={SPLINE_URLS.designSystem}
-              fallbackImage="/images/spline-design-system.png"
-              alt="Design System — 3D rendered UI components"
-              className="w-full md:h-full"
-              maskReveal={isTablet}
-              triggerInView={isTablet ? spline1.isActive : undefined}
-              revealKey="home-spline-1"
-            />
-          </div>
-        </section>
-
-        {/* Text Section 2 */}
-        <section
-          ref={text2.ref}
-          className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
-        >
-          <TypewriterText
-            className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
-            startTyping={isTablet ? text2.isActive : undefined}
-            disabled={!isTablet}
-            revealKey="home-text-2"
-          >
-            I'm a typography enthusiast specializing in custom typeface design, crafting fonts that blend functionality with retro flair.
-          </TypewriterText>
-        </section>
-
-        {/* Spline 3D: Type Design */}
-        <section
-          ref={spline2.ref}
-          className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
-        >
-          <div className="w-full max-w-[1248px] md:h-[80vh]">
-            <SplineViewer
-              sceneUrl={SPLINE_URLS.typeDesign}
-              fallbackImage="/images/spline-type-design.png"
-              alt="Typeface Design — 3D letter forms"
-              className="w-full md:h-full"
-              maskReveal={isTablet}
-              triggerInView={isTablet ? spline2.isActive : undefined}
-              revealKey="home-spline-2"
-            />
-          </div>
-        </section>
-
-        {/* Text Section 3 */}
-        <section
-          ref={text3.ref}
-          className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
-        >
-          <TypewriterText
-            className="text-display-small-mobile md:text-display-small px-36 md:px-48 desktop:px-0 max-w-[768px] text-center text-content-default"
-            startTyping={isTablet ? text3.isActive : undefined}
-            disabled={!isTablet}
-            revealKey="home-text-3"
-          >
-            I also dabble in animation and 3d design for funsies, exploring motion and depth to expand on creative possibilities.
-          </TypewriterText>
-        </section>
-
-        {/* Spline 3D: Animation & 3D */}
-        <section
-          ref={spline3.ref}
-          className="flex w-full items-center justify-center px-6 md:h-dvh md:px-24"
-        >
-          <div className="w-full max-w-[1248px] md:h-[80vh]">
-            <SplineViewer
-              sceneUrl={SPLINE_URLS.animation3d}
-              fallbackImage="/images/home-animation-3-d.webp"
-              alt="Animation & 3D — interactive retro computer scene"
-              className="w-full md:h-full"
-              maskReveal={isTablet}
-              triggerInView={isTablet ? spline3.isActive : undefined}
-              revealKey="home-spline-3"
-            />
-          </div>
-        </section>
-      </div>
-
-      {/* Scroll guide arrow — desktop/tablet only */}
-      {isTablet && (
-        <>
-          <div ref={sentinelRef} className="flex justify-center py-48">
-            <div ref={anchorRef}>
-              <IconButton
-                icon="Arrow Down"
-                weight="fill"
-                size="xl"
-                onClick={next}
-                aria-label="Scroll to next section"
-                className={isPinned ? 'invisible' : ''}
-              />
-            </div>
-          </div>
-          {isPinned && (
-            <IconButton
-              icon="Arrow Down"
-              weight="fill"
-              size="xl"
-              onClick={next}
-              aria-label="Scroll to next section"
-              className="fixed bottom-24 left-1/2 -translate-x-1/2 z-10"
-            />
-          )}
-        </>
-      )}
+      <PrintBay />
 
       {/* Work Section */}
       <section ref={workRef} id="work" className="flex flex-col items-center gap-36 md:gap-48 pt-96 md:pt-16 pb-80 md:pb-120 px-24">

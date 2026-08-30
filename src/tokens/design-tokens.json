@@ -20,7 +20,8 @@
       "font-family": {
         "display": "'Op-Ed', serif",
         "sans": "'Inclusive Sans', system-ui, sans-serif",
-        "mono": "'IBM Plex Mono', monospace"
+        "mono": "'IBM Plex Mono', monospace",
+        "doto": "'Doto', sans-serif"
       },
       "font-size": {
         "10": "10px",
@@ -44,7 +45,8 @@
         "light": 300,
         "regular": 400,
         "medium": 500,
-        "semibold": 600
+        "semibold": 600,
+        "bold": 700
       },
       "letter-spacing": {
         "tighter": "-1px",
@@ -265,7 +267,7 @@
         },
         "small": {
           "font-family": "var(--font-display)",
-          "font-size": "40px",
+          "font-size": "48px",
           "font-weight": "300",
           "line-height": "64px",
           "letter-spacing": "0px",
@@ -421,6 +423,26 @@
           "font-family": "var(--font-display)",
           "font-size": "20px",
           "font-weight": "600",
+          "line-height": "32px",
+          "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "none"
+        },
+        "large-pixel": {
+          "font-family": "var(--font-doto)",
+          "font-size": "36px",
+          "font-weight": "700",
+          "line-height": "48px",
+          "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "none"
+        },
+        "large-pixel-mobile": {
+          "font-family": "var(--font-doto)",
+          "font-size": "24px",
+          "font-weight": "700",
           "line-height": "32px",
           "letter-spacing": "0px",
           "paragraph-spacing": "0px",

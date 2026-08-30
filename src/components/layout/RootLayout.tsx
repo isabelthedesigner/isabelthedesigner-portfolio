@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useHashScroll } from '@/hooks/useHashScroll'
 import Header from './Header'
 import Footer from './Footer'
+import GrainOverlay from '@/components/GrainOverlay'
 
 export default function RootLayout() {
   const location = useLocation()
@@ -22,6 +23,7 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <Footer />
+      <GrainOverlay />
     </div>
   )
 }
