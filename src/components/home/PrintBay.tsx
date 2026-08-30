@@ -1,4 +1,3 @@
-import { useEffect, useRef, useCallback } from 'react'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
@@ -9,12 +8,14 @@ const PANELS = [
     title: ['I spend my days building', 'design systems,'],
     img: '/images/dot-matrix-design-systems.svg',
     imgMobile: '/images/dot-matrix-design-systems-mobile.svg',
+    imgMobileWidth: '150px',
     alt: 'Design systems illustration',
   },
   {
     title: ['then write the code', 'that ships them.'],
     img: '/images/dot-matrix-code.svg',
     imgMobile: '/images/dot-matrix-code-mobile.svg',
+    imgMobileWidth: '200px',
     alt: 'Code illustration',
   },
 ] as const
@@ -40,7 +41,7 @@ function SprocketStrip({
   return (
     <div
       aria-hidden="true"
-      className={`${isH ? 'h-5 w-full' : 'w-5 h-full'} ${className}`}
+      className={`${isH ? 'h-5 w-full' : 'w-5 self-stretch'} ${className}`}
       style={{
         backgroundColor: 'var(--color-bg-default)',
         WebkitMaskImage: sprocketMask,
@@ -49,8 +50,8 @@ function SprocketStrip({
         maskSize: size,
         WebkitMaskRepeat: isH ? 'repeat-x' : 'repeat-y',
         maskRepeat: isH ? 'repeat-x' : 'repeat-y',
-        WebkitMaskPosition: 'center',
-        maskPosition: 'center',
+        WebkitMaskPosition: isH ? '8px center' : 'center 8px',
+        maskPosition: isH ? '8px center' : 'center 8px',
       }}
     />
   )
@@ -62,19 +63,21 @@ function PanelContent({
   title,
   img,
   imgMobile,
+  imgMobileWidth,
   alt,
   isDesktop,
 }: {
   title: readonly string[]
   img: string
   imgMobile: string
+  imgMobileWidth: string
   alt: string
   isDesktop: boolean
 }) {
   return (
     <div
       className={`relative flex-1 flex flex-col overflow-hidden ${
-        isDesktop ? 'p-9' : 'p-4'
+        isDesktop ? 'p-9' : 'px-[8px] py-[36px]'
       }`}
       style={{ backgroundColor: 'var(--color-bg-default)' }}
     >
@@ -92,7 +95,8 @@ function PanelContent({
       <img
         src={isDesktop ? img : imgMobile}
         alt={alt}
-        className="w-full mt-9"
+        className="mt-9 mx-auto"
+        style={isDesktop ? { width: '100%' } : { width: imgMobileWidth }}
         loading="lazy"
         aria-hidden="true"
       />
@@ -114,7 +118,7 @@ function Panel({
 }) {
   if (isDesktop) {
     return (
-      <div className={`flex flex-col w-[738px] shrink-0 ${!isLast ? 'border-r-2 border-dashed border-content-default' : ''}`}>
+      <div className={`flex flex-col w-[738px] shrink-0 ${!isLast ? 'border-r-1 border-dashed border-content-default' : ''}`}>
         <SprocketStrip orientation="horizontal" />
         <PanelContent
           {...panel}
@@ -126,13 +130,15 @@ function Panel({
   }
 
   return (
-    <div className={`flex flex-row w-[294px] shrink-0 ${!isLast ? 'border-b-2 border-dashed border-content-default' : ''}`}>
-      <SprocketStrip orientation="vertical" />
-      <PanelContent
-        {...panel}
-        isDesktop={false}
-      />
-      <SprocketStrip orientation="vertical" />
+    <div className={`flex flex-row w-[288px] mx-auto shrink-0 ${!isLast ? 'border-b-1 border-dashed border-content-default' : ''}`}>
+      <SprocketStrip orientation="vertical" className="!w-[20px] shrink-0" />
+      <div className="flex-1">
+        <PanelContent
+          {...panel}
+          isDesktop={false}
+        />
+      </div>
+      <SprocketStrip orientation="vertical" className="!w-[20px] shrink-0" />
     </div>
   )
 }
@@ -141,35 +147,11 @@ function Panel({
 
 export default function PrintBay() {
   const isDesktop = useMediaQuery('(min-width: 768px)')
-  const printerRef = useRef<HTMLDivElement>(null)
-  const slotRef = useRef<HTMLDivElement>(null)
 
   const sectionRef = useScrollProgress<HTMLElement>()
 
-  const computeSlotEdge = useCallback(() => {
-    if (!isDesktop || !printerRef.current || !slotRef.current) return
-    const printerRect = printerRef.current.getBoundingClientRect()
-    const slotEl = slotRef.current
-    const parentRect = slotEl.parentElement?.getBoundingClientRect()
-    if (!parentRect) return
-
-    const frontLeftOffset = printerRect.width * 0.08105
-    const tuck = printerRect.width * 0.12
-    const rightEdge = printerRect.left + frontLeftOffset + tuck - parentRect.left
-    slotEl.style.width = `${rightEdge}px`
-    slotEl.style.setProperty('--slot-w', String(rightEdge))
-  }, [isDesktop])
-
-  useEffect(() => {
-    if (!isDesktop) return
-    const ro = new ResizeObserver(computeSlotEdge)
-    if (printerRef.current) ro.observe(printerRef.current)
-    computeSlotEdge()
-    return () => ro.disconnect()
-  }, [isDesktop, computeSlotEdge])
-
   if (isDesktop) {
-    return <DesktopPrintBay sectionRef={sectionRef} printerRef={printerRef} slotRef={slotRef} />
+    return <DesktopPrintBay sectionRef={sectionRef} />
   }
 
   return <MobilePrintBay sectionRef={sectionRef} />
@@ -179,26 +161,21 @@ export default function PrintBay() {
 
 function DesktopPrintBay({
   sectionRef,
-  printerRef,
-  slotRef,
 }: {
   sectionRef: React.RefObject<HTMLElement | null>
-  printerRef: React.RefObject<HTMLDivElement | null>
-  slotRef: React.RefObject<HTMLDivElement | null>
 }) {
   return (
     <section
       ref={sectionRef}
-      className="relative w-screen ml-[calc(50%-50vw)] overflow-x-clip"
+      className="print-bay relative w-screen ml-[calc(50%-50vw)] overflow-x-clip"
       style={{ height: '300vh' }}
     >
       <div className="sticky top-0 h-dvh flex items-center">
-        <div className="relative w-full" style={{ height: '600px' }}>
+        <div className="relative w-full" style={{ height: 'var(--printer-h)' }}>
           {/* Printer back layer - z-[1] */}
           <div
-            ref={printerRef}
             className="absolute right-0 z-[1]"
-            style={{ height: '100%', aspectRatio: '876 / 966', transform: 'translateX(60%)' }}
+            style={{ height: '100%', aspectRatio: '876 / 966', transform: 'translateX(var(--printer-translate))' }}
           >
             <img
               src="/images/printer-back.webp"
@@ -210,9 +187,9 @@ function DesktopPrintBay({
 
           {/* Paper slot - z-[2], between back and front */}
           <div
-            ref={slotRef}
-            className="absolute left-0 z-[2] overflow-x-clip"
+            className="absolute left-0 z-[2]"
             style={{
+              width: 'var(--slot-w)',
               top: '50%',
               transform: 'translateY(-50%)',
               filter: 'drop-shadow(8px 4px 24px rgba(50,49,49,.2))',
@@ -221,7 +198,7 @@ function DesktopPrintBay({
             <div
               className="flex flex-row w-max will-change-transform"
               style={{
-                transform: 'translateX(calc(var(--slot-w, 0) * 1px - var(--q, 0) * 100%))',
+                transform: 'translateX(calc(var(--slot-w) - var(--q, 0) * 100%))',
               }}
             >
               {PANELS.map((panel, i) => (
@@ -239,7 +216,7 @@ function DesktopPrintBay({
           {/* Printer front layer - z-[3] */}
           <div
             className="absolute right-0 z-[3] pointer-events-none"
-            style={{ height: '100%', aspectRatio: '876 / 966', transform: 'translateX(60%)' }}
+            style={{ height: '100%', aspectRatio: '876 / 966', transform: 'translateX(var(--printer-translate))' }}
           >
             <img
               src="/images/printer-front.webp"
@@ -263,28 +240,63 @@ function MobilePrintBay({
   sectionRef: React.RefObject<HTMLElement | null>
 }) {
   return (
-    <section ref={sectionRef} className="flex flex-col items-center px-6">
+    <section
+      ref={sectionRef}
+      className="print-bay-mobile relative w-screen ml-[calc(50%-50vw)]"
+    >
+      {/* Rotated printer */}
       <div
-        className="relative w-full max-w-[342px]"
-        style={{ aspectRatio: '876 / 966' }}
+        className="relative overflow-hidden mx-auto"
+        style={{ width: 'var(--m-printer-w)', height: 'var(--m-printer-h)' }}
       >
-        <img
-          src="/images/printer-back.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute top-0 left-0 h-full w-auto z-[1]"
-        />
-        <img
-          src="/images/printer-front.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute top-0 h-full w-auto z-[3] pointer-events-none"
-          style={{ left: '8.105%' }}
-        />
+        {/* Printer back layer */}
+        <div
+          className="absolute z-[1]"
+          style={{
+            width: 'var(--m-printer-h)',
+            height: 'var(--m-printer-w)',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%) rotate(-90deg)',
+          }}
+        >
+          <img
+            src="/images/printer-back.webp"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-auto"
+          />
+        </div>
+
+        {/* Printer front layer */}
+        <div
+          className="absolute z-[3] pointer-events-none"
+          style={{
+            width: 'var(--m-printer-h)',
+            height: 'var(--m-printer-w)',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%) rotate(-90deg)',
+          }}
+        >
+          <img
+            src="/images/printer-front.webp"
+            alt=""
+            aria-hidden="true"
+            className="absolute top-0 h-full w-auto"
+            style={{ left: '8.105%' }}
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col items-center"
-           style={{ filter: 'drop-shadow(8px 4px 24px rgba(50,49,49,.2))' }}>
+      {/* Prints tucked into printer */}
+      <div
+        className="relative z-[2]"
+        style={{
+          marginTop: 'calc(var(--m-printer-h) * -0.2)',
+          filter: 'drop-shadow(8px 4px 24px rgba(50,49,49,.2))',
+        }}
+      >
         {PANELS.map((panel, i) => (
           <Panel
             key={i}
