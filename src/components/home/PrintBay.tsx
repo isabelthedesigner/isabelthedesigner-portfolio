@@ -9,6 +9,7 @@ const PANELS = [
     img: '/images/dot-matrix-design-systems.svg',
     imgMobile: '/images/dot-matrix-design-systems-mobile.svg',
     imgMobileWidth: '150px',
+    imgDesktopWidth: '80%',
     alt: 'Design systems illustration',
   },
   {
@@ -16,6 +17,7 @@ const PANELS = [
     img: '/images/dot-matrix-code.svg',
     imgMobile: '/images/dot-matrix-code-mobile.svg',
     imgMobileWidth: '200px',
+    imgDesktopWidth: '90%',
     alt: 'Code illustration',
   },
 ] as const
@@ -64,6 +66,7 @@ function PanelContent({
   img,
   imgMobile,
   imgMobileWidth,
+  imgDesktopWidth,
   alt,
   isDesktop,
 }: {
@@ -71,6 +74,7 @@ function PanelContent({
   img: string
   imgMobile: string
   imgMobileWidth: string
+  imgDesktopWidth: string
   alt: string
   isDesktop: boolean
 }) {
@@ -96,7 +100,7 @@ function PanelContent({
         src={isDesktop ? img : imgMobile}
         alt={alt}
         className="mt-9 mx-auto"
-        style={isDesktop ? { width: '100%' } : { width: imgMobileWidth }}
+        style={isDesktop ? { width: imgDesktopWidth } : { width: imgMobileWidth }}
         loading="lazy"
         aria-hidden="true"
       />
