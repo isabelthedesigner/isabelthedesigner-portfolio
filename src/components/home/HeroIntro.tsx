@@ -294,7 +294,10 @@ export default function HeroIntro() {
       // Safari private mode / embedded webviews
     }
     setGreeting(GREETINGS[i])
-    setReady(true)
+
+    const fontLoaded = document.fonts.load('300 1em "Op-Ed"')
+    const timeout = new Promise<void>((resolve) => setTimeout(resolve, 3000))
+    Promise.race([fontLoaded, timeout]).then(() => setReady(true))
   }, [])
 
   const skipSequence = reduceMotion || allRevealed
