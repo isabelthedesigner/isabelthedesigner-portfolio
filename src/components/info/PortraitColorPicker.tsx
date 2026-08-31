@@ -19,6 +19,7 @@ export default function PortraitColorPicker() {
             alt="Isabel's portrait"
             className="absolute object-contain"
             style={{ left: '7.75%', top: '7.75%', width: '84.5%', height: '84.5%' }}
+            priority
           />
           <HairSVG
             className="absolute"
