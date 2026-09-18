@@ -175,7 +175,7 @@ function DesktopPrintBay({
       style={{ height: '300vh' }}
     >
       <div className="sticky top-0 h-dvh flex items-center">
-        <div className="relative w-full" style={{ height: 'var(--printer-h)' }}>
+        <div className="relative w-full max-w-[1440px] mx-auto" style={{ height: 'var(--printer-h)' }}>
           {/* Printer back layer - z-[1] */}
           <div
             className="absolute right-0 z-[1]"
@@ -197,6 +197,7 @@ function DesktopPrintBay({
               top: '50%',
               transform: 'translateY(-50%)',
               filter: 'drop-shadow(8px 4px 24px rgba(50,49,49,.2))',
+              clipPath: 'inset(-100px 0 -100px -100vw)',
             }}
           >
             <div

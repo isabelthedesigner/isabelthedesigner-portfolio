@@ -153,13 +153,7 @@ a:not([class]) {
   --tuck: calc(var(--printer-w) * 0.12);
   --printer-overhang: calc(var(--printer-w) * 0.6);
   --printer-translate: var(--printer-overhang);
-  --slot-w: calc(100vw - var(--printer-w) + var(--printer-translate) + var(--front-offset) + var(--tuck));
-}
-
-@media (min-width: 1440px) {
-  .print-bay {
-    --printer-translate: max(0px, calc(var(--printer-overhang) - (100vw - 1440px)));
-  }
+  --slot-w: calc(min(100vw, 1440px) - var(--printer-w) + var(--printer-translate) + var(--front-offset) + var(--tuck));
 }
 
 /* ─── PrintBay mobile: rotated printer + vertical scroll ── */
