@@ -76,6 +76,11 @@ add("--font-sans", g.typography["font-family"].sans);
 add("--font-mono", g.typography["font-family"].mono);
 add("--font-doto", g.typography["font-family"].doto);
 
+// ── Text Decoration Thickness ──
+for (const [name, value] of Object.entries(g.typography["text-decoration-thickness"])) {
+  add(`--text-decoration-thickness-${name}`, value);
+}
+
 const theme = `/* AUTO-GENERATED — do not edit by hand */
 /* Run \`node scripts/build-tokens.js\` to regenerate */
 
@@ -113,6 +118,15 @@ for (const [category, variants] of Object.entries(s.typography)) {
     }
     if (props["text-case"] === "uppercase") {
       utilityLines.push(`  text-transform: uppercase;`);
+    }
+    if (props["text-decoration"] === "underline") {
+      utilityLines.push(`  text-decoration-line: underline;`);
+      if (props["text-decoration-style"]) {
+        utilityLines.push(`  text-decoration-style: ${props["text-decoration-style"]};`);
+      }
+      if (props["text-decoration-thickness"]) {
+        utilityLines.push(`  text-decoration-thickness: ${props["text-decoration-thickness"]};`);
+      }
     }
     utilityLines.push(`}`);
     utilityLines.push(``);
