@@ -3,8 +3,35 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 /* ─── Panel content ──────────────────────────────────────── */
 
-const PANELS = [
+type LinkSegment = {
+  before?: string
+  link: { text: string; href: string }
+  after?: string
+}
+
+type Paragraph = string | LinkSegment
+
+type ImagePanel = {
+  kind: 'image'
+  title: readonly string[]
+  img: string
+  imgMobile: string
+  imgMobileWidth: string
+  imgDesktopWidth: string
+  alt: string
+}
+
+type TextPanel = {
+  kind: 'text'
+  heading: string
+  paragraphs: readonly Paragraph[]
+}
+
+type PanelData = ImagePanel | TextPanel
+
+const PANELS: readonly PanelData[] = [
   {
+    kind: 'image',
     title: ['I spend my days building', 'design systems,'],
     img: '/images/dot-matrix-design-systems.svg',
     imgMobile: '/images/dot-matrix-design-systems-mobile.svg',
@@ -13,12 +40,26 @@ const PANELS = [
     alt: 'Design systems illustration',
   },
   {
+    kind: 'image',
     title: ['then write the code', 'that ships them.'],
     img: '/images/dot-matrix-code.svg',
     imgMobile: '/images/dot-matrix-code-mobile.svg',
     imgMobileWidth: '200px',
     imgDesktopWidth: '90%',
     alt: 'Code illustration',
+  },
+  {
+    kind: 'text',
+    heading: 'Works in progress:',
+    paragraphs: [
+      'Building the design harness that defines how teams build with Leaf Design System',
+      'Creating a variable typeface whose axis ages a printer ribbon from fresh to worn',
+      {
+        before: 'Contributing to the open source ',
+        link: { text: 'Design System Doc Spec', href: 'https://designsystemdocspec.org/' },
+        after: ' project',
+      },
+    ],
   },
 ] as const
 
@@ -62,22 +103,53 @@ function SprocketStrip({
 /* ─── Content band ───────────────────────────────────────── */
 
 function PanelContent({
-  title,
-  img,
-  imgMobile,
-  imgMobileWidth,
-  imgDesktopWidth,
-  alt,
+  panel,
   isDesktop,
 }: {
-  title: readonly string[]
-  img: string
-  imgMobile: string
-  imgMobileWidth: string
-  imgDesktopWidth: string
-  alt: string
+  panel: PanelData
   isDesktop: boolean
 }) {
+  if (panel.kind === 'text') {
+    return (
+      <div
+        className={`relative flex-1 flex flex-col overflow-hidden ${
+          isDesktop ? 'p-9' : 'px-[20px] py-[36px]'
+        }`}
+        style={{ backgroundColor: 'var(--color-bg-default)' }}
+      >
+        <span className="text-title-large-pixel-mobile md:text-title-large-pixel text-content-default block">
+          {panel.heading}
+        </span>
+
+        <div className="mt-9 flex flex-col gap-9">
+          {panel.paragraphs.map((para, i) => (
+            <p
+              key={i}
+              className="text-title-small-pixel-mobile md:text-title-small-pixel text-content-default"
+            >
+              {typeof para === 'string' ? (
+                para
+              ) : (
+                <>
+                  {para.before}
+                  <a
+                    href={para.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-title-small-pixel-underline-mobile md:text-title-small-pixel-underline text-content-default"
+                  >
+                    {para.link.text}
+                  </a>
+                  {para.after}
+                </>
+              )}
+            </p>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`relative flex-1 flex flex-col overflow-hidden ${
@@ -86,7 +158,7 @@ function PanelContent({
       style={{ backgroundColor: 'var(--color-bg-default)' }}
     >
       <div className="flex flex-col text-center">
-        {title.map((line, i) => (
+        {panel.title.map((line, i) => (
           <span
             key={i}
             className="text-title-large-pixel-mobile md:text-title-large-pixel text-content-default block"
@@ -97,10 +169,10 @@ function PanelContent({
       </div>
 
       <img
-        src={isDesktop ? img : imgMobile}
-        alt={alt}
+        src={isDesktop ? panel.img : panel.imgMobile}
+        alt={panel.alt}
         className="mt-9 mx-auto"
-        style={isDesktop ? { width: imgDesktopWidth } : { width: imgMobileWidth }}
+        style={isDesktop ? { width: panel.imgDesktopWidth } : { width: panel.imgMobileWidth }}
         loading="lazy"
         aria-hidden="true"
       />
@@ -115,7 +187,7 @@ function Panel({
   isDesktop,
   isLast,
 }: {
-  panel: (typeof PANELS)[number]
+  panel: PanelData
   index: number
   isDesktop: boolean
   isLast: boolean
@@ -124,10 +196,7 @@ function Panel({
     return (
       <div className={`flex flex-col w-[738px] shrink-0 ${!isLast ? 'border-r-1 border-dashed border-content-default' : ''}`}>
         <SprocketStrip orientation="horizontal" />
-        <PanelContent
-          {...panel}
-          isDesktop
-        />
+        <PanelContent panel={panel} isDesktop />
         <SprocketStrip orientation="horizontal" />
       </div>
     )
@@ -137,10 +206,7 @@ function Panel({
     <div className={`flex flex-row w-[288px] mx-auto shrink-0 ${!isLast ? 'border-b-1 border-dashed border-content-default' : ''}`}>
       <SprocketStrip orientation="vertical" className="!w-[20px] shrink-0" />
       <div className="flex-1">
-        <PanelContent
-          {...panel}
-          isDesktop={false}
-        />
+        <PanelContent panel={panel} isDesktop={false} />
       </div>
       <SprocketStrip orientation="vertical" className="!w-[20px] shrink-0" />
     </div>
@@ -172,7 +238,7 @@ function DesktopPrintBay({
     <section
       ref={sectionRef}
       className="print-bay relative w-screen ml-[calc(50%-50vw)] overflow-x-clip"
-      style={{ height: '300vh' }}
+      style={{ height: '450vh' }}
     >
       <div className="sticky top-0 h-dvh flex items-center">
         <div className="relative w-full max-w-[1440px] mx-auto" style={{ height: 'var(--printer-h)' }}>

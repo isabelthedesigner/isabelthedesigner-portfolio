@@ -32,17 +32,15 @@ export default function InfoPage() {
         {/* Bio */}
         <div className="flex flex-col gap-24">
           <p className="text-headline-medium-mobile md:text-headline-medium text-content-default">
-            Hi, I'm Isabel. I specialize in design systems, with a focus on building tools that help teams work faster, more consistently, and at scale.
+            Hi, I’m Isabel. I design systems for enterprise products that people and machines can both read.
           </p>
 
           <div className="flex flex-col gap-24">
             <p className="text-body-default text-content-default">
-              I'm known for taking complex problems and turning them into clear, practical solutions.
-              I love digging into messy systems work, collaborating across teams, and finding smart
-              ways to improve how people build and use design. I bring a balance of visual craft, strategic thinking, and the ability to prototype in code, which lets me connect the dots between design, engineering, and product.
+            I’m a product designer specializing in design systems at enterprise scale. I’m known for taking complex problems and turning them into clear, practical solutions. I love digging into messy systems work, collaborating across teams, and shaping where systems need to go next. I bring a balance of visual craft, strategic thinking, and the ability to build in code, which lets me lead across design, engineering, and product.
             </p>
             <p className="text-body-default text-content-default">
-              Type design, 3D, and animation are creative spaces where I experiment, stay curious, and
+              Type design, 3D, and motion are creative spaces where I experiment, stay curious, and
               uncover insights that inform and elevate my product design work.
             </p>
           </div>

@@ -83,6 +83,13 @@
         "none": "none",
         "underline": "underline"
       },
+      "text-decoration-style": {
+        "solid": "solid",
+        "dotted": "dotted"
+      },
+      "text-decoration-thickness": {
+        "2": "2px"
+      },
       "font-style": {
         "normal": "normal",
         "italic": "italic"
@@ -448,6 +455,50 @@
           "paragraph-spacing": "0px",
           "text-case": "none",
           "text-decoration": "none"
+        },
+        "small-pixel": {
+          "font-family": "var(--font-doto)",
+          "font-size": "24px",
+          "font-weight": "700",
+          "line-height": "32px",
+          "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "none"
+        },
+        "small-pixel-underline": {
+          "font-family": "var(--font-doto)",
+          "font-size": "24px",
+          "font-weight": "700",
+          "line-height": "32px",
+          "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "underline",
+          "text-decoration-style": "dotted",
+          "text-decoration-thickness": "var(--text-decoration-thickness-2)"
+        },
+        "small-pixel-mobile": {
+          "font-family": "var(--font-doto)",
+          "font-size": "20px",
+          "font-weight": "700",
+          "line-height": "32px",
+          "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "none"
+        },
+        "small-pixel-underline-mobile": {
+          "font-family": "var(--font-doto)",
+          "font-size": "20px",
+          "font-weight": "700",
+          "line-height": "32px",
+          "letter-spacing": "0px",
+          "paragraph-spacing": "0px",
+          "text-case": "none",
+          "text-decoration": "underline",
+          "text-decoration-style": "dotted",
+          "text-decoration-thickness": "var(--text-decoration-thickness-2)"
         }
       },
       "label": {

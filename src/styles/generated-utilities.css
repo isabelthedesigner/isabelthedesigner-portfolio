@@ -164,6 +164,44 @@
   letter-spacing: 0px;
 }
 
+@utility text-title-small-pixel {
+  font-family: var(--font-doto);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+@utility text-title-small-pixel-underline {
+  font-family: var(--font-doto);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: var(--text-decoration-thickness-2);
+}
+
+@utility text-title-small-pixel-mobile {
+  font-family: var(--font-doto);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+}
+
+@utility text-title-small-pixel-underline-mobile {
+  font-family: var(--font-doto);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: var(--text-decoration-thickness-2);
+}
+
 /* ── label ── */
 @utility text-label-large {
   font-family: var(--font-sans);
